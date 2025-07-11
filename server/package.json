@@ -1,13 +1,8 @@
 {
-  "name": "AlNahas_movies",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +14,10 @@
     "dotenv": "^17.0.0",
     "drizzle-orm": "^0.44.2",
     "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3"
   }
 }
