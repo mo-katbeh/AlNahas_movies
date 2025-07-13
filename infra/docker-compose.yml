@@ -1,0 +1,20 @@
+# version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: movie_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: alnahas_movie
+    # env_file:
+    #   - ./db.env
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

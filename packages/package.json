@@ -1,21 +1,15 @@
 {
-  "name": "AlNahas_movies",
+  "name": "shared",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "private": true,
-  "workspaces": [
-    "shared/*",
-    "server/*",
-    "react/*",
-    "infra/*"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "drizzle-kit migrate",
     "generate:migration": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
-    "db:generate": "drizzle-kit generate:pg"
+    "push:schema": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "tsx db/migrate.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,13 +17,14 @@
   "packageManager": "pnpm@10.12.4",
   "dependencies": {
     "dotenv": "^17.0.0",
-    "drizzle-orm": "^0.36.4",
-    "pg": "^8.16.3"
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.3",
     "@types/pg": "^8.15.4",
-    "drizzle-kit": "^0.28.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "drizzle-kit": "^0.31.4"
   }
 }
