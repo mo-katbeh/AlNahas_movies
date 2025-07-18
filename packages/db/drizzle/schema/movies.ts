@@ -4,5 +4,4 @@ export const Movies = pgTable('movies', {
   id: uuid('id').primaryKey().defaultRandom(),
   title: varchar('title', { length: 255 }),
   year: integer('year'),
-  posterUrl: text('poster_url').notNull(),
 });

@@ -20,8 +20,7 @@ CREATE TABLE "profiles" (
 CREATE TABLE "movies" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" varchar(255),
-	"year" integer,
-	"poster_url" text NOT NULL
+	"year" integer
 );
 --> statement-breakpoint
 CREATE TABLE "moviecategories" (
