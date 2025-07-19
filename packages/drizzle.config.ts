@@ -2,7 +2,6 @@ import { defineConfig } from "drizzle-kit"
 import * as dotenv from "dotenv";
 dotenv.config();
 
-console.log("Connecting to:", process.env.DATABASE_URL);
 
 export default defineConfig({
   dialect: "postgresql",
@@ -19,18 +18,3 @@ export default defineConfig({
   verbose: true,
   strict: true,
 });
-
-// import { defineConfig } from "drizzle-kit";
-// import * as dotenv from "../dotenv";
-// dotenv.config();
-
-// export default defineConfig({
-//   dialect: "postgresql",
-//   schema: "./packages/db/drizzle/schema",
-//   out: "./packages/db/migrations",
-//   dbCredentials: {
-//     connectionString: process.env.DATABASE_URL!,
-//   },
-//   strict: true,
-//   verbose: true,
-// });
