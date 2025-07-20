@@ -5,7 +5,7 @@ import { getWatchlistByUser, getMoviesWithCategories } from './queries/watchlist
 async function main() {
   try {
     const userId = 'ba71812c-33be-4dd9-abe6-4e7481917566'; // replace with real UUID from DB
-    const watchlist = await getWatchlistByUser();
+    const watchlist = await getWatchlistByUser(userId);
     console.log('User Watchlist:', watchlist);
     const moviecategories = await getMoviesWithCategories()
     console.log('Movie Categories:', moviecategories)

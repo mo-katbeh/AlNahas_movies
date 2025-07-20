@@ -1,12 +1,12 @@
 // src/db/queries/watchlist.ts
 import db from "../client" 
 
-export async function getWatchlistByUser() {
+export async function getWatchlistByUser(userId: string) {
   return await db
     .selectFrom('users')
     .selectAll()
-    // .selectAll()
-    // .where('user_id', '=', userId)
+    .selectAll()
+    .where('id', '=', userId)
     .execute();
 }
 
