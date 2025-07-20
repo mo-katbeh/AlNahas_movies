@@ -1,5 +1,4 @@
 export * from './users';
-export * from './profiles';
 export * from './movies';
 export * from './categories';
 export * from './movieCategories';

@@ -1,7 +1,7 @@
 // packages/db/kysely.ts or db/client.ts
 import { Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
-import { Database } from './types' // Your Kysely Database interface
+import { Database } from './types'
 
 const db = new Kysely<Database>({
   dialect: new PostgresDialect({

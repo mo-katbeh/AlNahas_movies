@@ -25,5 +25,4 @@ export interface Database {
     id: string;
     email: string | null;
   }
-  // Add others like users, movies...
 }
