@@ -1,6 +1,7 @@
 import { trpc } from "../utils/trpc";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+import Watchlist from "./components/Watchlist";
 
 const queryClient = new QueryClient();
 
@@ -14,11 +15,12 @@ const trpcClient = trpc.createClient({
 
 function App() {
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        {/* Your App */}
-      </QueryClientProvider>
-    </trpc.Provider>
+    // <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    //   <QueryClientProvider client={queryClient}>
+    //     {/* Your App */}
+    //   </QueryClientProvider>
+    // </trpc.Provider>
+    <Watchlist />
   );
 }
 export default App;

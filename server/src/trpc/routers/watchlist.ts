@@ -7,6 +7,7 @@ export const watchlistRouter = router({
   getWatchlist: publicProcedure
     .input(addToWatchlistSchema)
     .query(async ({ input }) => {
-      return await getWatchlistByUser(input.userId);
+      // return await getWatchlistByUser(input.userId);
+      return await getWatchlistByUser();
     }),
 });
