@@ -1,6 +1,7 @@
-import { usersRouter } from './routers/users';
-import { watchlistRouter } from './routers/watchlist';
-import { publicProcedure, router } from './core';
+import { usersRouter } from './users';
+import { watchlistRouter } from './watchlist';
+import { publicProcedure, router } from '../init';
+
 
 export const appRouter = router({
   // test: publicProcedure.query(()=> 'hello'),

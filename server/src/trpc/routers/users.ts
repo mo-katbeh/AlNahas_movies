@@ -1,12 +1,12 @@
-import { publicProcedure, router } from '../core';
-import { getAllUsers } from '../../../../packages/db/kysely/queries/users'; // from your kysely logic
+import { publicProcedure, router } from '../init';
+import { getAllUsers } from '../../db/kysely/queries/users'; // from your kysely logic
 
 export const usersRouter = router({
   getAll: publicProcedure
     .query(async () => {  
       try{
         const users = await getAllUsers();
-        console.log("DB is ", users)
+        // console.log("DB is ", users)
       return users
       }
       catch(err){
@@ -17,4 +17,4 @@ export const usersRouter = router({
     }),
 });
 
-console.log(usersRouter)
+// console.log(usersRouter)

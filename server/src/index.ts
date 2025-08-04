@@ -1,12 +1,10 @@
-import * as dotenv from "dotenv";
-dotenv.config({path: '../../packages/.env'});
 import express from 'express';
 import cors from 'cors'
 import * as trpcExpress from '@trpc/server/adapters/express';
-import { appRouter } from './trpc/mainRouter';
+import { appRouter } from './trpc/routers/mainRouter';
 import { createContext } from './context';
-
-
+import './db/kysely/client'
+import './db/kysely/queries/watchlist'
 
 // console.log("Imported appRouter:", appRouter);
 

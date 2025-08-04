@@ -1,12 +1,21 @@
 // server/trpc/routers/watchlist.ts
-import { publicProcedure, router } from '../mainRouter';
-import { getWatchlistByUser } from '../../../../packages/db/kysely/queries/watchlist'; // from your kysely logic
-import { addToWatchlistSchema } from '../../../../packages/zod/watchlist'; // zod schema
+import { publicProcedure, router } from '../init';
+import { getMovies } from '../../db/kysely/queries/watchlist'; // from your kysely logic
+// import {  } from '../../db/zod/movie'; // zod schema
 
+console.log('🧪 getMovies is:', getMovies);
 export const watchlistRouter = router({
-  getWatchlist: publicProcedure
-    .input(addToWatchlistSchema)
-    .query(async ({ input }) => {
-      return await getWatchlistByUser(input.userId);
+  getAll: publicProcedure
+    .query(async () => {  
+      try{
+        const movies = await getMovies();
+        console.log("DB is ", movies)
+      return movies
+      }
+      catch(err){
+        // console.error('TRPC getAll error:', err);
+        // throw new Error('Failed to fetch movies');
+      }
+      
     }),
 });
