@@ -4,7 +4,7 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/routers/mainRouter';
 import { createContext } from './context';
 import './db/kysely/client'
-import './db/kysely/queries/watchlist'
+// import './db/kysely/queries/watchlist'
 
 // console.log("Imported appRouter:", appRouter);
 
@@ -14,7 +14,7 @@ app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }))
-console.log("before call trpc")
+
 async function main() {
   app.use(
     '/trpc',
@@ -24,9 +24,8 @@ async function main() {
       // onError: e => console.log("Error:", e.error)
     })
   );
-  console.log("after call trpc")
-  // console.log("Imported appRouter:", appRouter);
-  // console.log(process.env.SERVER_PORT)
+
+
   
   app.listen(3000, () => {
     console.log('Server running on http://localhost:3000');
@@ -34,7 +33,7 @@ async function main() {
 }
 
 main()
-// .catch(err => console.log(err))
+.catch(err => console.log(err))
 
 
 export type AppRouter = typeof appRouter

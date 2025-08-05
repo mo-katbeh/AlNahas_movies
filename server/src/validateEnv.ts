@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-console.log(33333333333)
 
 const envSchema = z.object({
     DB_HOST: z.string(),

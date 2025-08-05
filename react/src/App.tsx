@@ -9,16 +9,12 @@ const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "http://localhost:3000/trpc", // adjust to your backend
+      url: "http://localhost:3000/trpc",
     }),
   ],
 });
 
 function App() {
-  // const handleEmailSubmit = (email: string) => {
-  //   console.log("Submitted email:", email);
-  //   // TODO: call your API or handle logic here
-  // };
   return (
     <>
       <QueryClientProvider client={queryClient}>
