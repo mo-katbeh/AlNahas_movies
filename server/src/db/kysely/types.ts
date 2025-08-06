@@ -19,6 +19,10 @@ export interface Database {
     id: string;
     title: string | null;
     year: number | null;
+    categories: {
+    id: string;
+    name: string;
+  }[];
 
   }
   users:{

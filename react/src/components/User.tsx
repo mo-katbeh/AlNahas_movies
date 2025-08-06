@@ -21,28 +21,34 @@ import { trpc } from "../../utils/trpc";
 const Movie = () => {
   const { data, isLoading, error } = trpc.watchlist.getAll.useQuery();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <span>Loading...</span>;
   if (error) return <p>{error.message}</p>;
   if (!data || data.length === 0) return <p>No Movies found.</p>;
 
   return (
-    <div>
+    <>
+      <select className="form-select mb-3">
+        <option value=""></option>
+        <option value="1">User1</option>
+        <option value="2">User2</option>
+        <option value="3">User3</option>
+      </select>
       <h1>Movies</h1>
-      <ul>
+      <ul className="list-group">
         {data.map((movie) => (
-          <div key={movie.movieId}>
-            <h2>{movie.title}</h2>
-            <div>
+          <li key={movie.movieId} className="list-group-item">
+            {movie.title}
+            {/* <div>
               {movie.categories?.map((category) => (
                 <span key={`${movie.movieId}-${category.id}`}>
                   {category.name}
                 </span>
               ))}
-            </div>
-          </div>
+            </div> */}
+          </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
