@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 
 // const User = () => {
@@ -19,7 +20,12 @@ import { trpc } from "../../utils/trpc";
 // };
 
 const Movie = () => {
-  const { data, isLoading, error } = trpc.watchlist.getAll.useQuery();
+  const [userId, setUserId] = useState<string | undefined>();
+  const { data, isLoading, error } = trpc.watchlist.getAll
+    .useQuery
+    // { userId: userId! },
+    // { enabled: !!userId }
+    ();
 
   if (isLoading) return <span>Loading...</span>;
   if (error) return <p>{error.message}</p>;
@@ -27,27 +33,40 @@ const Movie = () => {
 
   return (
     <>
-      <select className="form-select mb-3">
-        <option value=""></option>
+      <select
+        onChange={(event) => setUserId(event.target.value)}
+        value={userId}
+        className="form-select mb-3"
+      >
+        <option value="">Select a User</option>
         <option value="1">User1</option>
         <option value="2">User2</option>
         <option value="3">User3</option>
       </select>
       <h1>Movies</h1>
-      <ul className="list-group">
+      {data.map((item) => (
+        <li key={item.id} className="list-group-item">
+          {/* {item.movie_id} */}
+          {item.rating}
+          {item.review}
+          {item.status}
+          {/* {item.user_id} */}
+        </li>
+      ))}
+      {/* <ul className="list-group">
         {data.map((movie) => (
           <li key={movie.movieId} className="list-group-item">
             {movie.title}
-            {/* <div>
+            <div>
               {movie.categories?.map((category) => (
                 <span key={`${movie.movieId}-${category.id}`}>
                   {category.name}
                 </span>
               ))}
-            </div> */}
+            </div>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </>
   );
 };

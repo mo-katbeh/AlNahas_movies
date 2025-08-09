@@ -8,12 +8,12 @@ export interface Database {
     categoryId: string;
   };
   watchlist_items: {
-    id: string;
+    id?: string;
     user_id: string;
     movie_id: string;
     status: 'WATCHED' | 'TO_WATCH';
-    rating: number | null;
-    review: string | null;
+    rating?: number | null;
+    review?: string | null;
   };
   movies:{
     id: string;

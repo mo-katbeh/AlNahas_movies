@@ -4,7 +4,6 @@ import User from "./components/User";
 function App() {
   return (
     <>
-      {/* Your App */}
       <User />
     </>
   );

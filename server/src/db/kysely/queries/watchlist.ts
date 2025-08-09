@@ -9,41 +9,49 @@ export async function getMovies() {
 }
 
 export async function getMoviesWithCategories() {
-  const rows = await db
-    .selectFrom('movies')
-    .leftJoin('moviecategories', 'moviecategories.movieId', 'movies.id')
-    .leftJoin('categories', 'categories.id', 'moviecategories.categoryId')
-    .select([
-      'movies.id as movieId',
-      'movies.title',
-      'movies.year',
-      'categories.id as categoryId',
-      'categories.name as categoryName'
-    ])
-    .execute();
+  return await db
+    .selectFrom('watchlist_items')
+    .selectAll()
+    .execute()
 
-  const movieMap = new Map<string, {
-    movieId: string;
-    title: string;
-    year: number | null;
-    categories: { id: string; name: string }[];
-  }>();
+//   const rows = await db
+//     .selectFrom('watchlist_items')
+//     .innerJoin('movies', 'movies.id', 'watchlist_items.movie_id')
+//     .leftJoin('moviecategories', 'moviecategories.movieId', 'movies.id')
+//     .leftJoin('categories', 'categories.id', 'moviecategories.categoryId')
+//     .select([
+//       'movies.id as movieId',
+//       'movies.title',
+//       'movies.year',
+//       'categories.id as categoryId',
+//       'categories.name as categoryName'
+//     ])
+//     .where('watchlist_items.user_id', '=', userId)
+//     .execute();
 
-  for (const row of rows) {
-    if (!movieMap.has(row.movieId)) {
-      movieMap.set(row.movieId, {
-        movieId: row.movieId,
-        title: row.title!,
-        year: row.year,
-        categories: []
-      });
-    }
+//   const movieMap = new Map<string, {
+//     movieId: string;
+//     title: string;
+//     year: number | null;
+//     categories: { id: string; name: string }[];
+//   }>();
 
-    if (row.categoryId && row.categoryName) {
-      const movie = movieMap.get(row.movieId)!;
-      movie.categories.push({ id: row.categoryId, name: row.categoryName });
-    }
-  }
+//   for (const row of rows) {
+//     if (!movieMap.has(row.movieId)) {
+//       movieMap.set(row.movieId, {
+//         movieId: row.movieId,
+//         title: row.title!,
+//         year: row.year,
+//         categories: []
+//       });
+//     }
 
-  return [...movieMap.values()];
+//     if (row.categoryId && row.categoryName) {
+//       const movie = movieMap.get(row.movieId)!;
+//       movie.categories.push({ id: row.categoryId, name: row.categoryName });
+//     }
+//   }
+
+//   return [...movieMap.values()];
 }
+
