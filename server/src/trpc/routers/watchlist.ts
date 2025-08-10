@@ -5,10 +5,10 @@ import { z } from 'zod';
 
 export const watchlistRouter = router({
   getAll: publicProcedure
-    // .input( z.object({ userId: z.string()}))
-    .query(async () => {  
+    .input( z.object({ userId: z.string()}))
+    .query(async ({input}) => {  
       try{
-        const movies = await getMoviesWithCategories();
+        const movies = await getMoviesWithCategories(input.userId);
       return movies 
       }
       catch(err){

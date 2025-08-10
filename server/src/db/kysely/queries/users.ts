@@ -4,7 +4,7 @@ import db from "../client"
 
 export async function getAllUsers() {
   return await db
-    .selectFrom('categories')
+    .selectFrom('users')
     .selectAll()
     .execute();
 }
