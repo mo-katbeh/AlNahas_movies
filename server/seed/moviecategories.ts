@@ -79,7 +79,7 @@ async function seedWatchlistItems() {
       db.insertInto("watchlist_items").values({
         user_id: user.id,
         movie_id: movie.id,
-        status,
+      
         rating,
         review,
       }).execute()

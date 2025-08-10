@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { trpc } from "../../utils/trpc";
+// import { skipToken } from '@trpc/react-query';
 import {
   Select,
   SelectContent,
@@ -7,6 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge, Loader2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+
 // const User = () => {
 //   const { data, isLoading, error } = trpc.user.getAll.useQuery();
 //   if (isLoading) return <p>Loading...</p>;
@@ -26,16 +30,13 @@ import {
 // };
 
 const Movie = () => {
-  const [userId, setUserId] = useState<string | undefined>();
+  const [userId, setUserId] = useState<string | undefined>("");
   const { data: users } = trpc.user.getAll.useQuery();
+
   const { data, isLoading, error } = trpc.watchlist.getAll.useQuery(
     { userId: userId! },
     { enabled: !!userId }
   );
-
-  // if (isLoading) return <span>Loading...</span>;
-  // if (error) return <p>{error.message}</p>;
-  // if (!data || data.length === 0) return <p>No Movies found.</p>;
 
   return (
     <>
@@ -45,37 +46,65 @@ const Movie = () => {
             <SelectValue placeholder="Select a user" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="1">User1</SelectItem>
-            <SelectItem value="2">User2</SelectItem>
-            <SelectItem value="3">User3</SelectItem>
             {users?.map((user) => (
               <SelectItem key={user.id} value={user.id}>
-                {user.email}
+                {user.name}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      <h1>Movies</h1>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error.message}</p>}
-      {data && data.length === 0 && <p>No movies found for this user.</p>}
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold">Movies</h1>
+        {/* Loading state */}
+        {isLoading && (
+          <div className="flex items-center space-x-2 text-gray-500">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Loading movies...</span>
+          </div>
+        )}
+        {/* Empty state */}
+        {data && data.length === 0 && (
+          <div className="text-gray-500 bg-gray-50 border border-gray-200 p-3 rounded-lg">
+            No movies found for this user.
+          </div>
+        )}
 
-      <ul className="list-group">
-        {data?.map((movie) => (
-          <li key={movie.movieId} className="list-group-item">
-            {movie.title}
-            <div>
-              {movie.categories?.map((category) => (
-                <span key={`${movie.movieId}-${category.id}`}>
-                  {category.name}
-                </span>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ul>
+        {/* Error state */}
+        {error && (
+          <div className="text-red-500 bg-red-50 border border-red-200 p-3 rounded-lg">
+            {error.message}
+          </div>
+        )}
+
+        {/* Movie list */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {data?.map((movie) => (
+            <Card
+              key={movie.movieId}
+              className="shadow-sm hover:shadow-md transition-shadow"
+            >
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold">
+                  {movie.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                {movie.categories?.map((category) => (
+                  <Badge
+                    key={`${movie.movieId}-${category.id}`}
+                    fontVariant="secondary"
+                    className="capitalize"
+                  >
+                    {category.name}
+                  </Badge>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
     </>
   );
 };

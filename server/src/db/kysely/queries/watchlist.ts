@@ -25,7 +25,7 @@ export async function getMoviesWithCategories(userId: string) {
     ])
     .where('watchlist_items.user_id', '=', userId)
     .execute();
-
+    
   const movieMap = new Map<string, {
     movieId: string;
     title: string;

@@ -11,7 +11,7 @@ export interface Database {
     id?: string;
     user_id: string;
     movie_id: string;
-    status: 'WATCHED' | 'TO_WATCH';
+    status?: 'WATCHED' | 'TO_WATCH';
     rating?: number | null;
     review?: string | null;
   };
@@ -28,5 +28,6 @@ export interface Database {
   users:{
     id: string;
     email: string | null;
+    name: string | null;
   }
 }
