@@ -42,6 +42,59 @@ import { sql } from 'kysely'
 
 // Helper function to get a random item from an array
 
+// async function seedWatchlistItems() {
+//   const users = await db.selectFrom("users").select(["id"]).execute();
+//   const movies = await db.selectFrom("movies").select(["id"]).execute();
+
+//   if (!users.length || !movies.length) {
+//     console.error("❌ Users or Movies table is empty. Seed them first.");
+//     process.exit(1);
+//   }
+
+//   const sampleReviews = [
+//     "Amazing movie!",
+//     "Not bad.",
+//     "Loved the visuals.",
+//     "Great acting.",
+//     "Could've been better.",
+//     "Boring plot.",
+//     "Highly recommended!",
+//     "Would not watch again.",
+//   ];
+
+//   const inserts = [];
+
+//   for (let i = 0; i < 1000; i++) {
+//     const user = users[Math.floor(Math.random() * users.length)];
+//     const movie = movies[Math.floor(Math.random() * movies.length)];
+//     const status = Math.random() < 0.5 ? "WATCHED" : "TO_WATCH";
+
+//     const rating = status === "WATCHED" ? Math.floor(Math.random() * 6) : null;
+//     const review =
+//       status === "WATCHED"
+//         ? sampleReviews[Math.floor(Math.random() * sampleReviews.length)]
+//         : null;
+
+//     inserts.push(
+//       db.insertInto("watchlist_items").values({
+//         user_id: user.id,
+//         movie_id: movie.id,
+//         rating,
+//         review,
+//       }).execute()
+//     );
+//   }
+
+//   await Promise.all(inserts);
+
+//   console.log(`✅ Seeded ${inserts.length} watchlist items.`);
+// }
+
+// seedWatchlistItems().catch((err) => {
+//   console.error("❌ Seeding failed:", err);
+//   process.exit(1);
+// });
+
 async function seedWatchlistItems() {
   const users = await db.selectFrom("users").select(["id"]).execute();
   const movies = await db.selectFrom("movies").select(["id"]).execute();
@@ -62,28 +115,37 @@ async function seedWatchlistItems() {
     "Would not watch again.",
   ];
 
-  const inserts = [];
+  const inserts: Promise<any>[] = [];
 
-  for (let i = 0; i < 1000; i++) {
-    const user = users[Math.floor(Math.random() * users.length)];
-    const movie = movies[Math.floor(Math.random() * movies.length)];
-    const status = Math.random() < 0.5 ? "WATCHED" : "TO_WATCH";
+  for (const user of users) {
+    // Decide how many movies to assign (0–10)
+    const movieCount = Math.floor(Math.random() * 11); // 0 to 10
 
-    const rating = status === "WATCHED" ? Math.floor(Math.random() * 6) : null;
-    const review =
-      status === "WATCHED"
-        ? sampleReviews[Math.floor(Math.random() * sampleReviews.length)]
-        : null;
+    // Pick random movies without duplicates
+    const shuffledMovies = [...movies].sort(() => Math.random() - 0.5);
+    const selectedMovies = shuffledMovies.slice(0, movieCount);
 
-    inserts.push(
-      db.insertInto("watchlist_items").values({
-        user_id: user.id,
-        movie_id: movie.id,
-      
-        rating,
-        review,
-      }).execute()
-    );
+    for (const movie of selectedMovies) {
+      const status = Math.random() < 0.5 ? "WATCHED" : "TO_WATCH";
+      const rating = status === "WATCHED" ? Math.floor(Math.random() * 6) : null;
+      const review =
+        status === "WATCHED"
+          ? sampleReviews[Math.floor(Math.random() * sampleReviews.length)]
+          : null;
+
+      inserts.push(
+        db
+          .insertInto("watchlist_items")
+          .values({
+            user_id: user.id,
+            movie_id: movie.id,
+            rating,
+            review,
+            // status,
+          })
+          .execute()
+      );
+    }
   }
 
   await Promise.all(inserts);

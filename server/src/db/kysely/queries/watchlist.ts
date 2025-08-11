@@ -16,12 +16,17 @@ export async function getMoviesWithCategories(userId: string) {
     .innerJoin('movies', 'movies.id', 'watchlist_items.movie_id')
     .leftJoin('moviecategories', 'moviecategories.movieId', 'movies.id')
     .leftJoin('categories', 'categories.id', 'moviecategories.categoryId')
+    // .leftJoin('watchlist_items', 'watchlist_items.id', 'watchlist_items.user_id')
     .select([
       'movies.id as movieId',
       'movies.title',
       'movies.year',
       'categories.id as categoryId',
-      'categories.name as categoryName'
+      'categories.name as categoryName',
+      // 'watchlist_items.rating as rating',
+      // 'watchlist_items.review as review',
+      // 'watchlist_items.status as status'
+
     ])
     .where('watchlist_items.user_id', '=', userId)
     .execute();
@@ -31,6 +36,10 @@ export async function getMoviesWithCategories(userId: string) {
     title: string;
     year: number | null;
     categories: { id: string; name: string }[];
+    // rating: number ;
+    // review: string ;
+    // status: string ;
+
   }>();
 
   for (const row of rows) {
@@ -39,7 +48,10 @@ export async function getMoviesWithCategories(userId: string) {
         movieId: row.movieId,
         title: row.title!,
         year: row.year,
-        categories: []
+        categories: [],
+        // rating: row.rating!,
+        // review: row.review!,
+        // status: row.status!
       });
     }
 
