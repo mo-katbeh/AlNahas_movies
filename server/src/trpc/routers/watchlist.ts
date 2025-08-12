@@ -1,6 +1,6 @@
 // server/trpc/routers/watchlist.ts
 import { publicProcedure, router } from '../init';
-import { getMovies, getMoviesWithCategories } from '../../db/kysely/queries/watchlist'; 
+import { getMoviesWithCategories } from '../../db/kysely/queries/watchlist'; 
 import { z } from 'zod';
 
 export const watchlistRouter = router({
@@ -8,8 +8,8 @@ export const watchlistRouter = router({
     .input( z.object({ userId: z.string()}))
     .query(async ({input}) => {  
       try{
-        const movies = await getMoviesWithCategories(input.userId);
-      return movies 
+        const watchlists = await getMoviesWithCategories(input.userId);
+      return watchlists
       }
       catch(err){
         console.error('TRPC getAll error:', err);

@@ -43,38 +43,42 @@ export const works: Artwork[] = [
 
 export function ScrollAreaHorizontalDemo() {
   return (
-    <ScrollArea
-      className="w-64 bg-transparent"
-      style={{ backgroundColor: "transparent" }}
-    >
-      {" "}
-      {/* transparent background */}
-      <div className="flex w-max p-0 gap-4 bg-amber-700">
-        {" "}
-        {/* transparent here too */}
-        {works.map((artwork) => (
-          <figure key={artwork.artist} className="shrink-0 bg-transparent">
-            <div className="overflow-hidden bg-black">
-              <img
-                src={artwork.art}
-                alt={`Photo by ${artwork.artist}`}
-                className="aspect-[3/4] object-cover w-auto h-full"
-                width={300}
-                height={400}
-                loading="lazy"
-              />
-            </div>
-            <figcaption className="text-muted-foreground pt-1 text-xs text-center bg-blue-700">
-              Photo by{" "}
-              <span className="text-foreground font-semibold">
-                {artwork.artist}
-              </span>
-            </figcaption>
-          </figure>
-        ))}
+    <div className="w-lvw h-lvh bg-gray-900 bg-opacity-75 flex flex-row">
+      <div className="flex-1 flex flex-row justify-center">
+        <ScrollArea
+          className=" !bg-gray-900 !bg-opacity-75"
+          style={{ backgroundColor: "transparent" }}
+        >
+          {" "}
+          {/* transparent background */}
+          <div className="flex p-5 gap-10 ">
+            {" "}
+            {/* transparent here too */}
+            {works.map((artwork) => (
+              <figure key={artwork.artist} className="shrink-0 bg-transparent">
+                <div className="overflow-hidden bg-black">
+                  <img
+                    src={artwork.art}
+                    alt={`Photo by ${artwork.artist}`}
+                    className="aspect-[3/4] object-cover w-full h-full"
+                    width={250}
+                    height={300}
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption className="text-muted-foreground pt-1 text-xs text-center">
+                  Photo by{" "}
+                  <span className="text-foreground font-semibold">
+                    {artwork.artist}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+    </div>
   );
 }
 

@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
+import { NavigationMenuContent } from "./ui/navigation-menu";
 
 // const User = () => {
 //   const { data, isLoading, error } = trpc.user.getAll.useQuery();
@@ -47,78 +48,80 @@ const Movie = () => {
 
   return (
     <>
-      <div className="mb-6 flex items-center gap-4">
-        <Select value={userId} onValueChange={setUserId}>
-          <SelectTrigger className="w-[250px]">
-            <SelectValue placeholder="Select a user" />
-          </SelectTrigger>
-          <SelectContent>
-            {users?.map((user) => (
-              <SelectItem key={user.id} value={user.id}>
-                {user.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <NavigationMenuContent className="!w-screen !h-screen p-0 bg-black text-white">
+        <div className="w-full h-full flex flex-col">
+          <div className="flex-1 flex flex-col justify-center"></div>
+          <Select value={userId} onValueChange={setUserId}>
+            <SelectTrigger className="w-[250px]">
+              <SelectValue placeholder="Select a user" />
+            </SelectTrigger>
+            <SelectContent>
+              {users?.map((user) => (
+                <SelectItem key={user.id} value={user.id}>
+                  {user.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <div className="space-y-6">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Film className="h-6 w-6 text-primary" />
-          Movies
-        </h1>
+        <div className="space-y-6">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <Film className="h-6 w-6 text-primary" />
+            Movies
+          </h1>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex items-center space-x-2 text-gray-500">
-            <Loader2 className="h-5 w-5 animate-spin" />
-            <span>Loading movies...</span>
-          </div>
-        )}
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex items-center space-x-2 text-gray-500">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span>Loading movies...</span>
+            </div>
+          )}
 
-        {/* Empty State */}
-        {data && data.length === 0 && (
-          <div className="text-gray-500 bg-gray-50 border border-gray-200 p-3 rounded-lg">
-            No movies found for this user.
-          </div>
-        )}
+          {/* Empty State */}
+          {data && data.length === 0 && (
+            <div className="text-gray-500 bg-gray-50 border border-gray-200 p-3 rounded-lg">
+              No movies found for this user.
+            </div>
+          )}
 
-        {/* Error State */}
-        {error && (
-          <div className="text-red-500 bg-red-50 border border-red-200 p-3 rounded-lg">
-            {error.message}
-          </div>
-        )}
+          {/* Error State */}
+          {error && (
+            <div className="text-red-500 bg-red-50 border border-red-200 p-3 rounded-lg">
+              {error.message}
+            </div>
+          )}
 
-        {/* Movies Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {data?.map((movie) => (
-            <Card
-              key={movie.movieId}
-              className="shadow-sm hover:shadow-md transition-shadow border border-gray-100"
-            >
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold">
-                  {movie.title}
-                </CardTitle>
-              </CardHeader>
+          {/* Movies Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {data?.map((movie) => (
+              <Card
+                key={movie.movieId}
+                className="shadow-sm hover:shadow-md transition-shadow border border-gray-100"
+              >
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">
+                    {movie.title}
+                  </CardTitle>
+                </CardHeader>
 
-              <CardContent className="space-y-4">
-                {/* Categories */}
-                <div className="flex flex-wrap gap-2">
-                  {movie.categories?.map((category) => (
-                    <Badge
-                      key={`${movie.movieId}-${category.id}`}
-                      fontVariant="secondary"
-                      className="capitalize"
-                    >
-                      {category.name}
-                    </Badge>
-                  ))}
-                </div>
+                <CardContent className="space-y-4">
+                  {/* Categories */}
+                  <div className="flex flex-wrap gap-2">
+                    {movie.categories?.map((category) => (
+                      <Badge
+                        key={`${movie.movieId}-${category.id}`}
+                        fontVariant="secondary"
+                        className="capitalize"
+                      >
+                        {category.name}
+                      </Badge>
+                    ))}
+                  </div>
 
-                {/* Rating */}
-                {/* {movie.rating && (
+                  {/* Rating */}
+                  {/* {movie.rating && (
                   <div className="flex items-center gap-1 text-yellow-500">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -134,8 +137,8 @@ const Movie = () => {
                   </div>
                 )} */}
 
-                {/* Status */}
-                {/* {movie.status && (
+                  {/* Status */}
+                  {/* {movie.status && (
                   <Badge
                     fontVariant={
                       movie.status === "WATCHED"
@@ -149,27 +152,28 @@ const Movie = () => {
                   </Badge>
                 )} */}
 
-                {/* Review */}
-                {/* {movie.review && (
+                  {/* Review */}
+                  {/* {movie.review && (
                   <p className="text-sm text-gray-600 border-l-4 border-gray-200 pl-2 italic">
                     “{movie.review}”
                   </p>
                 )} */}
-              </CardContent>
+                </CardContent>
 
-              {/* Actions */}
-              <CardFooter className="flex justify-between items-center border-t pt-3">
-                <Button size="sm" variant="outline">
-                  Edit
-                </Button>
-                <Button size="sm" variant="default">
-                  Add Review
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+                {/* Actions */}
+                <CardFooter className="flex justify-between items-center border-t pt-3">
+                  <Button size="sm" variant="outline">
+                    Edit
+                  </Button>
+                  <Button size="sm" variant="default">
+                    Add Review
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
+      </NavigationMenuContent>
     </>
   );
 };

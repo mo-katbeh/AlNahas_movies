@@ -1,33 +1,32 @@
+"use client";
+
 import * as React from "react";
-// import Link from "next/link";
-import {
-  // CircleCheckIcon,
-  // CircleHelpIcon,
-  // CircleIcon,
-  Link,
-} from "lucide-react";
+
+import { Link } from "lucide-react";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuItem,
   NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import theaterImage from "../assets/theater.jpg";
-import ScrollAreaHorizontalDemo from "./ScrollAreaHorizontalDemo";
+import MoviesFullscreen from "./MoviesFullscreen";
 import User from "./User";
-
 export function MovieGrid() {
+  // const [selected, setSelected] = React.useState(movies[0]);
+
   return (
     <div
       className="min-h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${theaterImage})` }}
     >
-      <NavigationMenu className="!justify-center">
+      <NavigationMenu className="!justify-center padi">
         <NavigationMenuList>
+          {/* Home */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>Home</NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -39,10 +38,12 @@ export function MovieGrid() {
             </NavigationMenuContent>
           </NavigationMenuItem>
 
+          {/* Components */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>Components</NavigationMenuTrigger>
           </NavigationMenuItem>
 
+          {/* Docs */}
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
@@ -52,24 +53,25 @@ export function MovieGrid() {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
+          {/* Movies - Fullscreen */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>Movies</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ScrollAreaHorizontalDemo />
-            </NavigationMenuContent>
+            <MoviesFullscreen />
           </NavigationMenuItem>
 
+          {/* Watchlist */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>Watchlist</NavigationMenuTrigger>
-            <NavigationMenuContent className="!w-screen !h-screen flex justify-stretch items-center bg-none">
-              <User />
-            </NavigationMenuContent>
+
+            {/* Replace with your actual Watchlist component */}
+            <User />
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </div>
   );
 }
+
 export default MovieGrid;
 
 function ListItem({

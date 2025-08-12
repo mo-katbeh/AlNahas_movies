@@ -1,12 +1,7 @@
 // src/db/queries/watchlist.ts
 import db from "../client" 
 
-export async function getMovies() {
-  return await db
-    .selectFrom('movies')
-    .selectAll()
-    .execute();
-}
+
 
 export async function getMoviesWithCategories(userId: string) {
   
