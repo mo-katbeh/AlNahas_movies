@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge, Film, Loader2, Star } from "lucide-react";
+import { Badge, Film, Loader2 } from "lucide-react";
 import {
   Card,
   CardContent,
