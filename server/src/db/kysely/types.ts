@@ -17,8 +17,9 @@ export interface Database {
   };
   movies:{
     id: string;
-    title: string | null;
-    year: number | null;
+    title: string ;
+    year: number ;
+    posterUrl: string | null;
     categories: {
     id: string;
     name: string;

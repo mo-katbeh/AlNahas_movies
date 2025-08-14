@@ -1,5 +1,5 @@
 {
-  "id": "f648ba65-5ac4-4e60-a3cc-ca9174106b12",
+  "id": "63cd35cb-5fe5-426c-a40d-bb55b9a0f73e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -40,6 +40,12 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -84,6 +90,12 @@
         "year": {
           "name": "year",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "posterUrl": {
+          "name": "posterUrl",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         }

@@ -6,6 +6,7 @@ CREATE TABLE "categories" (
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" varchar(255),
 	"email" varchar(255),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
@@ -13,7 +14,8 @@ CREATE TABLE "users" (
 CREATE TABLE "movies" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" varchar(255),
-	"year" integer
+	"year" integer,
+	"posterUrl" text
 );
 --> statement-breakpoint
 CREATE TABLE "moviecategories" (
