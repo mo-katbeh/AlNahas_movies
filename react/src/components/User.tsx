@@ -65,36 +65,36 @@ const Movie = () => {
           </Select>
         </div>
 
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <h1 className="text-2xl font-bold flex items-center gap-2">
             <Film className="h-6 w-6 text-primary" />
             Movies
-          </h1>
+          </h1> */}
 
-          {/* Loading State */}
-          {isLoading && (
+        {/* Loading State */}
+        {/* {isLoading && (
             <div className="flex items-center space-x-2 text-gray-500">
               <Loader2 className="h-5 w-5 animate-spin" />
               <span>Loading movies...</span>
             </div>
-          )}
+          )} */}
 
-          {/* Empty State */}
-          {data && data.length === 0 && (
+        {/* Empty State */}
+        {/* {data && data.length === 0 && (
             <div className="text-gray-500 bg-gray-50 border border-gray-200 p-3 rounded-lg">
               No movies found for this user.
             </div>
-          )}
+          )} */}
 
-          {/* Error State */}
-          {error && (
+        {/* Error State */}
+        {/* {error && (
             <div className="text-red-500 bg-red-50 border border-red-200 p-3 rounded-lg">
               {error.message}
             </div>
-          )}
+          )} */}
 
-          {/* Movies Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Movies Grid */}
+        {/* <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {data?.map((movie) => (
               <Card
                 key={movie.movieId}
@@ -106,73 +106,62 @@ const Movie = () => {
                   </CardTitle>
                 </CardHeader>
 
-                <CardContent className="space-y-4">
-                  {/* Categories */}
-                  <div className="flex flex-wrap gap-2">
-                    {movie.categories?.map((category) => (
-                      <Badge
-                        key={`${movie.movieId}-${category.id}`}
-                        fontVariant="secondary"
-                        className="capitalize"
-                      >
-                        {category.name}
-                      </Badge>
-                    ))}
-                  </div>
+                <CardContent className="space-y-4"> */}
+        {/* Rating */}
+        {/* {movie.userRating !== null && (
+                    <div className="flex items-center gap-1 text-yellow-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < movie.userRating
+                              ? "fill-yellow-500"
+                              : "fill-gray-200"
+                          }`}
+                        />
+                      ))}
+                      <span className="text-sm text-gray-600 ml-1">
+                        ({movie.userRating}/5)
+                      </span>
+                    </div>
+                  )} */}
 
-                  {/* Rating */}
-                  {/* {movie.rating && (
-                  <div className="flex items-center gap-1 text-yellow-500">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-4 w-4 ${
-                          i < movie.rating ? "fill-yellow-500" : "fill-gray-200"
-                        }`}
-                      />
-                    ))}
-                    <span className="text-sm text-gray-600 ml-1">
-                      ({movie.rating}/5)
-                    </span>
-                  </div>
-                )} */}
+        {/* Status */}
+        {/* {movie.watchlistStatus && (
+                    <Badge
+                      fontVariant={
+                        movie.watchlistStatus === "WATCHED"
+                          ? "default"
+                          : movie.watchlistStatus === "TO_WATCH"
+                          ? "outline"
+                          : "secondary"
+                      }
+                    >
+                      {movie.watchlistStatus}
+                    </Badge>
+                  )} */}
 
-                  {/* Status */}
-                  {/* {movie.status && (
-                  <Badge
-                    fontVariant={
-                      movie.status === "WATCHED"
-                        ? "default"
-                        : movie.status === "WATCHING"
-                        ? "secondary"
-                        : "outline"
-                    }
-                  >
-                    {movie.status}
-                  </Badge>
-                )} */}
-
-                  {/* Review */}
-                  {/* {movie.review && (
-                  <p className="text-sm text-gray-600 border-l-4 border-gray-200 pl-2 italic">
-                    “{movie.review}”
-                  </p>
-                )} */}
+        {/* Review */}
+        {/* {movie.userReview && (
+                    <p className="text-sm text-gray-600 border-l-4 border-gray-200 pl-2 italic">
+                      “{movie.userReview}”
+                    </p>
+                  )}
                 </CardContent>
-
-                {/* Actions */}
-                <CardFooter className="flex justify-between items-center border-t pt-3">
+ */}
+        {/* Actions */}
+        {/* <CardFooter className="flex justify-between items-center border-t pt-3">
                   <Button size="sm" variant="outline">
                     Edit
                   </Button>
                   <Button size="sm" variant="default">
                     Add Review
                   </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
+                </CardFooter> */}
+        {/* </Card> */}
+        {/* ))} */}
+        {/* </div> */}
+        {/* </div> */}
       </NavigationMenuContent>
     </>
   );

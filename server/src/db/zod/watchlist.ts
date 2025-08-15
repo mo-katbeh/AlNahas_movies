@@ -6,7 +6,9 @@ export const addToWatchlistSchema = z.object({
   userId: z.string().uuid(),
   movieId: z.string().uuid(),
   status: watchlistStatusEnum,
-  rating: z.number().min(1).max(5).optional(),
+  rating: z.coerce.number().min(1).max(5)
+  .catch()
+  .optional(),
   review: z.string().max(1000).optional(),
 });
 

@@ -1,12 +1,5 @@
 export interface Database {
-  categories: {
-    id: string;
-    name: string | null;
-  };
-  moviecategories: {
-    movieId: string;
-    categoryId: string;
-  };
+
   watchlist_items: {
     id?: string;
     user_id: string;
@@ -19,12 +12,11 @@ export interface Database {
     id: string;
     title: string ;
     year: number ;
-    posterUrl: string | null;
-    categories: {
-    id: string;
-    name: string;
-  }[];
-
+    posterUrl?: string | null;
+    genres?: string,
+    director?: string,
+    rating: number,
+    description?: string
   }
   users:{
     id: string;

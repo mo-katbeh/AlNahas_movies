@@ -1,9 +1,7 @@
-"use client";
-
 import * as React from "react";
 
 import { Link } from "lucide-react";
-
+import User from "../components/User";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -15,16 +13,16 @@ import {
 } from "@/components/ui/navigation-menu";
 import theaterImage from "../assets/theater.jpg";
 import MoviesFullscreen from "./MoviesFullscreen";
-import User from "./User";
+// import User from "./User";
 export function MovieGrid() {
   // const [selected, setSelected] = React.useState(movies[0]);
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center"
+      className="min-h-screen bg-cover bg-center flex  "
       style={{ backgroundImage: `url(${theaterImage})` }}
     >
-      <NavigationMenu className="!justify-center padi">
+      <NavigationMenu className="border mx-auto max-h-fit max-w-fit">
         <NavigationMenuList>
           {/* Home */}
           <NavigationMenuItem>

@@ -2,43 +2,34 @@ import { eq } from "drizzle-orm";
 import  db  from "../src/db/kysely/client"
 import { sql } from 'kysely'
 
-// async function seedMovieCategories() {
-//   const movies = await db.selectFrom('movies').select(['id']).execute();
-//   const categories = await db.selectFrom('categories').select(['id']).execute();
+// async function seedMovieRatings() {
+//   const movies = await db.selectFrom("movies").select(["id"]).execute();
 
-//   if (!movies.length || !categories.length) {
-//     console.log("❌ Movies or categories table is empty");
+//   if (!movies.length) {
+//     console.error("❌ Movies table is empty. Seed movies first.");
 //     process.exit(1);
 //   }
 
-//   const inserts = [];
+//   const updates = movies.map((movie) => {
+//     // Random rating between 1 and 10
+//     const rating = Math.floor(Math.random() * 5) + 1;
 
-//   for (const movie of movies) {
-   
-
-//     const selectedCategories = [...categories]
-//       .sort(() => 0.5 - Math.random()) // Shuffle
-//       .slice(0, 1);
-//     for (const category of selectedCategories) {
-//       inserts.push(
-//         db.insertInto('moviecategories').values({
-//           movieId: movie.id,
-//           categoryId: category.id,
-//         }).execute()
-//       );
-//     }
-//   }
-
-//   await Promise.all(inserts);
-//   console.log(`✅ Seeded ${inserts.length} movie-category links`);
-// }
-
-// seedMovieCategories()
-//   .catch((err) => {
-//     console.error("❌ Seeding failed:", err);
-//     process.exit(1);
+//     return db
+//       .updateTable("movies")
+//       .set({ rating })
+//       .where("id", "=", movie.id)
+//       .execute();
 //   });
 
+//   await Promise.all(updates);
+
+//   console.log(`✅ Seeded ratings for ${movies.length} movies.`);
+// }
+
+// seedMovieRatings().catch((err) => {
+//   console.error("❌ Seeding failed:", err);
+//   process.exit(1);
+// });
 
 // Helper function to get a random item from an array
 
@@ -151,3 +142,61 @@ import { sql } from 'kysely'
 //     console.error("❌ Seeding failed:", err);
 //     process.exit(1);
 //   });
+
+
+async function seedWatchlistItems() {
+  // Fetch existing users and movies
+  const users = await db.selectFrom('users').select(['id']).execute();
+  const movies = await db.selectFrom('movies').select(['id']).execute();
+
+  if (!users.length || !movies.length) {
+    console.error('No users or movies found!');
+    return;
+  }
+
+  const statuses = ['WATCHED', 'TO_WATCH'];
+  const reviews = [
+    'Amazing movie!',
+    'Not bad.',
+    'Boring plot.',
+    'Could have been better.',
+    'Loved the visuals.',
+    'Highly recommended!',
+    'Great acting.',
+    'Would not watch again.'
+  ];
+
+  const inserts = [];
+
+  for (const user of users) {
+    // Give each user a few random movies
+    const randomMovies = movies.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    for (const movie of randomMovies) {
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      const rating = status === 'WATCHED' ? Math.floor(Math.random() * 6) : null;
+      const review = rating !== null ? reviews[Math.floor(Math.random() * reviews.length)] : null;
+
+      inserts.push({
+        user_id: user.id,   // snake_case for DB
+        movie_id: movie.id, // snake_case for DB
+        rating,
+        review
+      });
+    }
+  }
+
+  await db
+    .insertInto('watchlist_items')
+    .values(inserts)
+    .execute();
+
+  console.log(`Inserted ${inserts.length} watchlist items.`);
+}
+
+seedWatchlistItems()
+  .then(() => process.exit(0))
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });

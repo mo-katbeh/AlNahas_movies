@@ -1,35 +1,9 @@
 {
-  "id": "63cd35cb-5fe5-426c-a40d-bb55b9a0f73e",
+  "id": "a61db9f0-38f0-446a-acf3-cadab8fcee35",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.categories": {
-      "name": "categories",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -98,71 +72,35 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "genres": {
+          "name": "genres",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "director": {
+          "name": "director",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.moviecategories": {
-      "name": "moviecategories",
-      "schema": "",
-      "columns": {
-        "movieId": {
-          "name": "movieId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "categoryId": {
-          "name": "categoryId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "moviecategories_movieId_movies_id_fk": {
-          "name": "moviecategories_movieId_movies_id_fk",
-          "tableFrom": "moviecategories",
-          "tableTo": "movies",
-          "columnsFrom": [
-            "movieId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "moviecategories_categoryId_categories_id_fk": {
-          "name": "moviecategories_categoryId_categories_id_fk",
-          "tableFrom": "moviecategories",
-          "tableTo": "categories",
-          "columnsFrom": [
-            "categoryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "moviecategories_movieId_categoryId_pk": {
-          "name": "moviecategories_movieId_categoryId_pk",
-          "columns": [
-            "movieId",
-            "categoryId"
-          ]
-        }
-      },
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
@@ -191,13 +129,11 @@
           "primaryKey": false,
           "notNull": false
         },
-        "movieStatus": {
-          "name": "movieStatus",
-          "type": "movieStatus",
-          "typeSchema": "public",
+        "status": {
+          "name": "status",
+          "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'TO_WATCH'"
+          "notNull": false
         },
         "rating": {
           "name": "rating",
@@ -248,16 +184,7 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {
-    "public.movieStatus": {
-      "name": "movieStatus",
-      "schema": "public",
-      "values": [
-        "WATCHED",
-        "TO_WATCH"
-      ]
-    }
-  },
+  "enums": {},
   "schemas": {},
   "sequences": {},
   "roles": {},

@@ -5,6 +5,7 @@ export const movieRouter = router({
     getAll: publicProcedure
       .query(async() =>{
         const movies = await getMovies();
+        // console.log("movies is", movies)
         return movies;
       })
 })
