@@ -1,26 +1,39 @@
-export interface Database {
 
-  watchlist_items: {
-    id?: string;
-    user_id: string;
-    movie_id: string;
-    status?: 'WATCHED' | 'TO_WATCH';
-    rating?: number | null;
-    review?: string | null;
-  };
-  movies:{
-    id: string;
-    title: string ;
-    year: number ;
-    posterUrl?: string | null;
-    genres?: string,
-    director?: string,
-    rating: number,
-    description?: string
-  }
-  users:{
-    id: string;
-    email: string | null;
-    name: string | null;
-  }
+import { ColumnType, Generated, Selectable} from "kysely";
+
+export interface Database{
+  genre: GenreTable,
+  movie: MovieTable,
+  user: UserTable,
+  watchListItems: WatchListItemTable
 }
+
+export interface GenreTable{
+  id: Generated<string>,
+  name: string 
+}
+export interface MovieTable{
+  id: Generated<string>,
+  title: string,
+  releaseYear?: Date | null,
+  posterUrl: string,
+  rating?: string | null,
+  description?: string | null; 
+}
+export interface UserTable{
+  id: Generated<string>,
+  name: string,
+  email: string,
+  birthDate: Date,
+  createdAt: ColumnType<Date, string | undefined, never>
+}
+export interface WatchListItemTable{
+  id: Generated<string>,
+  status?: string | null,
+  review?: string | null
+}
+
+export type User = Selectable<UserTable>
+export type Movie = Selectable<MovieTable>
+export type Genre = Selectable<GenreTable>
+export type WatchListItem = Selectable<WatchListItemTable>
