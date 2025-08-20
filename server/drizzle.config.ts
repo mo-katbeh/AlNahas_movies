@@ -3,7 +3,7 @@ import { env } from "./src/validateEnv";
 
 export default defineConfig({
   dialect: "postgresql",
-  schema: "./src/db/drizzle/schema",
+  schema: "./src/db/schema",
   out: "./src/db/migrations", // make sure this path exists
   dbCredentials: {
     host: env.DB_HOST!,
