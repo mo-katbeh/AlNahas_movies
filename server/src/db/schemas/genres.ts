@@ -7,7 +7,7 @@ export const GenreTable =  pgTable("genres",{
     name: text('name').unique().notNull(),
     
 },table=>[
-    uniqueIndex("nameIndex").on(table.name)
+    uniqueIndex("name_index").on(table.name)
 ])
 export const GenreTableRelations = relations(GenreTable, ({many})=>{
     return {

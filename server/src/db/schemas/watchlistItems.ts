@@ -2,16 +2,16 @@ import { pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from "drizzle
 import { MovieTable, UserTable } from './indexTables';
 import { relations } from "drizzle-orm";
 
-export const WatchListItemTable = pgTable("watchlistItems",{
+export const WatchListItemTable = pgTable("watchlist_items",{
     id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('userId').references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
-    movieId: uuid('movieId').references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
+    userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
+    movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
     status: text('status'),
-    createdAt: timestamp('createdAt').notNull().defaultNow(),
-    updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(() => new Date()),
-    deletedAT: timestamp('deletedAt')
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
+    deletedAT: timestamp('deleted_at')
 },table =>[
-    uniqueIndex("userMovieIndex").on(table.movieId, table.userId)
+    uniqueIndex("user_movie_index").on(table.movieId, table.userId)
 ])
 
 export const WatchListItemTableRelations = relations(WatchListItemTable, ({ one })=>{

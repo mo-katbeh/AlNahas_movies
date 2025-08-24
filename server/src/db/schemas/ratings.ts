@@ -6,15 +6,15 @@ import { relations } from "drizzle-orm";
 
 export const RatingsTable = pgTable("ratings",{
     id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('userId').references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
-    movieId: uuid('movieId').references(()=> MovieTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
+    userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
+    movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
     rating: decimal('rating'),
     review: text('review'),
-    createdAt: timestamp('createdAt').notNull().defaultNow(),
-    updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(() => new Date()),
-    deletedAT: timestamp('deletedAt')
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
+    deletedAT: timestamp('deleted_at') //review
 },table=>[
-    uniqueIndex("uesrMovieIndex").on(table.movieId, table.userId)
+    uniqueIndex("uesr_movie_index").on(table.movieId, table.userId)
 ])
 
 export const RatingsTableRelation = relations(RatingsTable, ({one})=>{
