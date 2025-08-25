@@ -1,14 +1,9 @@
 import { uuid, z } from "zod"
 
-const userRole = ["user", "admin"] as const
-export const user = z.object({
+export const createUserSchema = z.object({
     id: uuid(),
-    role: z.enum(userRole),
-    // firstName: z.coerce.string().min(3).trim(),
-    // lastName: z.coerce.string().min(3).trim(),
-    email: z.email().nonoptional(),
-
-
+    role: z.literal(["user", "admin"]).default("user"),
+    email: z.email(),
 })
 
-export type userType = z.infer<typeof user>
+export type UserInput = z.infer<typeof createUserSchema>
