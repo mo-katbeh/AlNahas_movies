@@ -12,7 +12,6 @@ export const RatingsTable = pgTable("ratings",{
     review: text('review'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
-    deletedAT: timestamp('deleted_at') //review
 },table=>[
     uniqueIndex("uesr_movie_index").on(table.movieId, table.userId)
 ])

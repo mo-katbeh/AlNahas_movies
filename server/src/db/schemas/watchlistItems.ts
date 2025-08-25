@@ -9,7 +9,7 @@ export const WatchListItemTable = pgTable("watchlist_items",{
     status: text('status'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
-    deletedAT: timestamp('deleted_at')
+    
 },table =>[
     uniqueIndex("user_movie_index").on(table.movieId, table.userId)
 ])

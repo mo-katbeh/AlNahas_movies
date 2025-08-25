@@ -1,6 +1,5 @@
-export * from './genres'
 export * from './movies'
-export * from './moviesGenre'
 export * from './users'
 export * from './watchlistItems'
 export * from './ratings'
+export * from './userProfile'
