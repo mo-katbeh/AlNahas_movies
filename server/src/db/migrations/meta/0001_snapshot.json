@@ -1,6 +1,6 @@
 {
-  "id": "57b4007c-bc42-422d-b86f-7e7513d32509",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "4afca105-9ffe-4cbb-bd9c-2a82fd8e2f88",
+  "prevId": "57b4007c-bc42-422d-b86f-7e7513d32509",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -257,14 +257,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
-        "movie_id": {
-          "name": "movie_id",
+        "movieId": {
+          "name": "movieId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -297,17 +297,17 @@
         }
       },
       "indexes": {
-        "uesr_movie_index": {
-          "name": "uesr_movie_index",
+        "uesrMovieIndex": {
+          "name": "uesrMovieIndex",
           "columns": [
             {
-              "expression": "movie_id",
+              "expression": "movieId",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
             },
             {
-              "expression": "user_id",
+              "expression": "userId",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -320,12 +320,12 @@
         }
       },
       "foreignKeys": {
-        "ratings_user_id_users_id_fk": {
-          "name": "ratings_user_id_users_id_fk",
+        "ratings_userId_users_id_fk": {
+          "name": "ratings_userId_users_id_fk",
           "tableFrom": "ratings",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -333,12 +333,12 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "ratings_movie_id_movies_id_fk": {
-          "name": "ratings_movie_id_movies_id_fk",
+        "ratings_movieId_movies_id_fk": {
+          "name": "ratings_movieId_movies_id_fk",
           "tableFrom": "ratings",
           "tableTo": "movies",
           "columnsFrom": [
-            "movie_id"
+            "movieId"
           ],
           "columnsTo": [
             "id"

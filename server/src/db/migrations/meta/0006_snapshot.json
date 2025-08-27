@@ -1,6 +1,6 @@
 {
-  "id": "57b4007c-bc42-422d-b86f-7e7513d32509",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "002f0452-eeaa-4be6-90d8-9b29da2b1119",
+  "prevId": "1c3ccd52-8a8f-4620-8131-266be75e6a96",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -27,14 +27,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "release_year": {
-          "name": "release_year",
+        "releaseYear": {
+          "name": "releaseYear",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "poster_url": {
-          "name": "poster_url",
+        "posterUrl": {
+          "name": "posterUrl",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -45,22 +45,22 @@
           "primaryKey": false,
           "notNull": false
         },
-        "update_at": {
-          "name": "update_at",
+        "updateAt": {
+          "name": "updateAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "is_deleted": {
-          "name": "is_deleted",
+        "isDeleted": {
+          "name": "isDeleted",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -99,22 +99,22 @@
           "primaryKey": false,
           "notNull": true
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "is_deleted": {
-          "name": "is_deleted",
+        "isDeleted": {
+          "name": "isDeleted",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -122,8 +122,8 @@
         }
       },
       "indexes": {
-        "email_index": {
-          "name": "email_index",
+        "emailIndex": {
+          "name": "emailIndex",
           "columns": [
             {
               "expression": "email",
@@ -257,14 +257,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
-        "movie_id": {
-          "name": "movie_id",
+        "movieId": {
+          "name": "movieId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -281,15 +281,15 @@
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -297,17 +297,17 @@
         }
       },
       "indexes": {
-        "uesr_movie_index": {
-          "name": "uesr_movie_index",
+        "uesrMovieIndex": {
+          "name": "uesrMovieIndex",
           "columns": [
             {
-              "expression": "movie_id",
+              "expression": "movieId",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
             },
             {
-              "expression": "user_id",
+              "expression": "userId",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -320,12 +320,12 @@
         }
       },
       "foreignKeys": {
-        "ratings_user_id_users_id_fk": {
-          "name": "ratings_user_id_users_id_fk",
+        "ratings_userId_users_id_fk": {
+          "name": "ratings_userId_users_id_fk",
           "tableFrom": "ratings",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -333,12 +333,12 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "ratings_movie_id_movies_id_fk": {
-          "name": "ratings_movie_id_movies_id_fk",
+        "ratings_movieId_movies_id_fk": {
+          "name": "ratings_movieId_movies_id_fk",
           "tableFrom": "ratings",
           "tableTo": "movies",
           "columnsFrom": [
-            "movie_id"
+            "movieId"
           ],
           "columnsTo": [
             "id"
@@ -353,8 +353,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.user_profile": {
-      "name": "user_profile",
+    "public.userProfile": {
+      "name": "userProfile",
       "schema": "",
       "columns": {
         "id": {
@@ -364,26 +364,26 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
-        "birth_date": {
-          "name": "birth_date",
+        "birthDate": {
+          "name": "birthDate",
           "type": "date",
           "primaryKey": false,
           "notNull": false
         },
-        "first_name": {
-          "name": "first_name",
+        "firstName": {
+          "name": "firstName",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
+        "lastName": {
+          "name": "lastName",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -394,21 +394,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "phone_number": {
-          "name": "phone_number",
+        "phoneNumber": {
+          "name": "phoneNumber",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -417,12 +417,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "user_profile_user_id_users_id_fk": {
-          "name": "user_profile_user_id_users_id_fk",
-          "tableFrom": "user_profile",
+        "userProfile_userId_users_id_fk": {
+          "name": "userProfile_userId_users_id_fk",
+          "tableFrom": "userProfile",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"

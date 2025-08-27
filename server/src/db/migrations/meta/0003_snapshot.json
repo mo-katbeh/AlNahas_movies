@@ -1,6 +1,6 @@
 {
-  "id": "57b4007c-bc42-422d-b86f-7e7513d32509",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "a6bd4b2d-131e-436f-9dd8-8fbdf2417f43",
+  "prevId": "1ecfe9d6-bcc6-4697-af60-b18f5afbd027",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -353,8 +353,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.user_profile": {
-      "name": "user_profile",
+    "public.userProfile": {
+      "name": "userProfile",
       "schema": "",
       "columns": {
         "id": {
@@ -364,26 +364,26 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
-        "birth_date": {
-          "name": "birth_date",
+        "birthDate": {
+          "name": "birthDate",
           "type": "date",
           "primaryKey": false,
           "notNull": false
         },
-        "first_name": {
-          "name": "first_name",
+        "firstName": {
+          "name": "firstName",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
+        "lastName": {
+          "name": "lastName",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -394,21 +394,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "phone_number": {
-          "name": "phone_number",
+        "phoneNumber": {
+          "name": "phoneNumber",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -417,12 +417,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "user_profile_user_id_users_id_fk": {
-          "name": "user_profile_user_id_users_id_fk",
-          "tableFrom": "user_profile",
+        "userProfile_userId_users_id_fk": {
+          "name": "userProfile_userId_users_id_fk",
+          "tableFrom": "userProfile",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"

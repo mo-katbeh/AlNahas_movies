@@ -7,12 +7,12 @@ export const UserTable = pgTable("users",{
     id: uuid('id').primaryKey().defaultRandom(),
     role: text('role').default('user'),
     email: text('email').notNull(),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(()=> new Date()),
-    isDeleted: boolean('is_deleted').default(false)
+    createdAt: timestamp('createdAt').notNull().defaultNow(),
+    updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(()=> new Date()),
+    isDeleted: boolean('isDeleted').default(false)
 },
 table=>[
-    uniqueIndex('email_index').on(table.email)
+    uniqueIndex('emailIndex').on(table.email)
 ]);
 
 export const UserTableRelations = relations(UserTable, ({ many, one })=>{

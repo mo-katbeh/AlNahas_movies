@@ -7,11 +7,11 @@ export const MovieTable = pgTable("movies",{
     title: text('title').notNull(),
     genre: text('genre'),
     releaseYear: integer('releaseYear').notNull(),
-    posterUrl: text('poster_url'),
+    posterUrl: text('posterUrl'),
     description: text('description'),
-    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-    isDeleted: boolean('is_deleted').default(false)
+    updatedAt: timestamp('updateAt').notNull().defaultNow().$onUpdate(() => new Date()),
+    createdAt: timestamp('createdAt').notNull().defaultNow(),
+    isDeleted: boolean('isDeleted').default(false)
 })
 
 export const MovieTableRelation = relations(MovieTable, ({ many })=>{

@@ -1,8 +1,8 @@
 import { uuid, z } from 'zod';
 
 export const createUserProfileSchema = z.object({
-    id: z.uuid(),
-    userId: z.uuid(),
+    id: uuid(),
+    userId: uuid(),
     birthDate: z.date().min(new Date().getFullYear() - 12),
     firstName: z.string().min(3),
     lastName: z.string().min(3),
