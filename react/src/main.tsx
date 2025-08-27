@@ -20,7 +20,7 @@ async function main() {
   // const result = await trpcClient.user.createUser.mutate({
   //   email: "golde2n@ads.com",
   // });
-  const result = await trpcClient.user.createUser.query({
+  const result = await trpcClient.user.deleteUserById.mutate({
     id: "bca16bc5-0df8-413d-aaa4-7af2f4313676",
   });
   console.log("result", result);

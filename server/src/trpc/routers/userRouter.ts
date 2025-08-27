@@ -1,6 +1,8 @@
 import { publicProcedure, router } from "../init";
-import { createUser, updateUser } from "../../db/kysely/queries/userQueries"
-import { createUserSchema } from "../../db/zod/userType";
+import { createUser,  deleteUserById, updateUser } from "../../db/kysely/queries/userQueries"
+import { createUserSchema, delelteUserSchema } from "../../db/zod/userType";
+import { z } from "zod"
+import { log } from "console";
 export const userRouter = router({
     createUser: publicProcedure
     .input( createUserSchema )
@@ -13,7 +15,6 @@ export const userRouter = router({
             console.log("tRPC", err);
             throw new Error('Failed to fetch users');
         }
-
     }),
     selectAll: publicProcedure
     .query(async()=>{
@@ -21,5 +22,15 @@ export const userRouter = router({
         console.log(users)
         return users
 
+    }),
+    deleteUserById: publicProcedure
+    .input(delelteUserSchema)
+    .mutation(async({input})=>{
+        try{
+            await deleteUserById(input.id)
+        }
+        catch(err){
+            console.log("Faild to delete user", err)
+        }
     })
 })

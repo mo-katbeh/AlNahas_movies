@@ -5,5 +5,8 @@ export const createUserSchema = z.object({
     role: z.literal(["user", "admin"]).default("user"),
     email: z.email(),
 })
+export const delelteUserSchema = z.object({
+    id: z.uuid(),
+})
 
 export type UserInput = z.infer<typeof createUserSchema>
