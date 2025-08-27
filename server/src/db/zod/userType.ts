@@ -1,7 +1,7 @@
 import { uuid, z } from "zod"
 
 export const createUserSchema = z.object({
-    id: uuid(),
+    id: z.uuid(),
     role: z.literal(["user", "admin"]).default("user"),
     email: z.email(),
 })

@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1756203494766,
-      "tag": "0000_overconfident_vertigo",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1756211289053,
-      "tag": "0001_striped_sinister_six",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1756211341691,
-      "tag": "0002_smart_proemial_gods",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1756212239013,
-      "tag": "0003_flawless_azazel",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1756213681055,
-      "tag": "0004_greedy_mentor",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1756213738006,
-      "tag": "0005_yielding_baron_strucker",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1756213783461,
-      "tag": "0006_melodic_firelord",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1756213835124,
-      "tag": "0007_crazy_carlie_cooper",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1756218266451,
-      "tag": "0008_rich_odin",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1756227110455,
-      "tag": "0009_panoramic_firelord",
+      "when": 1756297736223,
+      "tag": "0000_public_banshee",
       "breakpoints": true
     }
   ]

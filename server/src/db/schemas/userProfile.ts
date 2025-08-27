@@ -3,16 +3,16 @@ import { UserTable } from "./indexTables";
 import { relations } from "drizzle-orm";
 
 
-export const UserProfileTable = pgTable("userProfile",{
+export const UserProfileTable = pgTable("user_profile",{
     id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('userId').references(() => UserTable.id, {onDelete: "cascade"}),
-    birthDate: date('birthDate'),
-    firstName: text('firstName'),
-    lastName: text('lastName'),
+    userId: uuid('user_id').references(() => UserTable.id, {onDelete: "cascade"}),
+    birthDate: date('birth_date'),
+    firstName: text('first_name'),
+    lastName: text('last_name'),
     gender: text('gender').notNull(),
-    phoneNumber: text('phoneNumber'),
-    createdAt: timestamp('createdAt').notNull().defaultNow(),
-    updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(()=> new Date()),
+    phoneNumber: text('phone_number'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(()=> new Date()),
 })
 
 export const UserProfileTableRelation = relations(UserProfileTable,({one})=>{

@@ -1,39 +1,27 @@
 import express from 'express';
+const app = express();
+import * as trpcExpress from'@trpc/server/adapters/express'
 import cors from 'cors'
-import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/routers/mainRouter';
 import { createContext } from './context';
 import './db/kysely/client'
-// import './db/kysely/queries/watchlist'
-
-// console.log("Imported appRouter:", appRouter);
-
-const app = express();
-
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
+    origin: "http://localhost:5173",
+    credentials: true
 }))
 
 async function main() {
-  app.use(
+    app.use(
     '/trpc',
-    trpcExpress.createExpressMiddleware({
-      router: appRouter,
-      createContext,
-      // onError: e => console.log("Error:", e.error)
+        trpcExpress.createExpressMiddleware({
+            router: appRouter,
+            createContext
+        })
+    )
+    app.listen(3000, ()=>{
+        console.log("Server running on http://localhost:3000")
     })
-  );
-
-
-  
-  app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
-  });
 }
-
 main()
-.catch(err => console.log(err))
-
-
+    .catch(err => console.log(err))
 export type AppRouter = typeof appRouter

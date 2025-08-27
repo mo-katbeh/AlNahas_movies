@@ -1,14 +1,10 @@
-import { usersRouter } from './users';
-// import { watchlistRouter } from './watchlist';
-import { publicProcedure, router } from '../init';
-import { movieRouter } from './movies';
+
+import {  router } from '../init';
+import { userRouter } from './userRouter';
 
 
 export const appRouter = router({
-  // test: publicProcedure.query(()=> 'hello'),
-  // watchlist: watchlistRouter,
-  user: usersRouter,
-  movie: movieRouter
+  user: userRouter
 });
 
 export type AppRouter = typeof appRouter;

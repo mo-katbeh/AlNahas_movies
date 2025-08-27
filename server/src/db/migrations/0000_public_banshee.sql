@@ -5,7 +5,7 @@ CREATE TABLE "movies" (
 	"release_year" integer NOT NULL,
 	"poster_url" text,
 	"description" text,
-	"update_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"is_deleted" boolean DEFAULT false
 );
@@ -23,9 +23,7 @@ CREATE TABLE "watchlist_items" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
 	"movie_id" uuid NOT NULL,
-	"status" text,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"status" text
 );
 --> statement-breakpoint
 CREATE TABLE "ratings" (
@@ -33,9 +31,7 @@ CREATE TABLE "ratings" (
 	"user_id" uuid,
 	"movie_id" uuid,
 	"rating" numeric,
-	"review" text,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"review" text
 );
 --> statement-breakpoint
 CREATE TABLE "user_profile" (

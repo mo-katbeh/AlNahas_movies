@@ -1,5 +1,4 @@
 import  db  from "../src/db/kysely/client"
-import { InsertWatchListItemType } from "../src/db/kysely/types";
 import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 
 
@@ -29,8 +28,8 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //       const rating = parseFloat((Math.random() * 5).toFixed(1));
 //       const review = rating!== null ? reviews[Math.floor(Math.random() * reviews.length)] : null
 //       inserts.push({
-//         userId: user.id,
-//         movieId: movie.id,
+//         user_id: user.id,
+//         movie_id: movie.id,
 //         rating,
 //         review
 //       })
@@ -52,26 +51,26 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     console.error(err);
 //     process.exit(1);
 //   });
-async function seedUserProfile() {
+// async function seedUserProfile() {
   
-  const users = await db.selectFrom('users').select('id').execute();
+//   const users = await db.selectFrom('users').select('id').execute();
  
-  if( !users.length) console.error(" users table empty")
-    // const userProfiles = await db
-    //   .selectFrom('userProfile')
-    //   .selectAll()
-    //   .execute()
+//   if( !users.length) console.error(" users table empty")
+//     // const userProfiles = await db
+//     //   .selectFrom('userProfile')
+//     //   .selectAll()
+//     //   .execute()
 
-      // console.log(userProfiles)
-  for( const user of users){
-    await db
-    .updateTable('userProfile')
-    .set({ userId: user.id})
-    .where('userId', 'is', null)
-    .execute() 
-    console.log("🎉 seeding complete!");
-}
- }
+//       // console.log(userProfiles)
+//   for( const user of users){
+//     await db
+//     .updateTable('user_profile')
+//     .set({ user_id: user.id})
+//     .where('user_id', 'is', null)
+//     .execute() 
+//     console.log("🎉 seeding complete!");
+// }
+//  }
 // seedUserProfile()
 //  .then(() => process.exit(0))
 //  .catch(err=>{
@@ -81,11 +80,13 @@ async function seedUserProfile() {
 //   process.exit(1)
 //  })
 
-async function seedingWatcList() {
+async function seedWatcList() {
+  
   const users = await db.selectFrom('users').select('id').execute();
   const movies = await db.selectFrom('movies').select('id').execute();
   const statusesMovie = ["planned", "watching", "completed"] as const
   const inserts = [];
+
   if(!users.length || !movies.length){
     console.log("users or movies table emptys")
   }
@@ -98,8 +99,8 @@ async function seedingWatcList() {
     for( const movie of selectedMovies){
     const status = statusesMovie[Math.floor(Math.random() * statusesMovie.length) ]
     inserts.push({
-      userId: user.id,
-      movieId: movie.id,
+      user_id: user.id,
+      movie_id: movie.id,
       status
       })
       }
@@ -108,13 +109,13 @@ async function seedingWatcList() {
     console.log("data inserted", inserts)
   if(inserts.length > 0){
     await db
-    .insertInto('watchListItems')
+    .insertInto('watchlist_items')
     .values(inserts)
     .execute();
-    console.log(`✅ Inserted ${inserts.length} watchlist items`);
+    // console.log(`✅ Inserted ${inserts.length} watchlist items`);
 }
 }
-seedingWatcList()
+seedWatcList()
   .then(()=> process.exit(0))
   .catch(err =>{
     console.log("seeding filed" ,err)
