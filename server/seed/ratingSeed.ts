@@ -54,7 +54,7 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 // async function seedUserProfile() {
   
 //   const users = await db.selectFrom('users').select('id').execute();
- 
+  // console.log(users)
 //   if( !users.length) console.error(" users table empty")
 //     // const userProfiles = await db
 //     //   .selectFrom('userProfile')
@@ -62,13 +62,15 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     //   .execute()
 
 //       // console.log(userProfiles)
-//   for( const user of users){
-//     await db
-//     .updateTable('user_profile')
-//     .set({ user_id: user.id})
-//     .where('user_id', 'is', null)
-//     .execute() 
-//     console.log("🎉 seeding complete!");
+  // const num = 1
+  // for( const user of users){
+  //   console.log(user)
+    // await db
+    // .updateTable('user_profile')
+    // .set({ user_id: null})
+    // .where('user_id', '=', "357c82bf-f5d3-4aab-96d3-0bfea7c673d3")
+    // .execute() 
+    // console.log("🎉 seeding complete!");
 // }
 //  }
 // seedUserProfile()
@@ -80,47 +82,47 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //   process.exit(1)
 //  })
 
-async function seedWatcList() {
+// async function seedWatcList() {
   
-  const users = await db.selectFrom('users').select('id').execute();
-  const movies = await db.selectFrom('movies').select('id').execute();
-  const statusesMovie = ["planned", "watching", "completed"] as const
-  const inserts = [];
+//   const users = await db.selectFrom('users').select('id').execute();
+//   const movies = await db.selectFrom('movies').select('id').execute();
+//   const statusesMovie = ["planned", "watching", "completed"] as const
+//   const inserts = [];
 
-  if(!users.length || !movies.length){
-    console.log("users or movies table emptys")
-  }
-  for(const user of users){
-    const numberOfMovies = Math.floor(Math.random() * 30) + 1
+//   if(!users.length || !movies.length){
+//     console.log("users or movies table emptys")
+//   }
+//   for(const user of users){
+//     const numberOfMovies = Math.floor(Math.random() * 30) + 1
 
-    const selectedMovies = [...movies]
-    .sort(()=> Math.random() -0.5)
-    .slice(0, numberOfMovies)
-    for( const movie of selectedMovies){
-    const status = statusesMovie[Math.floor(Math.random() * statusesMovie.length) ]
-    inserts.push({
-      user_id: user.id,
-      movie_id: movie.id,
-      status
-      })
-      }
-    }
-    console.log(`Prepared ${inserts.length} watchlist items for insertion`);
-    console.log("data inserted", inserts)
-  if(inserts.length > 0){
-    await db
-    .insertInto('watchlist_items')
-    .values(inserts)
-    .execute();
-    // console.log(`✅ Inserted ${inserts.length} watchlist items`);
-}
-}
-seedWatcList()
-  .then(()=> process.exit(0))
-  .catch(err =>{
-    console.log("seeding filed" ,err)
-    process.exit(1)
-  })
+//     const selectedMovies = [...movies]
+//     .sort(()=> Math.random() -0.5)
+//     .slice(0, numberOfMovies)
+//     for( const movie of selectedMovies){
+//     const status = statusesMovie[Math.floor(Math.random() * statusesMovie.length) ]
+//     inserts.push({
+//       user_id: user.id,
+//       movie_id: movie.id,
+//       status
+//       })
+//       }
+//     }
+//     console.log(`Prepared ${inserts.length} watchlist items for insertion`);
+//     console.log("data inserted", inserts)
+//   if(inserts.length > 0){
+//     await db
+//     .insertInto('watchlist_items')
+//     .values(inserts)
+//     .execute();
+//     // console.log(`✅ Inserted ${inserts.length} watchlist items`);
+// }
+// }
+// seedWatcList()
+//   .then(()=> process.exit(0))
+//   .catch(err =>{
+//     console.log("seeding filed" ,err)
+//     process.exit(1)
+//   })
 // const TMDB_KEY = "dc936e880bf6db6c7cf751021d426b0d";
 // const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w500";
 

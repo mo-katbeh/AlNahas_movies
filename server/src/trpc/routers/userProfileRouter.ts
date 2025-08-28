@@ -1,5 +1,5 @@
 import db from "../../db/kysely/client";
-import { createUserProfileSchema, deleteUserProfileSchema } from "../../db/zod/userProfileType";
+import { createUserProfileSchema, deleteUserProfileSchema, updateUserProfileSchema } from "../../db/zod/userProfileType";
 import { publicProcedure, router } from "../init";
 
 
@@ -8,7 +8,7 @@ export const userProfileRouter = router({
         .input( createUserProfileSchema)
         .mutation(async({ input })=>{
             try{
-            const userProfile = await  db
+             await  db
              .insertInto('user_profile')
              .values({
                 user_id: input.userId,
@@ -20,14 +20,47 @@ export const userProfileRouter = router({
 
              })
              .execute()
-
-             console.log("User Profile", userProfile)
+            const createUserProfileResult =  await db
+              .selectFrom('user_profile')
+              .selectAll()
+              .where('user_profile.user_id', '=', input.userId)
+              .execute()
+             console.log("User Profile", createUserProfileResult)
+             return createUserProfileResult;
             }
             catch(err){
                 console.log("Failed creating user profile's")
             }
 
         }),
+    updateUserProfile: 
+        publicProcedure
+        .input( updateUserProfileSchema)
+        .mutation(async({ input })=>{
+            try{
+             await db
+                .updateTable('user_profile')
+                .set( { 
+                    first_name: input.firstName,
+                    last_name: input.lastName,
+                    birth_date: input.birthDate,
+                    phone_number: input.phoneNumber
+                })
+                .where("user_profile.id", "=", input.id)
+                .execute()
+            const updateUserProfileResult =  await db
+                .selectFrom('user_profile')
+                .selectAll()
+                .where('user_profile.id', '=', input.id)
+                .execute()
+            console.log("New user profile info:", updateUserProfileResult)
+            return updateUserProfileResult;
+            }
+            catch(err){
+                console.log("Updating user profile failed", err)
+            }
+        })
+       ,
     deleteUserProfile: publicProcedure
         .input( deleteUserProfileSchema )
         .mutation( async({input})=>{

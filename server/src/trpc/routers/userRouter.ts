@@ -9,6 +9,7 @@ export const userRouter = router({
     .mutation(async({input})=>{
         try{
             const newUser = await createUser(input.email)
+            console.log("new user info",newUser)
             return newUser
         }
         catch(err){

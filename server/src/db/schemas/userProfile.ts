@@ -1,11 +1,12 @@
 import { date, integer, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { UserTable } from "./indexTables";
 import { relations } from "drizzle-orm";
+import { table } from "console";
 
 
 export const UserProfileTable = pgTable("user_profile",{
     id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('user_id').references(() => UserTable.id, {onDelete: "cascade"}),
+    userId: uuid('user_id').references(() => UserTable.id, {onDelete: "cascade"}).unique(),
     birthDate: date('birth_date'),
     firstName: text('first_name'),
     lastName: text('last_name'),

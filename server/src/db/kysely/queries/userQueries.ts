@@ -3,7 +3,7 @@ import db from "../client";
 
 
 export async function createUser( userEmail: string ) {
-     await db
+      await db
      .insertInto('users')
      .values({  
         email: userEmail,

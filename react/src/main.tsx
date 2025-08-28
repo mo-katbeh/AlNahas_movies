@@ -17,13 +17,28 @@ const trpcClient = trpc.createClient({
   ],
 });
 async function main() {
-  // const result = await trpcClient.user.createUser.mutate({
-  //   email: "golde2n@ads.com",
+  // const userAddResult = await trpcClient.user.createUser.mutate({
+  //   email: "mohammad.ka6@gmail.com",
   // });
-  const result = await trpcClient.user.deleteUserById.mutate({
-    id: "bca16bc5-0df8-413d-aaa4-7af2f4313676",
-  });
-  console.log("result", result);
+  // console.log(userAddResult);
+  // const userProfileResult =
+  //   await trpcClient.userProfile.createUserProfile.mutate({
+  //     userId: "cf01ae0e-0176-4a01-b3fa-b7503588fcc4",
+  //     firstName: "mohammad",
+  //     lastName: "katbeh",
+  //     gender: "male",
+  //   });
+  // console.log(userProfileResult);
+  const updateUserProfileResult =
+    await trpcClient.userProfile.updateUserProfile.mutate({
+      id: "58e3b20b-a285-4137-9f18-0c1f0c9f4ee1",
+      birthDate: "2001-05-23",
+    });
+  console.log(updateUserProfileResult);
+  // const result = await trpcClient.userProfile.deleteUserProfile.mutate({
+  //   id: "cf01ae0e-0176-4a01-b3fa-b7503588fcc4",
+  // });
+  // console.log("result", result);
 }
 main();
 
