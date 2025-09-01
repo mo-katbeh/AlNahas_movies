@@ -5,6 +5,7 @@ export const watchListItemRouter = router({
     getWatcListItem: publicProcedure
      .query(async({ctx})=>{
         try{
+            
             const resultWatchList = await ctx.db
                 .selectFrom('watchlist_items as wl')
             

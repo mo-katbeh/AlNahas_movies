@@ -1,3 +1,5 @@
+import { title } from "process";
+import db from "../../db/kysely/client";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../db/zod/movieType";
 import { adminPocedure, publicProcedure, router } from "../init";
 
@@ -6,23 +8,21 @@ export const movieRouter = router({
         .input( createMovieSchema )
         .mutation(async({ ctx, input })=>{
             try{
-            await  ctx.db
-                .insertInto('movies')
-                .values({
-                title: input.title,
-                genre: input.genre,
-                release_year: input.releaseYear,
-                poster_url: input.posterUrl,
-                description: input.description
-                })
-                .execute()
-            const creataeMovie = await ctx.db
-                .selectFrom('movies')
-                .selectAll()
-                .where('movies.title', '=', input.title)
-                .execute()
-                console.log("Movie :", creataeMovie)
-                return creataeMovie;
+            const movie = await ctx.db.transaction().execute(async (trx)=>{
+                await trx
+                    .insertInto('movies')
+                    .values({
+                    title: input.title,
+                    genre: input.genre,
+                    release_year: input.releaseYear,
+                    poster_url: input.posterUrl,
+                    description: input.description
+                    })
+                    .returning('title')
+                    .executeTakeFirstOrThrow()
+            })
+            console.log("Movie :", movie)
+                return movie;
             }
             catch(err){
                 console.log("Failed creating user profile's")

@@ -1,21 +1,27 @@
 import { publicProcedure, router } from "../init";
 import { createUserSchema, delelteUserSchema } from "../../db/zod/userType";
+import tr from "zod/v4/locales/tr.cjs";
 
 export const userRouter = router({
     createUser: publicProcedure
     .input( createUserSchema )
     .mutation(async({ctx, input})=>{
+        const trx = await ctx.db.startTransaction().execute()
         try{
-            const newUser =await ctx.db
+            const newUser =await 
+                trx
                 .insertInto('users')
                 .values({  
                     email: input.email,
                 })
+                .returningAll()
                 .execute()
+            await trx.commit().execute()
             console.log("new user info",newUser)
             return newUser
         }
         catch(err){
+            await trx.rollback().execute()
             console.log("tRPC", err);
             throw new Error('Failed to fetch users');
         }

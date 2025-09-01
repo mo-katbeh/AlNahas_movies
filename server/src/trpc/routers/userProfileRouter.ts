@@ -7,7 +7,7 @@ export const userProfileRouter = router({
         .input( createUserProfileSchema)
         .mutation(async({ ctx, input })=>{
             try{
-             await  ctx.db
+            const createUserProfileResult =  await  ctx.db
              .insertInto('user_profile')
              .values({
                 user_id: input.userId,
@@ -18,12 +18,9 @@ export const userProfileRouter = router({
                 phone_number: input.phoneNumber
 
              })
+             .returningAll()
              .execute()
-            const createUserProfileResult =  await ctx.db
-              .selectFrom('user_profile')
-              .selectAll()
-              .where('user_profile.user_id', '=', input.userId)
-              .execute()
+             
              console.log("User Profile", createUserProfileResult)
              return createUserProfileResult;
             }
@@ -37,7 +34,7 @@ export const userProfileRouter = router({
         .input( updateUserProfileSchema)
         .mutation(async({ ctx, input })=>{
             try{
-             await ctx.db
+             const updateUserProfileResult = await ctx.db
                 .updateTable('user_profile')
                 .set( { 
                     first_name: input.firstName,
@@ -46,12 +43,9 @@ export const userProfileRouter = router({
                     phone_number: input.phoneNumber
                 })
                 .where("user_profile.id", "=", input.id)
+                .returningAll()
                 .execute()
-            const updateUserProfileResult =  await ctx.db
-                .selectFrom('user_profile')
-                .selectAll()
-                .where('user_profile.id', '=', input.id)
-                .execute()
+             
             console.log("New user profile info:", updateUserProfileResult)
             return updateUserProfileResult;
             }
@@ -67,8 +61,10 @@ export const userProfileRouter = router({
                 const resultOfDelete = await ctx.db
                  .deleteFrom('user_profile')
                  .where('user_profile.id', '=', input.id)
+                 .returningAll()
                  .executeTakeFirst()
-                console.log("nummber of rows deleted: ", resultOfDelete.numDeletedRows)
+                console.log("nummber of rows deleted: ", resultOfDelete)
+                return resultOfDelete
 
             }
             catch(err){
