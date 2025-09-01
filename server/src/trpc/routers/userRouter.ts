@@ -1,14 +1,17 @@
 import { publicProcedure, router } from "../init";
-import { createUser,  deleteUserById, updateUser } from "../../db/kysely/queries/userQueries"
 import { createUserSchema, delelteUserSchema } from "../../db/zod/userType";
-import { z } from "zod"
-import { log } from "console";
+
 export const userRouter = router({
     createUser: publicProcedure
     .input( createUserSchema )
-    .mutation(async({input})=>{
+    .mutation(async({ctx, input})=>{
         try{
-            const newUser = await createUser(input.email)
+            const newUser =await ctx.db
+                .insertInto('users')
+                .values({  
+                    email: input.email,
+                })
+                .execute()
             console.log("new user info",newUser)
             return newUser
         }
@@ -17,18 +20,16 @@ export const userRouter = router({
             throw new Error('Failed to fetch users');
         }
     }),
-    selectAll: publicProcedure
-    .query(async()=>{
-        const users = await updateUser()
-        console.log(users)
-        return users
-
-    }),
     deleteUserById: publicProcedure
     .input(delelteUserSchema)
-    .mutation(async({input})=>{
+    .mutation(async({ctx, input})=>{
         try{
-            await deleteUserById(input.id)
+            const result =await ctx.db
+                .deleteFrom('users')
+                .where('users.id', '=', input.id)
+                .executeTakeFirst()
+
+      console.log(result.numDeletedRows)
         }
         catch(err){
             console.log("Faild to delete user", err)

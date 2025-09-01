@@ -1,4 +1,3 @@
-import db from "../../db/kysely/client";
 import { createUserProfileSchema, deleteUserProfileSchema, updateUserProfileSchema } from "../../db/zod/userProfileType";
 import { publicProcedure, router } from "../init";
 
@@ -6,9 +5,9 @@ import { publicProcedure, router } from "../init";
 export const userProfileRouter = router({
     createUserProfile: publicProcedure
         .input( createUserProfileSchema)
-        .mutation(async({ input })=>{
+        .mutation(async({ ctx, input })=>{
             try{
-             await  db
+             await  ctx.db
              .insertInto('user_profile')
              .values({
                 user_id: input.userId,
@@ -20,7 +19,7 @@ export const userProfileRouter = router({
 
              })
              .execute()
-            const createUserProfileResult =  await db
+            const createUserProfileResult =  await ctx.db
               .selectFrom('user_profile')
               .selectAll()
               .where('user_profile.user_id', '=', input.userId)
@@ -36,9 +35,9 @@ export const userProfileRouter = router({
     updateUserProfile: 
         publicProcedure
         .input( updateUserProfileSchema)
-        .mutation(async({ input })=>{
+        .mutation(async({ ctx, input })=>{
             try{
-             await db
+             await ctx.db
                 .updateTable('user_profile')
                 .set( { 
                     first_name: input.firstName,
@@ -48,7 +47,7 @@ export const userProfileRouter = router({
                 })
                 .where("user_profile.id", "=", input.id)
                 .execute()
-            const updateUserProfileResult =  await db
+            const updateUserProfileResult =  await ctx.db
                 .selectFrom('user_profile')
                 .selectAll()
                 .where('user_profile.id', '=', input.id)
@@ -63,9 +62,9 @@ export const userProfileRouter = router({
        ,
     deleteUserProfile: publicProcedure
         .input( deleteUserProfileSchema )
-        .mutation( async({input})=>{
+        .mutation( async({ctx, input})=>{
             try{
-                const resultOfDelete = await db
+                const resultOfDelete = await ctx.db
                  .deleteFrom('user_profile')
                  .where('user_profile.id', '=', input.id)
                  .executeTakeFirst()

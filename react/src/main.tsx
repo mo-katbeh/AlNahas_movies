@@ -29,16 +29,25 @@ async function main() {
   //     gender: "male",
   //   });
   // console.log(userProfileResult);
-  const updateUserProfileResult =
-    await trpcClient.userProfile.updateUserProfile.mutate({
-      id: "58e3b20b-a285-4137-9f18-0c1f0c9f4ee1",
-      birthDate: "2001-05-23",
-    });
-  console.log(updateUserProfileResult);
+  // const updateUserProfileResult =
+  //   await trpcClient.userProfile.updateUserProfile.mutate({
+  //     id: "58e3b20b-a285-4137-9f18-0c1f0c9f4ee1",
+  //     birthDate: "2001-05-23",
+  //   });
+  // console.log(updateUserProfileResult);
   // const result = await trpcClient.userProfile.deleteUserProfile.mutate({
   //   id: "cf01ae0e-0176-4a01-b3fa-b7503588fcc4",
   // });
   // console.log("result", result);
+
+  // const createMovie = await trpcClient.movie.createmovie.mutate({
+  //   title: "The Kingdom",
+  //   genre: "Action",
+  //   releaseYear: 2019,
+  // });
+  // console.log("Movie info", createMovie);
+  const gitAllWatchList = trpcClient.watchlist.getWatcListItem.query();
+  console.log(gitAllWatchList);
 }
 main();
 
