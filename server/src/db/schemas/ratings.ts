@@ -1,11 +1,11 @@
-import { decimal, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { bigint, decimal, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { UserTable, MovieTable } from "./indexTables"
 import { relations } from "drizzle-orm";
 
 
 
 export const RatingsTable = pgTable("ratings",{
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
     movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
     rating: decimal('rating').$type<number>(),

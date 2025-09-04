@@ -1,9 +1,9 @@
-import { uuid, z } from "zod"
+import { z } from "zod"
 
 export const watchListItemSchema =  z.object({
-    id: uuid(),
-    userId: uuid(),
-    movieId: uuid(),
+    id: z.coerce.bigint(),
+    userId: z.coerce.bigint(),
+    movieId: z.coerce.bigint(),
     status: z.literal(["planned", "watching", "completed"]).default("planned")
 })
 

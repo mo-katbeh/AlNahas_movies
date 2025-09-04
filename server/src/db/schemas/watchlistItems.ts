@@ -1,9 +1,9 @@
-import { pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { bigint, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { MovieTable, UserTable } from './indexTables';
 import { relations } from "drizzle-orm";
 
 export const WatchListItemTable = pgTable("watchlist_items",{
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
     movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
     status: text('status'),

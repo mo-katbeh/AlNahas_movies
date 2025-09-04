@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
-import { boolean, date, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { bigint, boolean, date, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { RatingsTable, WatchListItemTable, UserProfileTable } from "./indexTables";
 
 
 export const UserTable = pgTable("users",{
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     role: text('role').default('user'),
     email: text('email').notNull(),
     createdAt: timestamp('created_at').notNull().defaultNow(),

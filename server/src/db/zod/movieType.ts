@@ -9,7 +9,7 @@ export const createMovieSchema = z.object({
 }).partial({posterUrl: true, description: true});
 
 export const updateMovieSchema = z.object({
-  id: uuid(),
+  id: z.coerce.bigint(),
   title: z.string().min(3).max(100),
   genre: z.string().min(3).max(100),
   releaseYear: z.coerce.number().min(1900).max(new Date().getFullYear()),
@@ -17,7 +17,8 @@ export const updateMovieSchema = z.object({
   description: z.string().min(10).max(2000),
 }).partial({title:true, genre:true, releaseYear:true, posterUrl: true, description: true});
 export const deleteMovieSchema = z.object({
-  id: uuid(),
+    id: z.coerce.bigint(),
+
 })
 
 export type MovieInput = z.infer<typeof createMovieSchema>;

@@ -1,16 +1,17 @@
 import { uuid, z } from 'zod';
 
+const genderEnum = ["male", "female"] as const
 export const createUserProfileSchema = z.object({
-    userId: uuid(),
+    userId: z.coerce.bigint(),
     birthDate: z.iso.date().max(new Date().getFullYear() - 12),
     firstName: z.string().min(3),
     lastName: z.string().min(3),
-    gender: z.literal(["male", "female"]),
+    gender: z.enum(genderEnum),
     phoneNumber: z.coerce.string().min(6)
 }).partial({ firstName:true, lastName:true, birthDate: true, phoneNumber: true });
 
 export const updateUserProfileSchema = z.object({
-    id: uuid(),
+    id: z.coerce.bigint(),
     birthDate: z.iso.date().max(new Date().getFullYear() - 12),
     firstName: z.string().min(3),
     lastName: z.string().min(3),
@@ -18,7 +19,7 @@ export const updateUserProfileSchema = z.object({
 }).partial({firstName:true, lastName:true,  phoneNumber: true, birthDate: true})
 
 export const deleteUserProfileSchema = z.object({
-    id: uuid(),
+    id: z.coerce.bigint(),
 })
 
 
