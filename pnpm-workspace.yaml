@@ -1,5 +1,4 @@
 packages:
   - server/*
   - react/*
-  - shared/*
   - infra/*
