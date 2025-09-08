@@ -18,7 +18,7 @@ function NavigationMenu({
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative flex flex-1/4 items-center justify-items",
+        "group/navigation-menu relative flex flex-1/2 items-center justify-items",
         className
       )}
       {...props}
@@ -161,5 +161,5 @@ export {
   NavigationMenuLink,
   NavigationMenuIndicator,
   NavigationMenuViewport,
-  navigationMenuTriggerStyle,
+  // navigationMenuTriggerStyle,
 };
