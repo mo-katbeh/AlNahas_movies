@@ -11,6 +11,7 @@ export const movieRouter = router({
                 .selectAll()
                 .limit(20)
                 .execute() 
+            return movies
         }),
     createmovie: adminPocedure
         .input( createMovieSchema )

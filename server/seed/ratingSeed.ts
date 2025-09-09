@@ -51,43 +51,43 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     console.error(err);
 //     process.exit(1);
 //   });
-// async function seedUserProfile() {
+async function seedUserProfile() {
   
-//   const users = await db.selectFrom('users').select('id').execute();
-//   console.log(users)
-//   if( !users.length) console.error(" users table empty")
-//     const profiles = await db
-//     .selectFrom('user_profile')
-//     .select(['id', 'user_id'])
-//     .where('user_id', 'is', null)   // only empty ones
-//     .execute();
-//     if (!profiles.length) {
-//     console.log("ℹ️ No user profiles to update");
-//     return;
-//   }
+  const users = await db.selectFrom('users').select('id').execute();
+  console.log(users)
+  if( !users.length) console.error(" users table empty")
+    const profiles = await db
+    .selectFrom('user_profile')
+    .select(['id', 'user_id'])
+    .where('user_id', 'is', null)   // only empty ones
+    .execute();
+    if (!profiles.length) {
+    console.log("ℹ️ No user profiles to update");
+    return;
+  }
 
-//   const num = 1
-//   for (let i = 0; i < profiles.length && i < users.length; i++) {
-//     const profile = profiles[i];
-//     const user = users[i]; // match 1-to-1
+  const num = 1
+  for (let i = 0; i < profiles.length && i < users.length; i++) {
+    const profile = profiles[i];
+    const user = users[i]; // match 1-to-1
 
-//     await db
-//       .updateTable('user_profile')
-//       .set({ user_id: user.id })   // ✅ set user_id, not null
-//       .where('id', '=', profile.id)
-//       .execute();
+    await db
+      .updateTable('user_profile')
+      .set({ user_id: user.id })   // ✅ set user_id, not null
+      .where('id', '=', profile.id)
+      .execute();
 
-//     console.log(`✅ Linked profile ${profile.id} → user ${user.id}`);
-//   }
-//  }
-// seedUserProfile()
-//  .then(() => process.exit(0))
-//  .catch(err=>{
-//   console.log("❌ Seeding failed:", err
+    console.log(`✅ Linked profile ${profile.id} → user ${user.id}`);
+  }
+ }
+seedUserProfile()
+ .then(() => process.exit(0))
+ .catch(err=>{
+  console.log("❌ Seeding failed:", err
 
-//   );
-//   process.exit(1)
-//  })
+  );
+  process.exit(1)
+ })
 
 // async function seedWatcList() {
   

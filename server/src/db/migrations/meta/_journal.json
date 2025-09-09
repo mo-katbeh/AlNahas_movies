@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1756297736223,
-      "tag": "0000_public_banshee",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1756307314163,
-      "tag": "0001_rare_miek",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1756368544398,
-      "tag": "0002_premium_newton_destine",
+      "when": 1757418188630,
+      "tag": "0000_mushy_stardust",
       "breakpoints": true
     }
   ]

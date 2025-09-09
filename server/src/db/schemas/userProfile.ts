@@ -6,7 +6,7 @@ import { table } from "console";
 
 export const UserProfileTable = pgTable("user_profile",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
-    userId: uuid('user_id').references(() => UserTable.id, {onDelete: "cascade"}).unique(),
+    userId: bigint('user_id', {mode: 'bigint'}).references(() => UserTable.id, {onDelete: "cascade"}).unique(),
     birthDate: date('birth_date'),
     firstName: text('first_name'),
     lastName: text('last_name'),

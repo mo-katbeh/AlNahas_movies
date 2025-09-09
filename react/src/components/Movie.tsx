@@ -1,10 +1,15 @@
-import React from "react";
-import { trpc } from "utils/trpc";
+import { trpc } from "../../utils/trpc";
 
 const Movie = () => {
-  const { data: movies, isLodaing, error } = trpc.movie.fetchMovies.useQuery();
+  const { data: movies } = trpc.movie.fetchMovies.useQuery();
 
-  return <div>Movie</div>;
+  return (
+    <div>
+      {movies?.map((movie) => (
+        <li key={movie.id}>{movie.title}</li>
+      ))}
+    </div>
+  );
 };
 
 export default Movie;

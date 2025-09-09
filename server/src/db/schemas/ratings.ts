@@ -6,8 +6,8 @@ import { relations } from "drizzle-orm";
 
 export const RatingsTable = pgTable("ratings",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
-    userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
-    movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
+    userId: bigint('user_id', {mode: 'bigint'}).references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
+    movieId: bigint('movie_id', {mode: 'bigint'}).references(()=> MovieTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
     rating: decimal('rating').$type<number>(),
     review: text('review'),
 },table=>[

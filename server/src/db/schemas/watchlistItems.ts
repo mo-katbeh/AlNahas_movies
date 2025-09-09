@@ -4,8 +4,8 @@ import { relations } from "drizzle-orm";
 
 export const WatchListItemTable = pgTable("watchlist_items",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
-    userId: uuid('user_id').references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
-    movieId: uuid('movie_id').references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
+    userId: bigint('user_id', {mode: 'bigint'}).references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
+    movieId: bigint('movie_id', {mode: 'bigint'}).references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
     status: text('status'),
     
 },table =>[

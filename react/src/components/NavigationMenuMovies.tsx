@@ -1,13 +1,3 @@
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  // NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  // NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
 import theaterImage from "../assets/theater.jpg";
 import { IoSearchOutline } from "react-icons/io5";

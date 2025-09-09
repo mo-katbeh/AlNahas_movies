@@ -1,5 +1,5 @@
 {
-  "id": "fb3da784-45bb-4a38-a883-bb91742b5c90",
+  "id": "bf80f843-81ff-4e8d-8e01-6c46e0c70e0c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,10 +10,20 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "identity": {
+            "type": "always",
+            "name": "movies_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "title": {
           "name": "title",
@@ -81,10 +91,20 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "identity": {
+            "type": "always",
+            "name": "users_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "role": {
           "name": "role",
@@ -151,20 +171,30 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "identity": {
+            "type": "always",
+            "name": "watchlist_items_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
         "movie_id": {
           "name": "movie_id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
@@ -238,20 +268,30 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "identity": {
+            "type": "always",
+            "name": "ratings_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
         },
         "movie_id": {
           "name": "movie_id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
         },
@@ -331,14 +371,24 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "identity": {
+            "type": "always",
+            "name": "user_profile_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
         },
@@ -364,7 +414,7 @@
           "name": "gender",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone_number": {
           "name": "phone_number",
@@ -404,7 +454,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "user_profile_user_id_unique": {
+          "name": "user_profile_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

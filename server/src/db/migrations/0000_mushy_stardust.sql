@@ -1,5 +1,5 @@
 CREATE TABLE "movies" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "movies_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
 	"title" text NOT NULL,
 	"genre" text,
 	"release_year" integer NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "movies" (
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
 	"role" text DEFAULT 'user',
 	"email" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
@@ -20,30 +20,31 @@ CREATE TABLE "users" (
 );
 --> statement-breakpoint
 CREATE TABLE "watchlist_items" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"user_id" uuid NOT NULL,
-	"movie_id" uuid NOT NULL,
+	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "watchlist_items_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
+	"user_id" bigint NOT NULL,
+	"movie_id" bigint NOT NULL,
 	"status" text
 );
 --> statement-breakpoint
 CREATE TABLE "ratings" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"user_id" uuid,
-	"movie_id" uuid,
+	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "ratings_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
+	"user_id" bigint,
+	"movie_id" bigint,
 	"rating" numeric,
 	"review" text
 );
 --> statement-breakpoint
 CREATE TABLE "user_profile" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"user_id" uuid,
+	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "user_profile_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
+	"user_id" bigint,
 	"birth_date" date,
 	"first_name" text,
 	"last_name" text,
-	"gender" text NOT NULL,
+	"gender" text,
 	"phone_number" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "user_profile_user_id_unique" UNIQUE("user_id")
 );
 --> statement-breakpoint
 ALTER TABLE "watchlist_items" ADD CONSTRAINT "watchlist_items_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
