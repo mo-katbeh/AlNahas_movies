@@ -21,7 +21,7 @@ export function NavigationMenuMovies() {
         className="min-h-screen bg-cover bg-center overflow-y-hidden"
         style={{ backgroundImage: `url(${theaterImage})` }}
       >
-        <div className="flex flex-row-reverse m-4 gap-2">
+        <div className="flex flex-row-reverse p-1 gap-2 mr-1 mt-1">
           <TfiMoreAlt color="white" size="12" />
           <CgProfile color="white" size="12" />
           <MdOutlineNotificationsNone color="white" size="12" />

@@ -4,6 +4,14 @@ import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../d
 import { adminPocedure, publicProcedure, router } from "../init";
 
 export const movieRouter = router({
+    fetchMovies: adminPocedure
+        .query(async({ ctx })=>{
+            const movies = await ctx.db
+                .selectFrom('movies')
+                .selectAll()
+                .limit(20)
+                .execute() 
+        }),
     createmovie: adminPocedure
         .input( createMovieSchema )
         .mutation(async({ ctx, input })=>{
