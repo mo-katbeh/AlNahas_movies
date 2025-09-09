@@ -55,8 +55,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <ReactQueryDevtools />
         <App />
+        <ReactQueryDevtools />
       </trpc.Provider>
     </QueryClientProvider>
   </StrictMode>

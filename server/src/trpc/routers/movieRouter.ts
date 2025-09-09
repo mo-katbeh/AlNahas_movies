@@ -1,15 +1,19 @@
-import { title } from "process";
-import db from "../../db/kysely/client";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../db/zod/movieType";
 import { adminPocedure, publicProcedure, router } from "../init";
-
+import { z } from "zod"
 export const movieRouter = router({
     fetchMovies: adminPocedure
-        .query(async({ ctx })=>{
+        .input(z.object({
+            page: z.number(),
+            pageSize: z.number()
+        }))
+        .query(async({ ctx, input })=>{
+            const {page, pageSize}= input;
             const movies = await ctx.db
                 .selectFrom('movies')
                 .selectAll()
-                .limit(20)
+                .limit(pageSize)
+                .offset((page -1)* pageSize)
                 .execute() 
             return movies
         }),
