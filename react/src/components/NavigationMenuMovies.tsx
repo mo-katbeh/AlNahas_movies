@@ -4,6 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
+import Movie from "./Movie";
 export function NavigationMenuMovies() {
   return (
     <>
@@ -11,19 +12,20 @@ export function NavigationMenuMovies() {
         className="min-h-screen bg-cover bg-center overflow-y-hidden"
         style={{ backgroundImage: `url(${theaterImage})` }}
       >
-        <div className="flex flex-row-reverse p-1 gap-2 mr-1 mt-1">
-          <TfiMoreAlt color="white" size="12" />
-          <CgProfile color="white" size="12" />
-          <MdOutlineNotificationsNone color="white" size="12" />
-          <IoSearchOutline color="white" size="12" />
+        <div className="flex flex-row-reverse  gap-4 mr-12 mt-6">
+          <TfiMoreAlt color="white" size="30" />
+          <CgProfile color="white" size="30" />
+          <MdOutlineNotificationsNone color="white" size="30" />
+          <IoSearchOutline color="white" size="30" />
         </div>
-        <div className="flex flex-row justify-center gap-2 font-medium bg-fixed">
+        <div className="flex flex-row justify-center gap-8  pt-4 pb-16 bg-fixed">
           <Button variant="move_nav">Home</Button>
           <Button variant="move_nav">Series</Button>
           <Button variant="move_nav">Movies</Button>
           <Button variant="move_nav">Latest</Button>
           <Button variant="move_nav">WatchList</Button>
         </div>
+        <Movie />
       </div>
     </>
   );

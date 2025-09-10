@@ -130,61 +130,63 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     console.log("seeding filed" ,err)
 //     process.exit(1)
 //   })
-const TMDB_KEY = "dc936e880bf6db6c7cf751021d426b0d";
-const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
-async function fetchTmdbPoster(title: string, year?: number) {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}${year ? `&year=${year}` : ""}`;
-  const res = await fetch(url);
-  const data = await res.json();
 
-  if (data.results && data.results.length > 0) {
-    const posterPath = data.results[0].poster_path;
-    return posterPath ? `${TMDB_IMG_BASE}${posterPath}` : null;
-  }
+// const TMDB_KEY = "dc936e880bf6db6c7cf751021d426b0d";
+// const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
-  return null;
-}
+// async function fetchTmdbPoster(title: string, year?: number) {
+//   const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}${year ? `&year=${year}` : ""}`;
+//   const res = await fetch(url);
+//   const data = await res.json();
 
-async function seedPosterUrls() {
-  const movies = await db
-    .selectFrom('movies')
-    .select(['id', 'title', 'release_year'])
-    .execute();
+//   if (data.results && data.results.length > 0) {
+//     const posterPath = data.results[0].poster_path;
+//     return posterPath ? `${TMDB_IMG_BASE}${posterPath}` : null;
+//   }
 
-  for (const movie of movies) {
-    try {
-      let poster = await fetchTmdbPoster(movie.title, movie.release_year);
-      if (!poster) {
-        // Try without year if no match
-        poster = await fetchTmdbPoster(movie.title);
-      }
+//   return null;
+// }
 
-      if (poster) {
-        await db
-          .updateTable('movies')
-          .set({ poster_url: poster })
-          .where('movies.id', '=', movie.id)
-          .execute();
+// async function seedPosterUrls() {
+//   const movies = await db
+//     .selectFrom('movies')
+//     .select(['id', 'title', 'release_year'])
+//     .execute();
 
-        console.log(`✅ Updated: ${movie.title}`);
-      } else {
-        console.warn(`⚠ No poster found for: ${movie.title}`);
-      }
-    } catch (err) {
-      console.error(`❌ Error updating ${movie.title}:`, err);
-    }
-  }
+//   for (const movie of movies) {
+//     try {
+//       let poster = await fetchTmdbPoster(movie.title, movie.release_year);
+//       if (!poster) {
+//         // Try without year if no match
+//         poster = await fetchTmdbPoster(movie.title);
+//       }
 
-  console.log("🎉 Poster URLs seeding complete!");
-}
+//       if (poster) {
+//         await db
+//           .updateTable('movies')
+//           .set({ poster_url: poster })
+//           .where('movies.id', '=', movie.id)
+//           .execute();
 
-seedPosterUrls()
-  .then(() => process.exit(0))
-  .catch((err) => {
-    console.error("❌ Seeding failed:", err);
-    process.exit(1);
-  });
+//         console.log(`✅ Updated: ${movie.title}`);
+//       } else {
+//         console.warn(`⚠ No poster found for: ${movie.title}`);
+//       }
+//     } catch (err) {
+//       console.error(`❌ Error updating ${movie.title}:`, err);
+//     }
+//   }
+
+//   console.log("🎉 Poster URLs seeding complete!");
+// }
+
+// seedPosterUrls()
+//   .then(() => process.exit(0))
+//   .catch((err) => {
+//     console.error("❌ Seeding failed:", err);
+//     process.exit(1);
+//   });
 
 
 // async function seedWatchlistItems() {

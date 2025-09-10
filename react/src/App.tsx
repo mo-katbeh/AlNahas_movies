@@ -1,6 +1,6 @@
 // import MovieGrid from "./components/MovieGrid";
-import Movie from "./components/Movie";
-// import { NavigationMenuMovies } from "./components/NavigationMenuMovies";
+// import Movie from "./components/Movie";
+import { NavigationMenuMovies } from "./components/NavigationMenuMovies";
 // import ScrollAreaHorizontalDemo from "./components/ScrollAreaHorizontalDemo";
 // import User from "./components/User";
 // import EmailForm from "./components/Form/EmailForm";
@@ -9,8 +9,8 @@ function App() {
   return (
     <>
       {/* <User /> */}
-      {/* <NavigationMenuMovies /> */}
-      <Movie />
+      <NavigationMenuMovies />
+      {/* <Movie /> */}
       {/* <ScrollAreaHorizontalDemo /> */}
     </>
   );
