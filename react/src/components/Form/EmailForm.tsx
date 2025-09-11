@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 
-interface Props {
-  onSubmit: (email: string) => void;
-}
-const EmailForm: React.FC<Props> = ({ onSubmit }) => {
+// interface Props {
+//   onSubmit: (email: string) => void;
+// }
+const EmailForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const validateEmail = (value: string) => {
-    // simple email regex
-    return /\S+@\S+\.\S+/.test(value);
-  };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateEmail(email)) {
-      setError("Enter a valid email!!");
-    }
-  };
-  setError("");
-  onSubmit(email);
-  setEmail("");
+  // const validateEmail = (value: string) => {
+  //   // simple email regex
+  //   return /\S+@\S+\.\S+/.test(value);
+  // };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!validateEmail(email)) {
+  //     setError("Enter a valid email!!");
+  //   }
+  // };
+  // setError("");
+  // onSubmit(email);
+  // setEmail("");
 
   return (
     <form
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       className="max-w-sm mx-auto p-4 bg-white rounded-md shadow-md"
     >
       <label

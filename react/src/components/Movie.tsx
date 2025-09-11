@@ -2,11 +2,8 @@ import { trpc } from "../../utils/trpc";
 import { Button } from "./ui/button";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { FaChevronRight } from "react-icons/fa6";
+
 const Movie = () => {
-  // const{data: movies, } = trpc.movie.infinitMovies.useInfiniteQuery(
-  //   {limit: 10},
-  //   {getNextPageParam: (lastPage)=> lastPage.nextCursor }
-  // )
   const {
     data: movies,
     error,
@@ -30,7 +27,7 @@ const Movie = () => {
             <figure key={movie.id} className="shrink-0">
               <div className="w-[250px] h-[300px] overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-130 p-2">
                 <img
-                  src={movie.poster_url}
+                  src={movie.poster_url ?? "../assets/main.jpg"}
                   alt={movie.title}
                   className="w-full h-full rounded-2xl"
                 />
