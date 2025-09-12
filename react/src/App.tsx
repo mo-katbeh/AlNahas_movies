@@ -7,6 +7,7 @@ function App() {
     <>
       {/* <NavigationMenuMovies /> */}
       <UserProfileForm />
+      {/* <EmailForm /> */}
     </>
   );
 }
