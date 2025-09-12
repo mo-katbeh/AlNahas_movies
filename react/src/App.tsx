@@ -1,5 +1,5 @@
-import EmailForm from "./components/Form/EmailForm";
-import UserProfileForm from "./components/Form/UserProfileForm";
+import EmailForm from "./components/form/EmailForm";
+import UserProfileForm from "./components/form/UserProfileForm";
 import { NavigationMenuMovies } from "./components/NavigationMenuMovies";
 
 function App() {

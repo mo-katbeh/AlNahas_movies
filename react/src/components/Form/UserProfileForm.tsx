@@ -2,11 +2,22 @@ import { useRef, type FormEvent } from "react";
 import { Button } from "../ui/button";
 import { trpc } from "../../../utils/trpc";
 import { useForm, type FieldValues } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  type CreateUserProfileInput,
+  createUserProfileSchema,
+} from "../../../../server/src/db/zod/userProfileType";
 
 const UserProfileForm = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateUserProfileInput>({
+    resolver: zodResolver(createUserProfileSchema),
+  });
 
-  const userProfile = trpc.userProfile.createUserProfile.useMutation();
+  // const userProfile = trpc.userProfile.createUserProfile.useMutation();
   //   const firstNameRef = useRef<HTMLInputElement>(null);
   const onSubmit = (data: FieldValues) => console.log(data);
   return (
@@ -22,6 +33,7 @@ const UserProfileForm = () => {
           type="text"
           //   name="firstNameInput"
         />
+        {errors.firstName && <p> {errors.firstName.message} </p>}
         <label>
           Last Name: <input name="lastNameInput" />
         </label>

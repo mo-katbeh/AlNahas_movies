@@ -1,15 +1,14 @@
-import { uuid, z } from 'zod';
+import { string, uuid, z } from 'zod';
 
 const genderEnum = ["male", "female"] as const
 export const createUserProfileSchema = z.object({
-    userId: z.coerce.bigint(),
+    userId: z.number(),
     birthDate: z.iso.date().max(new Date().getFullYear() - 12),
-    firstName: z.string().min(3),
+    firstName: z.string().min(3, {error: 'Name must be at least 3 characters. '}),
     lastName: z.string().min(3),
     gender: z.enum(genderEnum),
-    phoneNumber: z.coerce.string().min(6)
+    phoneNumber: z.string().min(6)
 }).partial({ firstName:true, lastName:true, birthDate: true, phoneNumber: true });
-
 export const updateUserProfileSchema = z.object({
     id: z.coerce.bigint(),
     birthDate: z.iso.date().max(new Date().getFullYear() - 12),
