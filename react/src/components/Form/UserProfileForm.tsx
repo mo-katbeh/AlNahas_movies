@@ -17,6 +17,8 @@ import {
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { Calendar } from "../ui/calendar";
+import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { SelectContent } from "@radix-ui/react-select";
 
 const UserProfileForm = () => {
   const [date, setDate] = useState();
@@ -40,10 +42,10 @@ const UserProfileForm = () => {
   const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
-      <Form {...userProfileForm}>
+      <Form {...userProfileForm} c>
         <form
           onSubmit={userProfileForm.handleSubmit(onSubmit, onError)}
-          className="space-y-8"
+          className="space-y-8 m-4"
         >
           <FormField
             control={userProfileForm.control}
@@ -91,23 +93,31 @@ const UserProfileForm = () => {
           />
           <FormField
             control={userProfileForm.control}
-            name="lastName"
+            name="gender"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+                <FormLabel>Gender</FormLabel>
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={userProfileForm.control}
-            name="lastName"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name:</FormLabel>
+                <FormLabel></FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
