@@ -19,6 +19,10 @@ import { useState } from "react";
 import { Calendar } from "../ui/calendar";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectContent } from "@radix-ui/react-select";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
 
 const UserProfileForm = () => {
   const [date, setDate] = useState();
@@ -42,7 +46,7 @@ const UserProfileForm = () => {
   const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
-      <Form {...userProfileForm} c>
+      <Form {...userProfileForm}>
         <form
           onSubmit={userProfileForm.handleSubmit(onSubmit, onError)}
           className="space-y-8 m-4"
@@ -54,7 +58,7 @@ const UserProfileForm = () => {
               <FormItem>
                 <FormLabel>First Name:</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -67,7 +71,7 @@ const UserProfileForm = () => {
               <FormItem>
                 <FormLabel>Last Name:</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -79,14 +83,38 @@ const UserProfileForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Date of birth</FormLabel>
-                <FormControl></FormControl>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  // onSelect={setDate}
-                  className="rounded-md border shadow-sm"
-                  captionLayout="dropdown"
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-[250px] pl-3 text-lg font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      captionLayout="dropdown"
+                    />
+                  </PopoverContent>
+                </Popover>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -101,12 +129,12 @@ const UserProfileForm = () => {
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select your gender" />
+                      <SelectContent position="item-aligned" align="center">
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                      </SelectContent>
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                  </SelectContent>
                 </Select>
                 <FormMessage />
               </FormItem>
@@ -117,37 +145,15 @@ const UserProfileForm = () => {
             name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel></FormLabel>
+                <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* <label htmlFor="firstName">First Name:</label>
-        <input {...register("firstName")} id="firstName" type="text" />
-        {errors.firstName && <p> {errors.firstName.message} </p>}
-        <label htmlFor="lastName">Last Name:</label>
-        <input {...register("lastName")} id="lastName" type="text" />
-        {errors.lastName && <p> {errors.lastName.message} </p>}
-        <label htmlFor="birthDate">
-          Birth Date:
-          <input {...register("birthDate")} id="birthDate" type="date" />
-          {errors.birthDate && <p> {errors.birthDate.message} </p>}
-        </label>
-        <label htmlFor="">
-          Gender:
-          <select id="gender" {...register("gender")}>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          {errors.gender && <p> {errors.gender.message} </p>}
-        </label>
-        <label htmlFor="">Phone Number:</label>
-        <input {...register("phoneNumber")} type="text" />
-        {errors.phoneNumber && <p> {errors.phoneNumber.message} </p>}
-        */}
+
           <Button type="submit">Submit</Button>
         </form>
       </Form>
