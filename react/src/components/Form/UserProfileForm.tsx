@@ -8,14 +8,12 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useState } from "react";
 import { Calendar } from "../ui/calendar";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectContent } from "@radix-ui/react-select";
@@ -26,7 +24,6 @@ import { CalendarIcon } from "lucide-react";
 import { trpc } from "../../../utils/trpc";
 
 const UserProfileForm = () => {
-  const [date, setDate] = useState();
   const userProfileForm = useForm<CreateUserProfileInputRaw>({
     resolver: zodResolver(createUserProfileSchema),
     defaultValues: {
