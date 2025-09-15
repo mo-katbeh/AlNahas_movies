@@ -16,7 +16,7 @@ import {
 import { Input } from "../ui/input";
 import { Calendar } from "../ui/calendar";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { SelectContent } from "@radix-ui/react-select";
+import { SelectContent, SelectGroup } from "@radix-ui/react-select";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -136,11 +136,15 @@ const UserProfileForm = () => {
                 <FormLabel>Gender</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Select your gender" />
-                      <SelectContent position="item-aligned" align="center">
-                        <SelectItem value="Male">Male</SelectItem>
-                        <SelectItem value="Female">Female</SelectItem>
+                      <SelectContent position="popper">
+                        <SelectItem className="bg-input" value="Male">
+                          Male
+                        </SelectItem>
+                        <SelectItem className="bg-input " value="Female">
+                          Female
+                        </SelectItem>
                       </SelectContent>
                     </SelectTrigger>
                   </FormControl>
@@ -163,7 +167,9 @@ const UserProfileForm = () => {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant="outline">
+            Submit
+          </Button>
         </form>
       </Form>
     </>
