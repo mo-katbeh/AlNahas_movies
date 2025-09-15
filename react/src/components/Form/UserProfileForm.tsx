@@ -23,6 +23,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
+import { trpc } from "../../../utils/trpc";
 
 const UserProfileForm = () => {
   const [date, setDate] = useState();
@@ -36,10 +37,19 @@ const UserProfileForm = () => {
       phoneNumber: "",
     },
   });
+
+  const userProfileMutation = trpc.userProfile.createUserProfile.useMutation();
   // console.log("Current form values:", watch());
   // console.log("handleSubmit ", { handleSubmit });
 
   const onSubmit = (data: CreateUserProfileInputRaw) => {
+    userProfileMutation.mutate({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      birthDate: data.birthDate,
+      gender: data.gender,
+      phoneNumber: data.phoneNumber,
+    });
     console.log("SUBMIT RUNNING ");
     console.log(data);
   };
@@ -105,8 +115,10 @@ const UserProfileForm = () => {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={(date) =>
+                        field.onChange(date?.toISOString().split("T")[0])
+                      }
                       disabled={(date) =>
                         date > new Date() || date < new Date("1900-01-01")
                       }

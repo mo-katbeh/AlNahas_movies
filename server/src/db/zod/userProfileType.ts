@@ -1,11 +1,13 @@
 import { date, string, uuid, z } from 'zod';
 
 export const createUserProfileSchema = z.object({
-    userId: z.number().optional(),
-    birthDate: z.coerce.date().refine((date)=>{
+    // userId: z.coerce.bigint(),
+    birthDate: z.iso.date().refine((date)=>{
         const max = new Date();
         max.setFullYear(max.getFullYear() - 12);
-        return date <= max;
+        console.log("date", date)
+        console.log("max", max) 
+        return date <= max.toISOString().split("T")[0];
     }, { message: "You are still young to watch movies" }).optional(),
     firstName: z.string().min(3, {error: 'Name must be at least 3 characters. '}).optional(),
     lastName: z.string().min(3, {error: 'Name must be at least 3 characters. '}).optional(),
