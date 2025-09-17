@@ -1,14 +1,15 @@
-import EmailForm from "./components/form/EmailForm";
-import UserProfileForm from "./components/form/UserProfileForm";
-import { NavigationMenuMovies } from "./components/NavigationMenuMovies";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({ routeTree });
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 function App() {
-  return (
-    <>
-      {/* <NavigationMenuMovies /> */}
-      <UserProfileForm />
-      {/* <EmailForm /> */}
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
+
 export default App;
