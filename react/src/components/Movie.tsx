@@ -2,7 +2,6 @@ import { trpc } from "../../utils/trpc";
 import { Button } from "./ui/button";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { FaChevronRight } from "react-icons/fa6";
-
 const Movie = () => {
   const {
     data: movies,

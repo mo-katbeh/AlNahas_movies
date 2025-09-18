@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import NavigationMenuMovies from "@/components/NavigationMenuMovies";
+import Movie from "@/components/Movie";
 export const Route = createRootRoute({
   component: RootComponent,
 });
@@ -7,14 +9,17 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
+      {/* <NavigationMenuMovies /> */}
       <Link activeProps={{ className: "text-blue font-bold" }} to="/">
         Main Page
+        <NavigationMenuMovies />
       </Link>
-      <Link activeProps={{ className: "text-blue font-bold" }} to="/about">
-        About Us
+      {/* <Link activeProps={{ className: "text-blue font-bold" }} to="/about">
+        About us
+        <Movie />
       </Link>
-      <div>Hello "__root"!</div>
-      <Outlet />
+      <div>Hello "__root"!</div> */}
+      {/* <Outlet /> */}
     </React.Fragment>
   );
 }
