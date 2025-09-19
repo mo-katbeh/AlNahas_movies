@@ -2,21 +2,7 @@ import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../d
 import { adminPocedure, router } from "../init";
 import { z } from "zod"
 export const movieRouter = router({
-    // infinitMovies: adminPocedure
-    //     .input(z.object({
-    //         limit: z.number(),
-    //         Cursor: z.number()
-    //     }))
-    //     .query(async({ctx, input})=>{
-    //         const {limit, Cursor} = input
-    //         const movies = await ctx.db
-    //             .selectFrom('movies')
-    //             .selectAll()
-    //             .limit(Cursor)
-    //             .offset((limit - 1) * Cursor)
-    //             .execute()
-    //         return movies;
-    //     })
+
     infiniteMovies: adminPocedure
         .input(z.object({
             limit: z.number().min(1).max(30),
@@ -24,13 +10,13 @@ export const movieRouter = router({
         .query(async({ctx, input})=>{
             const {limit, cursor} = input
             const cursorBigInt = cursor ? BigInt(cursor): null; 
-            let q = await ctx.db
+            let q = ctx.db
                 .selectFrom('movies')
                 .selectAll()
                 .orderBy('id', 'asc')
                 .limit(limit + 1)
             if(cursorBigInt){
-                q = await q.where('id', '>', cursorBigInt)
+                q = q.where('id', '>', cursorBigInt)
             }
             const movies = await q.execute() 
             let nextCursor : string | undefined = undefined
@@ -43,35 +29,7 @@ export const movieRouter = router({
                 nextCursor
             }
         })
-    // infinitMovies: adminPocedure
-    //     .input( z.object({
-    //         limit: z.number().min(1).max(30),
-    //         cursor: z.string().nullish(),
-
-    //     }) )
-    //     .query(async({ ctx, input})=>{
-    //         const {limit, cursor} = input
-    //         const cursorBigInt = cursor ? BigInt(cursor) : null;
-    //         let query = await ctx.db
-    //             .selectFrom('movies')
-    //             .selectAll()
-    //             .orderBy('id', 'asc')
-    //             .limit(limit+1)
-    //         if(cursorBigInt){
-    //             query = query.where('id', '>', cursorBigInt)
-    //         }
-    //         const items = await query.execute();
-
-    //         let nextCursor: string | undefined = undefined;
-    //     if (items.length > limit) {
-    //         const nextItem = items.pop(); 
-    //         nextCursor = nextItem?.id.toString(); 
-    //     }
-    //     return{
-    //         items,
-    //         nextCursor
-    //     }
-    //     })
+    
     ,
     fetchMovies: adminPocedure
         .input(z.object({
@@ -155,5 +113,5 @@ export const movieRouter = router({
             catch(err){
                 console.log("Proccess of deleting failed", err)
             }
-        })
+        }),
 })

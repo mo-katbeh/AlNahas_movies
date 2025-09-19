@@ -1,5 +1,6 @@
 // import { createRouter, RouterProvider } from "@tanstack/react-router";
 // import { routeTree } from "./routeTree.gen";
+import UserProfileForm from "./components/form/UserProfileForm";
 import NavigationMenuMovies from "./components/NavigationMenuMovies";
 
 // const router = createRouter({ routeTree });
@@ -10,7 +11,7 @@ import NavigationMenuMovies from "./components/NavigationMenuMovies";
 // }
 
 function App() {
-  return <NavigationMenuMovies />;
+  return <UserProfileForm />;
 }
 
 export default App;

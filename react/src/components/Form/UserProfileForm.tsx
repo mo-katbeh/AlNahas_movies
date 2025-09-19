@@ -1,10 +1,7 @@
 import { Button } from "../ui/button";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  type CreateUserProfileInputRaw,
-  createUserProfileSchema,
-} from "../../../../server/src/db/zod/userProfileType";
+import { type CreateUserProfileInputRaw } from "../../../../server/src/db/zod/userProfileType";
 import {
   Form,
   FormControl,
@@ -16,15 +13,41 @@ import {
 import { Input } from "../ui/input";
 import { Calendar } from "../ui/calendar";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { SelectContent, SelectGroup } from "@radix-ui/react-select";
+import { SelectContent } from "@radix-ui/react-select";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { trpc } from "../../../utils/trpc";
-
+import { z } from "zod";
+const createUserProfileSchema = z.object({
+  // userId: z.coerce.bigint(),
+  birthDate: z.iso
+    .date()
+    .refine(
+      (date) => {
+        const max = new Date();
+        max.setFullYear(max.getFullYear() - 12);
+        console.log("date", date);
+        console.log("max", max);
+        return date <= max.toISOString().split("T")[0];
+      },
+      { message: "You are still young to watch movies" }
+    )
+    .optional(),
+  firstName: z.union([
+    z.string().min(3, { error: "Name must be at least 3 characters. " }),
+    z.literal("").optional(),
+  ]),
+  lastName: z
+    .string()
+    .min(3, { error: "Name must be at least 3 characters. " })
+    .optional(),
+  gender: z.enum(["Male", "Female"]),
+  phoneNumber: z.string().optional(),
+});
 const UserProfileForm = () => {
-  const userProfileForm = useForm<CreateUserProfileInputRaw>({
+  const userProfileForm = useForm({
     resolver: zodResolver(createUserProfileSchema),
     defaultValues: {
       firstName: "",

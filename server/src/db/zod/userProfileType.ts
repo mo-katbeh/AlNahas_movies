@@ -9,7 +9,7 @@ export const createUserProfileSchema = z.object({
         console.log("max", max) 
         return date <= max.toISOString().split("T")[0];
     }, { message: "You are still young to watch movies" }).optional(),
-    firstName: z.string().min(3, {error: 'Name must be at least 3 characters. '}).optional(),
+    firstName: z.union([z.string().min(3, {error: 'Name must be at least 3 characters. '}), z.literal("").optional()]),
     lastName: z.string().min(3, {error: 'Name must be at least 3 characters. '}).optional(),
     gender: z.enum(["Male", "Female"]),
     phoneNumber: z.string().optional()

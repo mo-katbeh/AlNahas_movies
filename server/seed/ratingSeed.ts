@@ -245,3 +245,63 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     console.error(err);
 //     process.exit(1);
 //   });
+
+// const TMDB_KEY = "dc936e880bf6db6c7cf751021d426b0d";
+
+// async function fetchTmdbDescription(title: string, year?: number) {
+//   const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(
+//     title
+//   )}${year ? `&year=${year}` : ""}`;
+//   const res = await fetch(url);
+//   const data = await res.json();
+
+//   if (data.results && data.results.length > 0) {
+//     const description = data.results[0].overview;
+//     return description || null;
+//   }
+
+//   return null;
+// }
+
+// async function seedDescriptions() {
+//   const movies = await db
+//     .selectFrom("movies")
+//     .select(["id", "title", "release_year"])
+//     .execute();
+
+//   for (const movie of movies) {
+//     try {
+//       let description = await fetchTmdbDescription(
+//         movie.title,
+//         movie.release_year
+//       );
+//       if (!description) {
+//         // Try without year if no match
+//         description = await fetchTmdbDescription(movie.title);
+//       }
+
+//       if (description) {
+//         await db
+//           .updateTable("movies")
+//           .set({ description })
+//           .where("movies.id", "=", movie.id)
+//           .execute();
+
+//         console.log(`✅ Updated: ${movie.title}`);
+//       } else {
+//         console.warn(`⚠ No description found for: ${movie.title}`);
+//       }
+//     } catch (err) {
+//       console.error(`❌ Error updating ${movie.title}:`, err);
+//     }
+//   }
+
+//   console.log("🎉 Descriptions seeding complete!");
+// }
+
+// seedDescriptions()
+//   .then(() => process.exit(0))
+//   .catch((err) => {
+//     console.error("❌ Seeding failed:", err);
+//     process.exit(1);
+//   });

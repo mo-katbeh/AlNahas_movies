@@ -5,7 +5,6 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
 import Movie from "./Movie";
-import { Link } from "@tanstack/react-router";
 export function NavigationMenuMovies() {
   return (
     <>
@@ -19,22 +18,16 @@ export function NavigationMenuMovies() {
           <MdOutlineNotificationsNone color="white" size="30" />
           <IoSearchOutline color="white" size="30" />
         </div>
-        <div className="flex flex-row justify-center gap-8  pt-4 pb-16 bg-fixed">
+        <div className="flex flex-row justify-center gap-8  pt-4 pb-12 bg-fixed">
           <Button variant="move_nav">Home</Button>
           <Button variant="move_nav">Series</Button>
-          <Button
-            variant="move_nav"
-            onClick={() => {
-              <Link to="/about"></Link>;
-            }}
-          >
-            Movies
-          </Button>
+          <Button variant="move_nav">Movies</Button>
           <Button variant="move_nav">Latest</Button>
           <Button variant="move_nav">WatchList</Button>
         </div>
         <Movie />
       </div>
+      <figure></figure>
     </>
   );
 }
