@@ -1,13 +1,21 @@
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../db/zod/movieType";
 import { adminPocedure, router } from "../init";
-import { z } from "zod"
+import { bigint, number, z } from "zod"
+//carousel
 export const movieRouter = router({
-
+    fetchRatingsOfMovies: adminPocedure
+       
+    // .input(z.object({id: z.bigint()}))
+        .query(({ctx})=>{
+       
+        })
+    ,
     infiniteMovies: adminPocedure
         .input(z.object({
             limit: z.number().min(1).max(30),
             cursor: z.string().nullish()}))
         .query(async({ctx, input})=>{
+            try{
             const {limit, cursor} = input
             const cursorBigInt = cursor ? BigInt(cursor): null; 
             let q = ctx.db
@@ -24,13 +32,25 @@ export const movieRouter = router({
                 const newMovies = movies.pop()
                 nextCursor = newMovies?.id.toString()
             }
+            const ratingsOfMovie = await ctx.db
+                .selectFrom('movies')
+                .innerJoin('ratings as r', 'r.movie_id', 'movies.id')
+                .selectAll('movies')
+
+                .select(({ fn })=>[
+                    fn.avg<number>('r.rating').as('ratings_avg')
+                ])
+                .groupBy('movies.id')
+                .execute()
             return{
                 movies,
-                nextCursor
+                nextCursor,
+                ratingsOfMovie
+            }}
+            catch(err){
+                console.log("feild", err)
             }
-        })
-    
-    ,
+        }),
     fetchMovies: adminPocedure
         .input(z.object({
             page: z.number(),

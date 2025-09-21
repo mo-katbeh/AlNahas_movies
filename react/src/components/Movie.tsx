@@ -20,6 +20,7 @@ const Movie = () => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
+  // const {data: ratings} = trpc.movie.fetchRatingsOfMovies.useQuery()
   if (error) return <p> {error.message} </p>;
   if (isLoading) return <p> Loading... </p>;
   return (
@@ -42,6 +43,7 @@ const Movie = () => {
               </div>
             ))
           )}
+
           <div />
           <div className="flex justify-center mt-4"></div>
           <Button
@@ -65,6 +67,16 @@ const Movie = () => {
           <h2 className="mb-3 text-4xl font-semibold text-white">
             {selectedMovie.title}
           </h2>
+
+          {selectedMovie &&
+            movies?.pages.map((page) =>
+              page.ratingsOfMovie.map((movie) => (
+                <p className="text-white font-semibold text-xl">
+                  {movie.ratings_avg}
+                </p>
+              ))
+            )}
+
           <p className="mb-3 text-white font-semibold text-xl">
             {selectedMovie.genre}
           </p>
