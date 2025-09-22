@@ -70,6 +70,7 @@ const Movie = () => {
 
           {selectedMovie && (
             <p className="text-white font-semibold text-xl">
+              Rating:{" "}
               {Number(
                 movies?.pages
                   .flatMap((page) => page?.moviesWithRatings ?? [])
