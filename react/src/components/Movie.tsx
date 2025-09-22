@@ -68,13 +68,15 @@ const Movie = () => {
             {selectedMovie.title}
           </h2>
 
-          {selectedMovie &&
-            movies?.pages
-              .flatMap((page) => page.ratingsOfMovie)
-              .find((movie) => (movie.id = selectedMovie.id))?.ratings_avg &&
-            movies.pages
-              .flatMap((page) => page?.ratingsOfMovie)
-              .find((movie) => movie?.id === selectedMovie.id)?.ratings_avg}
+          {selectedMovie && (
+            <p className="text-white font-semibold text-xl">
+              {Number(
+                movies?.pages
+                  .flatMap((page) => page?.moviesWithRatings ?? [])
+                  .find((movie) => movie.id === selectedMovie.id)?.avg_ratings
+              ).toFixed(1)}
+            </p>
+          )}
 
           <p className="mb-3 text-white font-semibold text-xl">
             {selectedMovie.genre}

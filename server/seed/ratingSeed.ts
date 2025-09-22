@@ -2,10 +2,19 @@ import  db  from "../src/db/kysely/client"
 import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 
 
-// async function seedRaings() {
+
+// async function seedRatings() {
+//   await db.deleteFrom('ratings').execute();
+//   console.log('Deleted all previous ratings.');
+
 //   const movies = await db.selectFrom('movies').select('id').execute();
 //   const users = await db.selectFrom('users').select('id').execute();
-//   const inserts = [];
+
+//   if (!movies.length || !users.length) {
+//     console.error("Movies or users table is empty.");
+//     return;
+//   }
+
 //   const reviews = [
 //     'Amazing movie!',
 //     'Not bad.',
@@ -17,40 +26,47 @@ import { WatchListItemInput } from "../src/db/zod/watchListItemType";
 //     'Would not watch again.'
 //   ];
 
-//   if(!movies.length || !users.length) console.error("Movies or users table empty")
-//   for( const user of users){
-//     const numberOfMovies = Math.floor(Math.random() * 15) +  1
+//   const inserts= [];
 
-//     const selectedMovies = [...movies]
-//     .sort(()=> Math.random() - 5)
-//     .slice(0, numberOfMovies)
-//     for( const movie of selectedMovies){
+//   for (const movie of movies) {
+//     const numberOfRatings = Math.floor(Math.random() * 101); // 0 -> 100
+//     // shuffle users to avoid duplicates
+//     const shuffledUsers = [...users].sort(() => Math.random() - 0.5).slice(0, numberOfRatings);
+//     console.log('suffled users', shuffledUsers)
+//     for (const user of shuffledUsers) {
 //       const rating = parseFloat((Math.random() * 5).toFixed(1));
-//       const review = rating!== null ? reviews[Math.floor(Math.random() * reviews.length)] : null
+//       const review = Math.random() > 0.5 ? reviews[Math.floor(Math.random() * reviews.length)] : null;
+
 //       inserts.push({
 //         user_id: user.id,
 //         movie_id: movie.id,
 //         rating,
 //         review
-//       })
+//       });
 //     }
-// }
-// console.log("insert", inserts)
-//   if(inserts.length > 0){
-//       await db
-//       .insertInto('ratings')
-//       .values(inserts)
-//       .execute();
-    
-//      console.log(`Inserted ${inserts.length} ratings.`);
 //   }
+
+//   console.log(`Generated ${inserts.length} ratings.`);
+
+//   // Insert in batches
+//   const batchSize = 500;
+//   for (let i = 0; i < inserts.length; i += batchSize) {
+//     const batch = inserts.slice(i, i + batchSize);
+//     await db.insertInto('ratings').values(batch).execute();
+//     console.log(`Inserted batch ${i / batchSize + 1} (${batch.length} ratings)`);
+//   }
+
+//   console.log('Seeding complete.');
 // }
-// seedRaings()
+
+// seedRatings()
 //   .then(() => process.exit(0))
 //   .catch(err => {
 //     console.error(err);
 //     process.exit(1);
 //   });
+
+
 // async function seedUserProfile() {
   
 //   const users = await db.selectFrom('users').select('id').execute();

@@ -1,15 +1,9 @@
+import { sql } from "kysely";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../db/zod/movieType";
 import { adminPocedure, router } from "../init";
 import { bigint, number, z } from "zod"
 //carousel
 export const movieRouter = router({
-    fetchRatingsOfMovies: adminPocedure
-       
-    // .input(z.object({id: z.bigint()}))
-        .query(({ctx})=>{
-       
-        })
-    ,
     infiniteMovies: adminPocedure
         .input(z.object({
             limit: z.number().min(1).max(30),
@@ -32,20 +26,22 @@ export const movieRouter = router({
                 const newMovies = movies.pop()
                 nextCursor = newMovies?.id.toString()
             }
-            const ratingsOfMovie = await ctx.db
+            const moviesWithRatings  = await ctx.db
                 .selectFrom('movies')
-                .innerJoin('ratings as r', 'r.movie_id', 'movies.id')
+                .leftJoin('ratings as r', 'r.movie_id', 'movies.id')
                 .selectAll('movies')
-
-                .select(({ fn })=>[
-                    fn.avg<number>('r.rating').as('ratings_avg')
+                .select(()=> [
+                    // sql<number[]>`coalesce(array_agg(r.rating), '{}')`.as('movie_ratings'),
+                    sql<number>`coalesce(avg(r.rating), 0)`.as('avg_ratings')
                 ])
                 .groupBy('movies.id')
+           
                 .execute()
             return{
                 movies,
                 nextCursor,
-                ratingsOfMovie
+                moviesWithRatings
+
             }}
             catch(err){
                 console.log("feild", err)
