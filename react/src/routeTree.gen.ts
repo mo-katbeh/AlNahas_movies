@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserProfileFormRouteImport } from './routes/userProfileForm'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
 
 const UserProfileFormRoute = UserProfileFormRouteImport.update({
   id: '/userProfileForm',
@@ -23,38 +25,57 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const LayoutRoute = LayoutRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutMoviesRoute = LayoutMoviesRouteImport.update({
+  id: '/movies',
+  path: '/movies',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/userProfileForm': typeof UserProfileFormRoute
+  '/movies': typeof LayoutMoviesRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/userProfileForm': typeof UserProfileFormRoute
+  '/movies': typeof LayoutMoviesRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/userProfileForm': typeof UserProfileFormRoute
+  '/_layout/movies': typeof LayoutMoviesRoute
+  '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/userProfileForm'
+  fullPaths: '/about' | '/userProfileForm' | '/movies' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/userProfileForm'
-  id: '__root__' | '/' | '/about' | '/userProfileForm'
+  to: '/about' | '/userProfileForm' | '/movies' | '/'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/about'
+    | '/userProfileForm'
+    | '/_layout/movies'
+    | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
   UserProfileFormRoute: typeof UserProfileFormRoute
 }
@@ -75,18 +96,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/movies': {
+      id: '/_layout/movies'
+      path: '/movies'
+      fullPath: '/movies'
+      preLoaderRoute: typeof LayoutMoviesRouteImport
+      parentRoute: typeof LayoutRoute
     }
   }
 }
 
+interface LayoutRouteChildren {
+  LayoutMoviesRoute: typeof LayoutMoviesRoute
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutMoviesRoute: LayoutMoviesRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
   UserProfileFormRoute: UserProfileFormRoute,
 }

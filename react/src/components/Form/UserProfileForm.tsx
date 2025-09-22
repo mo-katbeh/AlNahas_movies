@@ -20,6 +20,17 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { trpc } from "../../../utils/trpc";
 import { z } from "zod";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
+import { Label } from "../ui/label";
 const createUserProfileSchema = z.object({
   // userId: z.coerce.bigint(),
   birthDate: z.iso
@@ -76,125 +87,265 @@ const UserProfileForm = () => {
   const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
-      <Form {...userProfileForm}>
-        <form
-          onSubmit={userProfileForm.handleSubmit(onSubmit, onError)}
-          className="space-y-8 m-4"
-        >
-          <FormField
-            control={userProfileForm.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First Name:</FormLabel>
-                <FormControl>
-                  <Input type="text" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={userProfileForm.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name:</FormLabel>
-                <FormControl>
-                  <Input type="text" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={userProfileForm.control}
-            name="birthDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Date of birth</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button> open</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Edit Profile</SheetTitle>
+            <SheetDescription>
+              Add or Update your profile here. Click save when you're done
+            </SheetDescription>
+          </SheetHeader>
+          <Form {...userProfileForm}>
+            <form
+              onSubmit={userProfileForm.handleSubmit(onSubmit, onError)}
+              className="space-y-8 m-4"
+            >
+              <FormField
+                control={userProfileForm.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>First Name:</FormLabel>
                     <FormControl>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "w-[250px] pl-3 text-lg font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
+                      <Input type="text" {...field} />
                     </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(date) =>
-                        field.onChange(date?.toISOString().split("T")[0])
-                      }
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      captionLayout="dropdown"
-                    />
-                  </PopoverContent>
-                </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={userProfileForm.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last Name:</FormLabel>
+                    <FormControl>
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={userProfileForm.control}
+                name="birthDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Date of birth</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-[250px] pl-3 text-lg font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={
+                            field.value ? new Date(field.value) : undefined
+                          }
+                          onSelect={(date) =>
+                            field.onChange(date?.toISOString().split("T")[0])
+                          }
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          captionLayout="dropdown"
+                        />
+                      </PopoverContent>
+                    </Popover>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={userProfileForm.control}
-            name="gender"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Gender</FormLabel>
-                <Select onValueChange={field.onChange}>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={userProfileForm.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Gender</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select your gender" />
+                          <SelectContent position="popper">
+                            <SelectItem className="bg-input" value="Male">
+                              Male
+                            </SelectItem>
+                            <SelectItem className="bg-input " value="Female">
+                              Female
+                            </SelectItem>
+                          </SelectContent>
+                        </SelectTrigger>
+                      </FormControl>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={userProfileForm.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="flex flex-row items-center">
+                Save Changes
+              </Button>
+            </form>
+          </Form>
+          <SheetFooter>
+            <SheetClose>
+              <Button variant="outline">Close</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+        {/* <Form {...userProfileForm}>
+          <form
+            onSubmit={userProfileForm.handleSubmit(onSubmit, onError)}
+            className="space-y-8 m-4"
+          >
+            <FormField
+              control={userProfileForm.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name:</FormLabel>
                   <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select your gender" />
-                      <SelectContent position="popper">
-                        <SelectItem className="bg-input" value="Male">
-                          Male
-                        </SelectItem>
-                        <SelectItem className="bg-input " value="Female">
-                          Female
-                        </SelectItem>
-                      </SelectContent>
-                    </SelectTrigger>
+                    <Input type="text" {...field} />
                   </FormControl>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={userProfileForm.control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                  <Input type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={userProfileForm.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name:</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={userProfileForm.control}
+              name="birthDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date of birth</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-[250px] pl-3 text-lg font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
+                        onSelect={(date) =>
+                          field.onChange(date?.toISOString().split("T")[0])
+                        }
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        captionLayout="dropdown"
+                      />
+                    </PopoverContent>
+                  </Popover>
 
-          <Button type="submit" variant="outline">
-            Submit
-          </Button>
-        </form>
-      </Form>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={userProfileForm.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Gender</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select your gender" />
+                        <SelectContent position="popper">
+                          <SelectItem className="bg-input" value="Male">
+                            Male
+                          </SelectItem>
+                          <SelectItem className="bg-input " value="Female">
+                            Female
+                          </SelectItem>
+                        </SelectContent>
+                      </SelectTrigger>
+                    </FormControl>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={userProfileForm.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" variant="outline">
+              Submit
+            </Button>
+          </form>
+        </Form> */}
+      </Sheet>
     </>
   );
 };
