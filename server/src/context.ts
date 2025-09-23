@@ -9,3 +9,4 @@ export function createContext({}: CreateExpressContextOptions) {
   }; 
 }
 export type Context = Awaited<ReturnType<typeof createContext>>;
+console.log("first")

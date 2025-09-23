@@ -14,9 +14,13 @@ export function NavigationMenuMovies() {
       >
         <div className="flex flex-row-reverse  gap-4 mr-12 mt-6">
           <TfiMoreAlt color="white" size="30" />
-          <Button>
-            <CgProfile color="white" size="30" />
-          </Button>
+
+          <CgProfile color="white" size="30">
+            <Button>
+              <Link to="/userProfileForm"></Link>
+            </Button>
+          </CgProfile>
+
           <MdOutlineNotificationsNone color="white" size="30" />
           <IoSearchOutline color="white" size="30" />
         </div>
