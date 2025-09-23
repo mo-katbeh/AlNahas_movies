@@ -5,6 +5,11 @@ import cors from 'cors'
 import { appRouter } from './trpc/routers/mainRouter';
 import { createContext } from './context';
 import './db/kysely/client'
+import { auth } from '../utils/auth';
+import {toNodeHandler} from 'better-auth/node'
+
+app.all('/trpc/auth/{*any}', toNodeHandler(auth));
+
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
