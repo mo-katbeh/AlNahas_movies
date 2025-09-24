@@ -1,5 +1,5 @@
 import { sql } from "kysely";
-import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../db/zod/movieType";
+import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../../../packages/shared/zod/movieType";
 import { adminPocedure, router } from "../init";
 import { bigint, number, z } from "zod"
 //carousel

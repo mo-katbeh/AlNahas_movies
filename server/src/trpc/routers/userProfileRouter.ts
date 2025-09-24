@@ -1,4 +1,4 @@
-import { createUserProfileSchema, deleteUserProfileSchema, updateUserProfileSchema } from "../../db/zod/userProfileType";
+import { createUserProfileSchema, deleteUserProfileSchema, updateUserProfileSchema } from "../../../../packages/shared/zod/userProfileType";
 import { publicProcedure, router } from "../init";
 
 

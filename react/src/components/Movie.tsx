@@ -3,7 +3,7 @@ import { trpc } from "../../utils/trpc";
 import { Button } from "./ui/button";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { FaChevronRight } from "react-icons/fa6";
-import { type MovieType } from "../../../server/src/db/zod/movieType";
+import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
 const Movie = () => {
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();

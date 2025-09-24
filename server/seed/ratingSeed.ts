@@ -1,5 +1,5 @@
 import  db  from "../src/db/kysely/client"
-import { WatchListItemInput } from "../src/db/zod/watchListItemType";
+import { WatchListItemInput } from "../../packages/shared/zod/watchListItemType";
 
 
 

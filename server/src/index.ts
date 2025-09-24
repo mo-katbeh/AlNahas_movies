@@ -8,7 +8,7 @@ import './db/kysely/client'
 import { auth } from '../utils/auth';
 import {toNodeHandler} from 'better-auth/node'
 
-app.all('/trpc/auth/{*any}', toNodeHandler(auth));
+// app.all('/trpc/auth/{*any}', toNodeHandler(auth));
 
 app.use(cors({
     origin: "http://localhost:5173",

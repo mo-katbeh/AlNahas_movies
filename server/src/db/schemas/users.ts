@@ -6,14 +6,14 @@ import { RatingsTable, WatchListItemTable, UserProfileTable } from "./indexTable
 export const UserTable = pgTable("users",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     role: text('role').default('user'),
-    email: text('email').notNull(),
+    name: text('name').notNull(),
+    email: text('email').notNull().unique(),
+    emailVerified: boolean('email_verified').default(false),
+    image: text('image'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(()=> new Date()),
     isDeleted: boolean('is_deleted').default(false)
-},
-table=>[
-    uniqueIndex('email_index').on(table.email)
-]);
+});
 
 export const UserTableRelations = relations(UserTable, ({ many, one })=>{
     return{

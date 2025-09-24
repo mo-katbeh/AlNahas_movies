@@ -1,4 +1,4 @@
-import { z, uuid } from 'zod';
+import { z} from 'zod';
 export const movieType = z.object({
     id: z.never(),
     title: z.string(),

@@ -1,6 +1,6 @@
 import { publicProcedure, router } from "../init";
-import { createUserSchema, delelteUserSchema } from "../../db/zod/userType";
-import tr from "zod/v4/locales/tr.cjs";
+import { createUserSchema, delelteUserSchema } from "../../../../packages/shared/zod/userType";
+
 
 export const userRouter = router({
     createUser: publicProcedure
@@ -13,6 +13,7 @@ export const userRouter = router({
                 .insertInto('users')
                 .values({  
                     email: input.email,
+                    name: input.name,
                 })
                 .returningAll()
                 .execute()

@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth/*";
+import { betterAuth } from "better-auth";
 import { Pool } from "pg";
 import { env } from "../src/validateEnv";
 
@@ -14,6 +14,9 @@ export const auth = betterAuth({
     emailAndPassword:{
         enabled: true
     },
-    
+    modelName:{
+        user: "users"
+    }
+
 
 })

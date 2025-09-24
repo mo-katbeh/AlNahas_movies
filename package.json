@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "workspaces": [
-    "shared/*",
+    "packages/*",
     "server/*",
     "react/*",
     "infra/*"

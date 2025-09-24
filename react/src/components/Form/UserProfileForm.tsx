@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type CreateUserProfileInputRaw } from "../../../../server/src/db/zod/userProfileType";
+import { type CreateUserProfileInputRaw } from "../../../../packages/shared/zod/userProfileType";
 import {
   Form,
   FormControl,
