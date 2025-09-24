@@ -16,4 +16,4 @@ const db = new Kysely<Database>({
   }),
 })
 
-export default db
+export default db;

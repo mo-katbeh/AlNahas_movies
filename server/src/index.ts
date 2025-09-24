@@ -1,5 +1,4 @@
 import express from 'express';
-const app = express();
 import * as trpcExpress from'@trpc/server/adapters/express'
 import cors from 'cors'
 import { appRouter } from './trpc/routers/mainRouter';
@@ -7,6 +6,7 @@ import { createContext } from './context';
 import './db/kysely/client'
 import { auth } from '../utils/auth';
 import {toNodeHandler} from 'better-auth/node'
+const app = express();
 
 // app.all('/trpc/auth/{*any}', toNodeHandler(auth));
 
