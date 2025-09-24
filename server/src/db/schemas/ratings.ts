@@ -2,8 +2,6 @@ import { bigint, decimal, pgTable, text, timestamp, uniqueIndex, uuid } from "dr
 import { UserTable, MovieTable } from "./indexTables"
 import { relations } from "drizzle-orm";
 
-
-
 export const RatingsTable = pgTable("ratings",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     userId: bigint('user_id', {mode: 'bigint'}).references(()=> UserTable.id, {onDelete: "cascade", onUpdate:"cascade"}),
