@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserProfileFormRouteImport } from './routes/userProfileForm'
+import { Route as SignUpRouteImport } from './routes/signUp'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
@@ -18,6 +20,16 @@ import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
 const UserProfileFormRoute = UserProfileFormRouteImport.update({
   id: '/userProfileForm',
   path: '/userProfileForm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/signUp',
+  path: '/signUp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -42,12 +54,16 @@ const LayoutMoviesRoute = LayoutMoviesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/signUp': typeof SignUpRoute
   '/userProfileForm': typeof UserProfileFormRoute
   '/movies': typeof LayoutMoviesRoute
   '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/signUp': typeof SignUpRoute
   '/userProfileForm': typeof UserProfileFormRoute
   '/movies': typeof LayoutMoviesRoute
   '/': typeof LayoutIndexRoute
@@ -56,19 +72,29 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/signUp': typeof SignUpRoute
   '/userProfileForm': typeof UserProfileFormRoute
   '/_layout/movies': typeof LayoutMoviesRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/userProfileForm' | '/movies' | '/'
+  fullPaths:
+    | '/about'
+    | '/login'
+    | '/signUp'
+    | '/userProfileForm'
+    | '/movies'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/userProfileForm' | '/movies' | '/'
+  to: '/about' | '/login' | '/signUp' | '/userProfileForm' | '/movies' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/about'
+    | '/login'
+    | '/signUp'
     | '/userProfileForm'
     | '/_layout/movies'
     | '/_layout/'
@@ -77,6 +103,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
+  LoginRoute: typeof LoginRoute
+  SignUpRoute: typeof SignUpRoute
   UserProfileFormRoute: typeof UserProfileFormRoute
 }
 
@@ -87,6 +115,20 @@ declare module '@tanstack/react-router' {
       path: '/userProfileForm'
       fullPath: '/userProfileForm'
       preLoaderRoute: typeof UserProfileFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signUp': {
+      id: '/signUp'
+      path: '/signUp'
+      fullPath: '/signUp'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -136,6 +178,8 @@ const LayoutRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
+  LoginRoute: LoginRoute,
+  SignUpRoute: SignUpRoute,
   UserProfileFormRoute: UserProfileFormRoute,
 }
 export const routeTree = rootRouteImport

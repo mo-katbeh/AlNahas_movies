@@ -1,7 +1,10 @@
 import { Button } from "../ui/button";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type CreateUserProfileInputRaw } from "../../../../packages/shared/zod/userProfileType";
+import {
+  createUserProfileSchema,
+  type CreateUserProfileInputRaw,
+} from "../../../../packages/shared/zod/userProfileType";
 import {
   Form,
   FormControl,
@@ -19,7 +22,6 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { trpc } from "../../../utils/trpc";
-import { z } from "zod";
 import {
   Sheet,
   SheetClose,
@@ -30,33 +32,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { Label } from "../ui/label";
-const createUserProfileSchema = z.object({
-  // userId: z.coerce.bigint(),
-  birthDate: z.iso
-    .date()
-    .refine(
-      (date) => {
-        const max = new Date();
-        max.setFullYear(max.getFullYear() - 12);
-        console.log("date", date);
-        console.log("max", max);
-        return date <= max.toISOString().split("T")[0];
-      },
-      { message: "You are still young to watch movies" }
-    )
-    .optional(),
-  firstName: z.union([
-    z.string().min(3, { error: "Name must be at least 3 characters. " }),
-    z.literal("").optional(),
-  ]),
-  lastName: z
-    .string()
-    .min(3, { error: "Name must be at least 3 characters. " })
-    .optional(),
-  gender: z.enum(["Male", "Female"]),
-  phoneNumber: z.string().optional(),
-});
+
 const UserProfileForm = () => {
   const userProfileForm = useForm({
     resolver: zodResolver(createUserProfileSchema),
