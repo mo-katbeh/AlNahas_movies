@@ -115,7 +115,7 @@ const SignUpForm = () => {
                   )}
                 />
                 <div className="mb-5">
-                  <Button type="submit" className="w-full ">
+                  <Button type="submit" className="w-full text-sm">
                     Sign up
                   </Button>
                 </div>
