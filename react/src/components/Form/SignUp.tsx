@@ -3,7 +3,7 @@ import { useForm, type FieldValues } from "react-hook-form";
 import {
   signUpSchema,
   type SignUpSchema,
-} from "../../../../packages/shared/zod/signUpSchema";
+} from "../../../../packages/shared/zod/authSchema";
 import { trpc } from "../../../utils/trpc";
 import {
   Card,
@@ -49,7 +49,7 @@ const SignUpForm = () => {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <Card className="w-full max-w-md gap-2 justify-items-center">
+        <Card className="w-full max-w-sm  gap-2 justify-items-center">
           <CardHeader className=" justify-items-center">
             <CardTitle>Welcome</CardTitle>
             <CardDescription>
@@ -114,18 +114,18 @@ const SignUpForm = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full ">
-                  Sign up
-                </Button>
+                <div className="mb-5">
+                  <Button type="submit" className="w-full ">
+                    Sign up
+                  </Button>
+                </div>
               </form>
             </Form>
-            <div className="flex flex-row justify-center pt-4">
-              <p className="">
-                Already have an account?
-                <Button variant="link">
-                  <Link to="/login">Login</Link>
-                </Button>
-              </p>
+            <div className="text-center text-sm gap-4">
+              Already have an account?{" "}
+              <Link to="/login" className="underline underline-offset-4">
+                Login
+              </Link>
             </div>
           </CardContent>
         </Card>
