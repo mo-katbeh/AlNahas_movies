@@ -1,6 +1,6 @@
 import { auth } from "../../../utils/auth";
 import { publicProcedure, router } from "../init";
-import { signUpSchema } from "../../../../packages/shared/zod/signUpSchema";
+import { loginSchema, signUpSchema } from "../../../../packages/shared/zod/authSchema";
 
 export const authRouter = router ({
     signup: publicProcedure
@@ -20,7 +20,18 @@ export const authRouter = router ({
 
             }
             catch(err){
-                console.log("wrong", err)
+               console.error(err)
             }
+        }),
+    login: publicProcedure
+        .input(loginSchema)
+        .mutation(async({ctx, input})=>{
+                await ctx.auth.api.signInEmail({
+                body:{
+                    email: input.email,
+                    password: input.password
+                }
+            })
         })
+        
  })
