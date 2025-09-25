@@ -48,76 +48,88 @@ const SignUpForm = () => {
   const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Welcome</CardTitle>
-          <CardDescription>
-            Sign up with your email and password
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...signUpForm}>
-            <form onSubmit={signUpForm.handleSubmit(onSubmit, onError)}>
-              <FormField
-                control={signUpForm.control}
-                name="userName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input type="text" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={signUpForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type="email" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={signUpForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={signUpForm.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">Sign up</Button>
-            </form>
-          </Form>
-          <div>
-            Already have an account? <Link to="/login">Login</Link>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <Card className="w-full max-w-md gap-2 justify-items-center">
+          <CardHeader className=" justify-items-center">
+            <CardTitle>Welcome</CardTitle>
+            <CardDescription>
+              Sign up with your email and password
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...signUpForm}>
+              <form
+                onSubmit={signUpForm.handleSubmit(onSubmit, onError)}
+                className="space-y-8 m-2"
+              >
+                <FormField
+                  control={signUpForm.control}
+                  name="userName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input type="text" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signUpForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input type="email" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signUpForm.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signUpForm.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full ">
+                  Sign up
+                </Button>
+              </form>
+            </Form>
+            <div className="flex flex-row justify-center pt-4">
+              <p className="">
+                Already have an account?
+                <Button variant="link">
+                  <Link to="/login">Login</Link>
+                </Button>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </>
   );
 };
