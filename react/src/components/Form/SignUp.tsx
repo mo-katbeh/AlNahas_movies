@@ -1,30 +1,125 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues } from "react-hook-form";
 import {
   signUpSchema,
   type SignUpSchema,
 } from "../../../../packages/shared/zod/signUpSchema";
-import { authClient } from "../../../utils/auth-client";
 import { trpc } from "../../../utils/trpc";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Link } from "@tanstack/react-router";
 
-const signUpUser = async (data: SignUpSchema) => {
-  const { error } = await authClient.signUp.email({
-    email: data.email,
-    password: data.password,
-    name: data.userName,
-  });
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data;
-};
-const signup = trpc.auth.signup.useMutation();
-const SignUp = () => {
+const SignUpForm = () => {
   const signUpForm = useForm({
     resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      userName: "",
+    },
   });
-
-  return;
+  const signUpMutation = trpc.auth.signup.useMutation();
+  const onSubmit = (data: SignUpSchema) => {
+    signUpMutation.mutate({
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      userName: data.userName,
+    });
+    console.log("SUBMIT RUNNING ");
+    console.log(data);
+  };
+  const onError = (errors: FieldValues) => console.log("errors", errors);
+  return (
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome</CardTitle>
+          <CardDescription>
+            Sign up with your email and password
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...signUpForm}>
+            <form onSubmit={signUpForm.handleSubmit(onSubmit, onError)}>
+              <FormField
+                control={signUpForm.control}
+                name="userName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signUpForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signUpForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signUpForm.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Sign up</Button>
+            </form>
+          </Form>
+          <div>
+            Already have an account? <Link to="/login">Login</Link>
+          </div>
+        </CardContent>
+      </Card>
+    </>
+  );
 };
 
-export default SignUp;
+export default SignUpForm;

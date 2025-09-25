@@ -6,16 +6,16 @@ import { SessionTable } from "./session";
 
 
 export const UserTable = pgTable("users",{
-    id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
+    id: text('id').primaryKey(),
     role: text('role').default('user'),
     name: text('name'),
     email: text('email').notNull().unique(),
-    emailVerified: boolean('email_verified').default(false),
+    emailVerified: boolean('email_verified').default(false).notNull(),
     password: text('password'),
     image: text('image'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(()=> new Date()),
-    isDeleted: boolean('is_deleted').default(false)
+    isDeleted: boolean('is_deleted').default(false).notNull()
 });
 
 export const UserTableRelations = relations(UserTable, ({ many, one })=>{

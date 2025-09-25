@@ -1,26 +1,19 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import db  from "../src/db/kysely/client"
-import { Pool } from "pg";
-import { env } from "../src/validateEnv";
-import * as schema from "../src/db/schemas/indexTables"
+import  { drizzleDb }  from "../src/db/kysely/client"
+
+import * as authSchema from "../src/db/schemas/authTable"
 export const auth = betterAuth({
-    database: drizzleAdapter(db, {
+    database: drizzleAdapter(drizzleDb,{
         provider: "pg",
         schema:{
-            ...schema,
-            user: schema.UserTable,
-            account: schema.AccountTable,
-            session: schema.SessionTable,
-            verification: schema.VerificationTable
+            user: authSchema.UserTable,
+            account: authSchema.AccountTable,
+            session: authSchema.SessionTable,
+            verification: authSchema.VerificationTable,
         }
     }),
     emailAndPassword:{
         enabled: true
     },
-    modelName:{
-        user: "users"
-    }
-
-
 })

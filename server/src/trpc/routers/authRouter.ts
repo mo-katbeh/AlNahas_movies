@@ -6,12 +6,21 @@ export const authRouter = router ({
     signup: publicProcedure
         .input(signUpSchema)
         .mutation(async({ ctx ,input})=>{
-            await ctx.auth.api.signUpEmail({
+            try{
+                console.log("authRouter")
+                await ctx.auth.api.signUpEmail({
                 body:{
                     name: input.userName,
                     email: input.email,
-                    password: input.password
+                    password: input.password,
                 }
+                
              })
+                console.log("authRouter2")
+
+            }
+            catch(err){
+                console.log("wrong", err)
+            }
         })
  })

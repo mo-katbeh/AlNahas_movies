@@ -10,7 +10,7 @@ export const userProfileRouter = router({
             const createUserProfileResult =  await  ctx.db
              .insertInto('user_profile')
              .values({
-                user_id: BigInt(51),
+                // user_id: ,
                 birth_date: input.birthDate,
                 first_name: input.firstName,
                 last_name: input.lastName,

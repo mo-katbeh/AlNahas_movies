@@ -7,7 +7,8 @@ export async function createContext({req, res}: CreateExpressContextOptions) {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   })
-  res = res.json(session)
+  // res = res.json(session)
+  console.log("at context")
   return {
     auth,
     session,

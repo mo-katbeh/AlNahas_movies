@@ -3,8 +3,8 @@ import { UserTable } from "./users";
 import { relations } from "drizzle-orm";
 
 export const AccountTable = pgTable("account", {
-  id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
-  userId: bigint('user_id',{mode: 'bigint'}).references(()=>UserTable.id, {onDelete:'cascade'}),
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(()=>UserTable.id, {onDelete:'cascade'}),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
 
