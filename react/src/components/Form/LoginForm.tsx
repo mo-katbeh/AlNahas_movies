@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -25,11 +25,15 @@ import {
 import { trpc } from "../../../utils/trpc";
 
 const LoginForm = () => {
+  const router = useRouter();
   const loginForm = useForm({ resolver: zodResolver(loginSchema) });
 
   const loginMutation = trpc.auth.login.useMutation({
-    onError: (err) => {
-      alert(err.message);
+    onError: () => {
+      alert("You have entered an invalid username or password");
+    },
+    onSuccess: () => {
+      router.navigate({ to: "/" });
     },
   });
   const onSubmit = (data: LoginSchema) => {

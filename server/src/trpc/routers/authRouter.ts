@@ -32,6 +32,7 @@ export const authRouter = router ({
                     password: input.password
                 }
             })
+            console.log("login is working")
         })
         
  })
