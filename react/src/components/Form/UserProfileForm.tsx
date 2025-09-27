@@ -33,6 +33,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { useRouter } from "@tanstack/react-router";
+import Loader from "../loader/styled-wrapper";
 
 const UserProfileForm = () => {
   const router = useRouter();
@@ -65,6 +66,11 @@ const UserProfileForm = () => {
   const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
+      {userProfileMutation.isPending && (
+        <div>
+          <Loader />
+        </div>
+      )}
       <Sheet>
         <SheetTrigger asChild>
           <Button> open</Button>

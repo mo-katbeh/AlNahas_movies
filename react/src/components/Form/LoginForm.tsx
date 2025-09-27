@@ -26,7 +26,7 @@ import { trpc } from "../../../utils/trpc";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
-import Loader from "../loader/spanner-loader";
+import Loader from "../loader/styled-wrapper";
 
 const LoginForm = () => {
   const router = useRouter();

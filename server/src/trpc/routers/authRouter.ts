@@ -1,14 +1,15 @@
 import { auth } from "../../../utils/auth";
 import { publicProcedure, router } from "../init";
 import { loginSchema, signUpSchema } from "../../../../packages/shared/zod/authSchema";
+import { TRPCError } from "@trpc/server";
+import { error } from "console";
 
 export const authRouter = router ({
     signup: publicProcedure
         .input(signUpSchema)
         .mutation(async({ ctx ,input})=>{
             try{
-                console.log("authRouter")
-                await ctx.auth.api.signUpEmail({
+            const{user } = await ctx.auth.api.signUpEmail({
                 body:{
                     name: input.userName,
                     email: input.email,
@@ -16,12 +17,27 @@ export const authRouter = router ({
                 }
                 
              })
-                console.log("authRouter2")
-
+             return user
             }
             catch(err){
-               console.error(err)
+               console.log(err)
             }
+            // try{
+            //     console.log("authRouter")
+            //     await ctx.auth.api.signUpEmail({
+            //     body:{
+            //         name: input.userName,
+            //         email: input.email,
+            //         password: input.password,
+            //     }
+                
+            //  })
+            //     console.log("authRouter2")
+
+            // }
+            // catch(err){
+            //     throw new TRPCError
+            // }
         }),
     login: publicProcedure
         .input(loginSchema)

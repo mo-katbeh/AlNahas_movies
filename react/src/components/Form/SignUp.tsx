@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   signUpSchema,
   type SignUpSchema,
@@ -22,9 +22,15 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
+// import { useState } from "react";
+import { Alert, AlertTitle } from "../ui/alert";
+import { AlertCircleIcon } from "lucide-react";
+import Loader from "../loader/styled-wrapper";
 
 const SignUpForm = () => {
+  // const [error, setError] = useState<string | undefined>("");
+  const router = useRouter();
   const signUpForm = useForm({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -34,9 +40,48 @@ const SignUpForm = () => {
       userName: "",
     },
   });
-  const signUpMutation = trpc.auth.signup.useMutation();
+  const {
+    // data: userInfo,
+    error,
+    isPending,
+    mutate,
+    isSuccess,
+  } = trpc.auth.signup.useMutation({
+    onError: (err) => {
+      if (
+        err.data?.code === "BAD_REQUEST" &&
+        err.message.includes("User already exists")
+      ) {
+        console.log(err.message);
+      }
+    },
+  });
+
+  if (isSuccess) {
+    router.navigate({ to: "/" });
+  }
+  // const signUpMutation = trpc.auth.signup.useMutation({
+  //   onError: (err) => {
+  //     if (
+  //       err.data?.code === "BAD_REQUEST" &&
+  //       err.message.includes("User already exists")
+  //     ) {
+  //       signUpForm.setError("email", {
+  //         type: "value",
+  //         message: "This email is already registered. Try logging in.",
+  //       });
+  //     }
+
+  //     console.log("error message", err.message);
+  //     // setError(err.message);
+  //   },
+  //   onSuccess: () => {
+  //     router.navigate({ to: "/" });
+  //   },
+  // });
+
   const onSubmit = (data: SignUpSchema) => {
-    signUpMutation.mutate({
+    mutate({
       email: data.email,
       password: data.password,
       confirmPassword: data.confirmPassword,
@@ -45,10 +90,29 @@ const SignUpForm = () => {
     console.log("SUBMIT RUNNING ");
     console.log(data);
   };
-  const onError = (errors: FieldValues) => console.log("errors", errors);
+
+  // const onError = (errors: FieldValues) => console.log("errors", errors);
   return (
     <>
+      {isPending && (
+        <div>
+          <Loader />
+        </div>
+      )}
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        {error && (
+          // <div className="w-full p-6 flex justify-center items-center">
+          <div className="w-full max-w-sm">
+            <Alert
+              variant="destructive"
+              className="justify-center items-center  bg-red-600/90 text-white "
+            >
+              <AlertCircleIcon />
+              <AlertTitle>{error.message}</AlertTitle>
+            </Alert>
+          </div>
+          // </div>
+        )}
         <Card className="w-full max-w-sm  gap-2 justify-items-center">
           <CardHeader className=" justify-items-center">
             <CardTitle>Welcome</CardTitle>
@@ -59,7 +123,7 @@ const SignUpForm = () => {
           <CardContent>
             <Form {...signUpForm}>
               <form
-                onSubmit={signUpForm.handleSubmit(onSubmit, onError)}
+                onSubmit={signUpForm.handleSubmit(onSubmit)}
                 className="space-y-8 m-2"
               >
                 <FormField

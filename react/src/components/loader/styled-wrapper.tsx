@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <StyledWrapper>
       <div className="loader">
-        <span className="loader-text text-2xl">loading</span>
+        <span className="loader-text text-2xl font-bold">loading</span>
         <span className="load" />
       </div>
     </StyledWrapper>
