@@ -32,8 +32,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import { useRouter } from "@tanstack/react-router";
 
 const UserProfileForm = () => {
+  const router = useRouter();
   const userProfileForm = useForm({
     resolver: zodResolver(createUserProfileSchema),
     defaultValues: {

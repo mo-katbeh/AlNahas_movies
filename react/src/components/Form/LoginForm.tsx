@@ -23,14 +23,18 @@ import {
   FormMessage,
 } from "../ui/form";
 import { trpc } from "../../../utils/trpc";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AlertCircleIcon } from "lucide-react";
+import { useState } from "react";
 
 const LoginForm = () => {
   const router = useRouter();
   const loginForm = useForm({ resolver: zodResolver(loginSchema) });
+  const [error, setError] = useState<string | undefined>();
 
   const loginMutation = trpc.auth.login.useMutation({
     onError: () => {
-      alert("You have entered an invalid username or password");
+      setError("You have entered an invalid username or password");
     },
     onSuccess: () => {
       router.navigate({ to: "/" });
@@ -43,10 +47,23 @@ const LoginForm = () => {
     });
   };
   const onError = (errors: FieldValues) => console.log("Errpr", errors);
-
+  // moh@gmail.com
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        {error && (
+          // <div className="w-full p-6 flex justify-center items-center">
+          <div className="w-full max-w-sm">
+            <Alert
+              variant="destructive"
+              className="justify-center items-center"
+            >
+              <AlertCircleIcon />
+              <AlertTitle>{error}</AlertTitle>
+            </Alert>
+          </div>
+          // </div>
+        )}
         <Card className="w-full max-w-sm  gap-2 justify-items-center">
           <CardHeader className=" justify-items-center">
             <CardTitle>Welcome back</CardTitle>
