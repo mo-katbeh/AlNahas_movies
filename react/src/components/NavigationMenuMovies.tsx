@@ -6,6 +6,7 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { trpc } from "../../utils/trpc";
+import { ModeToggle } from "./toggle/mode-toggle";
 export function NavigationMenuMovies() {
   const router = useRouter();
   const { mutate, isPending } = trpc.auth.logout.useMutation({
@@ -38,6 +39,7 @@ export function NavigationMenuMovies() {
 
           <MdOutlineNotificationsNone color="white" size="30" />
           <IoSearchOutline color="white" size="30" />
+          <ModeToggle />
         </div>
         <div className="flex flex-row justify-center gap-8  pt-4 pb-12 bg-fixed">
           <Button variant="move_nav" className="hover:transition-transform">
