@@ -48,7 +48,7 @@ const UserProfileForm = () => {
     },
   });
 
-  const userProfileMutation = trpc.userProfile.createUserProfile.useMutation();
+  const userProfileMutation = trpc.userProfile.createUserProfile1.useMutation();
   // console.log("Current form values:", watch());
   // console.log("handleSubmit ", { handleSubmit });
 

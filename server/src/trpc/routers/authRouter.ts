@@ -36,6 +36,7 @@ export const authRouter = router ({
             })
             console.log("login is working")
         }),
+      
         // getSession: publicProcedure
         //     .query(async ({ctx})=>{
         //         return await ctx.session

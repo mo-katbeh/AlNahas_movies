@@ -7,6 +7,16 @@ const t = initTRPC.context<Context>().create();
 export const router = t.router;
 export const publicProcedure = t.procedure;
 
+export const protectedProcedure = t.procedure.use(({ctx, next})=>{
+    if(!ctx.user.id){
+        throw new TRPCError({code: "UNAUTHORIZED"})
+    }
+    return next({
+        ctx: {
+            user: ctx.user
+        }
+    })
+})
 const isAdminMiddleware = t.middleware(({ctx, next})=>{
     if (!ctx.isAdmin){
         throw new TRPCError({ code: "UNAUTHORIZED"})

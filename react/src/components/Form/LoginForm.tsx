@@ -57,10 +57,7 @@ const LoginForm = () => {
   // moh@gmail.com
   return (
     <>
-      {isPending && (
-        <Loader />
-        // {/* <p>loading...</p> */}
-      )}
+      {isPending && <Loader />}
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
         <Card className="w-full max-w-sm  gap-2 justify-items-center">
           <CardHeader className=" justify-items-center">

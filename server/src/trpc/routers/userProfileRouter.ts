@@ -1,5 +1,5 @@
 import { createUserProfileSchema, deleteUserProfileSchema, updateUserProfileSchema } from "../../../../packages/shared/zod/userProfileType";
-import { publicProcedure, router } from "../init";
+import { protectedProcedure, publicProcedure, router } from "../init";
 
 
 export const userProfileRouter = router({
@@ -29,6 +29,33 @@ export const userProfileRouter = router({
             }
 
         }),
+    createUserProfile1: protectedProcedure
+        .input( createUserProfileSchema)
+        .mutation(async({ ctx, input })=>{
+            try{
+            const createUserProfileResult =  await  ctx.db
+             .insertInto('user_profile')
+             .values({
+                // user_id: ,
+                birth_date: input.birthDate,
+                first_name: input.firstName,
+                last_name: input.lastName,
+                gender: input.gender,
+                phone_number: input.phoneNumber
+
+             })
+             .returningAll()
+             .execute()
+             
+             console.log("User Profile", createUserProfileResult)
+             return createUserProfileResult;
+            }
+            catch(err){
+                console.log("Failed creating user profile's")
+            }
+
+        }),
+    
     updateUserProfile: 
         publicProcedure
         .input( updateUserProfileSchema)
