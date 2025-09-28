@@ -23,7 +23,7 @@ export function NavigationMenuMovies() {
           <IoSearchOutline color="white" size="30" />
         </div>
         <div className="flex flex-row justify-center gap-8  pt-4 pb-12 bg-fixed">
-          <Button variant="move_nav">
+          <Button variant="move_nav" className="hover:transition-transform">
             <Link to="/">Home</Link>
           </Button>
           <Button variant="move_nav">Series</Button>

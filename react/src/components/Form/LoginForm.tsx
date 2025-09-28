@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { trpc } from "../../../utils/trpc";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Alert, AlertTitle } from "../ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import Loader from "../loader/styled-wrapper";
