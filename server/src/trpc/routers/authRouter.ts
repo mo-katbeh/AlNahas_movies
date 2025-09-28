@@ -9,7 +9,7 @@ export const authRouter = router ({
         .input(signUpSchema)
         .mutation(async({ ctx ,input})=>{
             try{
-            const{user } = await ctx.auth.api.signUpEmail({
+             await ctx.auth.api.signUpEmail({
                 body:{
                     name: input.userName,
                     email: input.email,
@@ -17,27 +17,13 @@ export const authRouter = router ({
                 }
                 
              })
-             return user
+    
             }
             catch(err){
-               console.log(err)
+               console.log(err);
+               throw err
             }
-            // try{
-            //     console.log("authRouter")
-            //     await ctx.auth.api.signUpEmail({
-            //     body:{
-            //         name: input.userName,
-            //         email: input.email,
-            //         password: input.password,
-            //     }
-                
-            //  })
-            //     console.log("authRouter2")
-
-            // }
-            // catch(err){
-            //     throw new TRPCError
-            // }
+            
         }),
     login: publicProcedure
         .input(loginSchema)
@@ -50,9 +36,9 @@ export const authRouter = router ({
             })
             console.log("login is working")
         }),
-        getSession: publicProcedure
-            .query(async ({ctx})=>{
-                return await ctx.session
-            })
+        // getSession: publicProcedure
+        //     .query(async ({ctx})=>{
+        //         return await ctx.session
+        //     })
         
  })

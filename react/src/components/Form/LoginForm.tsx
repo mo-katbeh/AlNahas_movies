@@ -39,7 +39,7 @@ const LoginForm = () => {
   });
   const [error, setError] = useState<string | undefined>();
 
-  const loginMutation = trpc.auth.login.useMutation({
+  const { isPending, mutate } = trpc.auth.login.useMutation({
     onError: () => {
       setError("Incorrect email or password");
     },
@@ -48,7 +48,7 @@ const LoginForm = () => {
     },
   });
   const onSubmit = (data: LoginSchema) => {
-    loginMutation.mutate({
+    mutate({
       email: data.email,
       password: data.password,
     });
@@ -57,10 +57,9 @@ const LoginForm = () => {
   // moh@gmail.com
   return (
     <>
-      {loginMutation.isPending && (
-        <div>
-          <Loader />
-        </div>
+      {isPending && (
+        <Loader />
+        // {/* <p>loading...</p> */}
       )}
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
         <Card className="w-full max-w-sm  gap-2 justify-items-center">
