@@ -4,8 +4,18 @@ import { IoSearchOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
-import { Link, Outlet } from "@tanstack/react-router";
+import { Link, Outlet, useRouter } from "@tanstack/react-router";
+import { trpc } from "../../utils/trpc";
 export function NavigationMenuMovies() {
+  const router = useRouter();
+  const { mutate, isPending } = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      router.navigate({ to: "/login" });
+    },
+    onError: (err) => {
+      console.log("Logout failed", err.message);
+    },
+  });
   return (
     <>
       <div
@@ -14,7 +24,14 @@ export function NavigationMenuMovies() {
       >
         <div className="flex flex-row-reverse  gap-4 mr-12 mt-6">
           <TfiMoreAlt color="white" size="30" />
-
+          <Button
+            variant="outline"
+            onClick={() => mutate()}
+            disabled={isPending}
+          >
+            {" "}
+            {isPending ? "Logging out" : "Logout"}
+          </Button>
           <Link to="/userProfileForm">
             <CgProfile color="white" size="30" />
           </Link>

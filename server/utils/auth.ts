@@ -1,5 +1,5 @@
 import { betterAuth } from "better-auth";
-import { oAuthProxy } from "better-auth/plugins";
+import { multiSession, oAuthProxy } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import  { drizzleDb }  from "../src/db/kysely/client"
 
@@ -15,8 +15,12 @@ export const auth = betterAuth({
         }
     }),
     plugins: [
-        oAuthProxy()
+        oAuthProxy(),
+        multiSession({
+            maximumSessions: 5
+        })
     ],
+
     emailAndPassword:{
         enabled: true,
 
