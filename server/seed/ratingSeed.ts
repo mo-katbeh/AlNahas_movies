@@ -321,3 +321,57 @@ import { WatchListItemInput } from "../../packages/shared/zod/watchListItemType"
 //     console.error("❌ Seeding failed:", err);
 //     process.exit(1);
 //   });
+const TMDB_KEY = "dc936e880bf6db6c7cf751021d426b0d";
+const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w500";
+
+async function fetchGenres() {
+  const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_KEY}&language=en-US`);
+  const data = await res.json();
+  const map: Record<number, string> = {};
+  data.genres.forEach((g: any) => {
+    map[g.id] = g.name;
+  });
+  return map;
+}
+
+async function fetchMovies(page: number) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&primary_release_date.gte=1990-01-01&primary_release_date.lte=2025-12-31`
+  );
+  const data = await res.json();
+  return data.results;
+}
+
+async function seedMovies() {
+  const genreMap = await fetchGenres();
+
+  const moviesToInsert: any[] = [];
+
+  for (let page = 1; page <= 50; page++) { // 50 pages × 20 = ~1000 movies
+    const results = await fetchMovies(page);
+
+    for (const movie of results) {
+      const releaseYear = movie.release_date ? Number(movie.release_date.split("-")[0]) : null;
+
+      if (!releaseYear || releaseYear < 1990 || releaseYear > 2025) continue;
+
+      moviesToInsert.push({
+        title: movie.title,
+        genre: movie.genre_ids?.length ? genreMap[movie.genre_ids[0]] ?? null : null,
+        description: movie.overview || null,
+        release_year: releaseYear,
+        poster_url: movie.poster_path ? `${TMDB_IMG_BASE}${movie.poster_path}` : null,
+      });
+    }
+  }
+
+  // Insert in batches
+  for (let i = 0; i < moviesToInsert.length; i += 100) {
+    const chunk = moviesToInsert.slice(i, i + 100);
+    await db.insertInto('movies').values(chunk).execute();
+  }
+
+  console.log(`✅ Inserted ${moviesToInsert.length} movies`);
+}
+
+seedMovies().catch(console.error);
