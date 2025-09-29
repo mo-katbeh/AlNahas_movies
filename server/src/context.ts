@@ -5,16 +5,20 @@ import { fromNodeHeaders } from "better-auth/node";
 
 export async function createContext({req, res}: CreateExpressContextOptions) {
   const headers = fromNodeHeaders(req.headers)
-  const authSession = await auth.api.getSession({
+  const session = await auth.api.getSession({
     headers: headers,
   })
   // res = res.json(session)
   console.log("at context")
+  console.log("session", session)
+  console.log("user", session?.user)
+  console.log("header", headers)
   return {
+    res,
     req,
     auth,
-    authSession,
-    user: authSession?.user,
+    session,
+    user: session?.user,
     db,
     headers,
     isAdmin: true

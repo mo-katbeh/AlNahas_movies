@@ -27,14 +27,13 @@ import { Alert, AlertTitle } from "../ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import Loader from "../loader/styled-wrapper";
-
 const LoginForm = () => {
   const router = useRouter();
   const loginForm = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "mohammadkatbeh12@gmail.com",
+      password: "0115145090",
     },
   });
   const [error, setError] = useState<string | undefined>();

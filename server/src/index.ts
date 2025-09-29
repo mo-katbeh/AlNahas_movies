@@ -6,18 +6,21 @@ import { createContext } from './context';
 import './db/kysely/client'
 import { auth } from '../utils/auth';
 import {toNodeHandler} from 'better-auth/node'
-const app = express();
 
-// app.all('/trpc/auth/{*any}', toNodeHandler(auth));
+const app = express();
+// app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(cors({
     origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
+
 
 async function main() {
     app.use(
     '/trpc',
+        toNodeHandler(auth),
         trpcExpress.createExpressMiddleware({
             router: appRouter,
             createContext

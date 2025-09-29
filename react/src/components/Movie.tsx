@@ -7,6 +7,7 @@ import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
 import { RatingGroupAdvanced } from "./toggle/rating";
 import Loader from "./loader/styled-wrapper";
+import { useSession } from "@/hooks/useSession";
 const Movie = () => {
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
   const {
@@ -22,6 +23,8 @@ const Movie = () => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
+  // const { session } = useSession();
+  const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
   // const {data: ratings} = trpc.movie.fetchRatingsOfMovies.useQuery()
   if (error) return <p> {error.message} </p>;
   // if (isLoading) return <p> Loading... </p>;
@@ -29,6 +32,17 @@ const Movie = () => {
     <>
       {isLoading && <Loader />}
       <ScrollArea className="no-scrollbar">
+        <Button
+          onClick={() =>
+            createmovie({
+              title: "fire",
+              genre: "action",
+              releaseYear: 2020,
+            })
+          }
+        >
+          Add Movie
+        </Button>
         {!movies || movies.pages.every((page) => page?.movies.length === 0) ? (
           <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
             <p className="text-2xl md:text-2xl font-semibold text-white line-clamp-6">
@@ -84,8 +98,8 @@ const Movie = () => {
                 .flatMap((page) => page?.moviesWithRatings ?? [])
                 .find((movie) => movie.id === selectedMovie.id)?.avg_ratings
             ).toFixed(1)}
-            <RatingGroupAdvanced />
           </p>
+          <RatingGroupAdvanced />
 
           <p className="mb-3 text-white font-semibold text-xl">
             {selectedMovie.genre}

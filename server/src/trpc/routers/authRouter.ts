@@ -3,27 +3,41 @@ import { protectedProcedure, publicProcedure, router } from "../init";
 import { loginSchema, signUpSchema } from "../../../../packages/shared/zod/authSchema";
 import { TRPCError } from "@trpc/server";
 import { error } from "console";
+import tr from "zod/v4/locales/tr.cjs";
+import { fromNodeHeaders } from "better-auth/node";
 
 export const authRouter = router ({
-    getSession: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.auth.api.getSession({
-        headers: ctx.headers,
-    });
-}),
+    getUserSession: publicProcedure
+        .query(async ({ctx})=> {
+            const session = ctx.auth.api.getSession({
+                headers: fromNodeHeaders(ctx.req.headers)
+            })
+            return ctx.res.json(session)
+        }),
     signup: publicProcedure
         .input(signUpSchema)
         .mutation(async({ ctx ,input})=>{
             try{
-             await ctx.auth.api.signUpEmail({
+             const response = await ctx.auth.api.signUpEmail({
                 body:{
                     name: input.userName,
                     email: input.email,
                     password: input.password,
                 }
+            })
+
+            //     asResponse: true
                 
-             })
-    
-            }
+            //  })
+            //  ctx.session
+            //  ctx.res.statusCode = response.status;
+            //  response.headers.forEach((value, key)=>{
+            //     ctx.res.setHeader(key, value)
+            //  })
+            //  const text = await response.text()
+            //  ctx.res.end(text)
+            //  return
+        }
             catch(err){
                console.log(err);
                throw err
@@ -33,11 +47,12 @@ export const authRouter = router ({
     login: publicProcedure
         .input(loginSchema)
         .mutation(async({ctx, input})=>{
-                await ctx.auth.api.signInEmail({
+               const{}= await ctx.auth.api.signInEmail({
                 body:{
                     email: input.email,
                     password: input.password
-                }
+                },
+
             })
             console.log("login is working")
         }),
