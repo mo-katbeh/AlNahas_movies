@@ -14,6 +14,7 @@ export const auth = betterAuth({
             verification: authSchema.VerificationTable,
         }
     }),
+    
     plugins: [
         oAuthProxy(),
         multiSession({
@@ -25,4 +26,9 @@ export const auth = betterAuth({
         enabled: true,
 
     },
+    cookies: {
+        secure: false,
+        sameSite: "lax"
+    }
+    
 })

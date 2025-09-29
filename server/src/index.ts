@@ -8,7 +8,7 @@ import { auth } from '../utils/auth';
 import {toNodeHandler} from 'better-auth/node'
 
 const app = express();
-// app.all('/api/auth/{*any}', toNodeHandler(auth));
+app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -20,7 +20,7 @@ app.use(cors({
 async function main() {
     app.use(
     '/trpc',
-        toNodeHandler(auth),
+        // toNodeHandler(auth),
         trpcExpress.createExpressMiddleware({
             router: appRouter,
             createContext

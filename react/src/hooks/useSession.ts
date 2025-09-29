@@ -1,6 +1,6 @@
-import { trpc } from "../../utils/trpc";
+// import { trpc } from "../../utils/trpc";
 
-export function useSession(){
-    const {data: session, isLoading} =trpc.auth.getSession.useQuery()
-    return { session, isLoading}
-}
+// export function useSession(){
+//     const {data: session, isLoading} =trpc.auth.getSession.useQuery()
+//     return { session, isLoading}
+// }

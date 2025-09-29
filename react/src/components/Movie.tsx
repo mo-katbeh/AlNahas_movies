@@ -7,7 +7,7 @@ import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
 import { RatingGroupAdvanced } from "./toggle/rating";
 import Loader from "./loader/styled-wrapper";
-import { useSession } from "@/hooks/useSession";
+// import { useSession } from "@/hooks/useSession";
 const Movie = () => {
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
   const {
