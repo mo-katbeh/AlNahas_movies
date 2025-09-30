@@ -4,7 +4,6 @@ import {
   signUpSchema,
   type SignUpSchema,
 } from "../../../../packages/shared/zod/authSchema";
-import { trpc } from "../../../utils/trpc";
 import {
   Card,
   CardContent,
@@ -26,9 +25,23 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { Alert, AlertTitle } from "../ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import Loader from "../loader/styled-wrapper";
-
+import { authClient } from "../../../utils/auth-client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+const signUp = async (data: SignUpSchema) => {
+  const { error } = await authClient.signUp.email({
+    email: data.email,
+    password: data.password,
+    name: data.userName,
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+};
 const SignUpForm = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const signUpForm = useForm({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -38,20 +51,16 @@ const SignUpForm = () => {
       userName: "mohammad katbeh",
     },
   });
-  const { error, isPending, mutate } = trpc.auth.signup.useMutation({
-    onError: (err) => {
-      if (
-        err.data?.code === "BAD_REQUEST" &&
-        err.message.includes("User already exists")
-      ) {
-        console.log(err.message);
-      }
-    },
+
+  const { error, isPending, mutate } = useMutation({
+    mutationKey: ["auth", "sign-up"],
+    mutationFn: signUp,
     onSuccess: () => {
+      toast.success("You have successfully signed up.");
+      queryClient.resetQueries();
       router.navigate({ to: "/" });
     },
   });
-
   const onSubmit = (data: SignUpSchema) => {
     mutate({
       email: data.email,

@@ -69,10 +69,17 @@ export const authRouter = router ({
                 console.error("Logout error:", err)
                 throw err;
             }
-        })
+        }),
         // getSession: publicProcedure
         //     .query(async ({ctx})=>{
         //         return await ctx.session
         //     })
-        
+        signinWithGoogle: publicProcedure
+        .mutation(async  ({ctx})=>{
+            await ctx.auth.api.signInSocial({
+                body: {
+                    provider: "google"
+                }
+            })
+        })
  })

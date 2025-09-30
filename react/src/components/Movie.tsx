@@ -25,9 +25,7 @@ const Movie = () => {
   );
   // const { session } = useSession();
   const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
-  // const {data: ratings} = trpc.movie.fetchRatingsOfMovies.useQuery()
-  // if (error) return <p> {error.message} </p>;
-  // if (isLoading) return <p> Loading... </p>;
+  if (error) return <p> {error.message} </p>;
   return (
     <>
       {/* {isLoading ? <Loader /> : null} */}
