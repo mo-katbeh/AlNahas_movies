@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import NavigationMenuMovies from "@/components/NavigationMenuMovies";
+import { Toaster } from "sonner";
 // import { trpc } from "../../../utils/trpc";
 
 export const Route = createFileRoute("/_layout")({
@@ -13,6 +14,7 @@ function RouteComponent() {
   return (
     <>
       <NavigationMenuMovies />
+      <Toaster />
     </>
   );
 }

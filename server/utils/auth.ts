@@ -3,7 +3,8 @@ import { multiSession, oAuthProxy } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import  { drizzleDb }  from "../src/db/kysely/client"
 import * as authSchema from "../src/db/schemas/authTable"
-import { env } from "../src/validateEnv";
+
+// import { env } from "../src/validateEnv";
 export const auth = betterAuth({
     database: drizzleAdapter(drizzleDb,{
         provider: "pg",
@@ -27,10 +28,10 @@ export const auth = betterAuth({
     },
 
     socialProviders: {
-        google: {
-            clientId: env.GOOGLE_CLIENT_ID as string,
-            clientSecret: env.GOOGLE_CLIENT_SECRET as string
-        }
+        google: { 
+            clientId: process.env.GOOGLE_CLIENT_ID as string, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+        }, 
     },
     cookies:{
         secure: false,

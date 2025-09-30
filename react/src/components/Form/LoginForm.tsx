@@ -27,11 +27,24 @@ import { AlertCircleIcon } from "lucide-react";
 import Loader from "../loader/styled-wrapper";
 import { authClient } from "../../../utils/auth-client";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 const logIn = async (data: LoginSchema) => {
-  const { error } = await authClient.signIn.email({
+  const { error, data: response } = await authClient.signIn.email({
     email: data.email,
     password: data.password,
   });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return response;
+};
+const signInWithGoogle = async () => {
+  const { error } = await authClient.signIn.social({
+    provider: "google",
+    callbackURL: "/movies",
+  });
+
   if (error) {
     throw new Error(error.message);
   }
@@ -45,26 +58,38 @@ const LoginForm = () => {
       password: "0115145090",
     },
   });
-  // const { isPending, mutate } = trpc.auth.login.useMutation({
-  //   onError: () => {
-  //     setError("Incorrect email or password");
-  //   },
-  //   onSuccess: () => {
-  //     router.navigate({ to: "/" });
-  //   },
-  // });
+
   const { isPending, mutate, error } = useMutation({
     mutationKey: ["auth", "log-in"],
     mutationFn: logIn,
-    onSuccess: () => {
+    onSuccess: (response) => {
+      console.log("onSuccess", response.user);
+      toast.success(`Welcome back ${response.user.name}`);
       router.navigate({ to: "/" });
     },
   });
-  const signInWithGoogle = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-    });
-  };
+  const googleSignInMutation = useMutation({
+    mutationKey: ["auth", "google"],
+    mutationFn: () => signInWithGoogle(),
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success(`Welcome back `);
+      router.navigate({ to: "/" });
+    },
+  });
+
+  // const googleSignInMutation = useMutation({
+  //   mutationKey: ["auth", "google"],
+  //   mutationFn: signInWithGoogle,
+  //   onSuccess: () => {
+  //     router.navigate({ to: "/" });
+  //   },
+  //   onError: (err) => {
+  //     console.log("field to login with google", err);
+  //   },
+  // });
   const onSubmit = (data: LoginSchema) => {
     mutate({
       email: data.email,
@@ -105,7 +130,7 @@ const LoginForm = () => {
                   <Button
                     variant="outline"
                     type="button"
-                    onClick={signInWithGoogle}
+                    onClick={() => googleSignInMutation.mutate()}
                     className="w-full text-sm"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
