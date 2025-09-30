@@ -26,11 +26,12 @@ const Movie = () => {
   // const { session } = useSession();
   const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
   // const {data: ratings} = trpc.movie.fetchRatingsOfMovies.useQuery()
-  if (error) return <p> {error.message} </p>;
+  // if (error) return <p> {error.message} </p>;
   // if (isLoading) return <p> Loading... </p>;
   return (
     <>
-      {isLoading && <Loader />}
+      {/* {isLoading ? <Loader /> : null} */}
+
       <ScrollArea className="no-scrollbar">
         <Button
           onClick={() =>
@@ -45,9 +46,13 @@ const Movie = () => {
         </Button>
         {!movies || movies.pages.every((page) => page?.movies.length === 0) ? (
           <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
-            <p className="text-2xl md:text-2xl font-semibold text-white line-clamp-6">
-              Nothing here yet, stay tuned 👀
-            </p>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <p className="text-2xl md:text-2xl font-semibold text-white line-clamp-6">
+                Nothing here yet, stay tuned 👀
+              </p>
+            )}
           </div>
         ) : (
           <div className="flex w-max space-x-6 p-14">

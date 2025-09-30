@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+// interface Props {
+//   className: string;
+// }
 const Loader = () => {
   return (
     <StyledWrapper>
