@@ -41,7 +41,7 @@ export function NavigationMenuMovies() {
           <IoSearchOutline color="white" size="30" />
           <ModeToggle />
         </div>
-        <div className="flex flex-row justify-center gap-8  pt-4 pb-12 bg-fixed">
+        <div className="flex flex-row justify-center gap-8  pt-4 pb-8 bg-fixed">
           <Button variant="move_nav" className="hover:transition-transform">
             <Link to="/">Home</Link>
           </Button>
@@ -56,7 +56,6 @@ export function NavigationMenuMovies() {
         </div>
         <Outlet />
       </div>
-      <figure></figure>
     </>
   );
 }

@@ -9,10 +9,10 @@ export async function createContext({req, res}: CreateExpressContextOptions) {
     headers: headers,
   })
   // res = res.json(session)
-  console.log("at context")
-  console.log("session", session)
-  console.log("user", session?.user)
-  console.log("header", headers)
+  // console.log("at context")
+  // console.log("session", session)
+  // console.log("user", session?.user)
+  // console.log("header", headers)
   return {
     res,
     req,

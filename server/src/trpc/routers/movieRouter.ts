@@ -1,6 +1,6 @@
 import { sql } from "kysely";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../../../packages/shared/zod/movieType";
-import { adminPocedure, protectedProcedure, router } from "../init";
+import { adminPocedure, protectedProcedure, publicProcedure, router } from "../init";
 import { bigint, number, z } from "zod"
 //carousel
 export const movieRouter = router({
@@ -62,6 +62,14 @@ export const movieRouter = router({
                 .execute() 
             return movies
         }),
+    getMovies: publicProcedure
+            .query(async({ctx})=>{
+             const movies = await ctx.db
+                .selectFrom('movies')
+                .selectAll()
+                .execute()
+            return movies
+            }),
     createmovie: protectedProcedure
         .input( createMovieSchema )
         .mutation(async({ ctx, input })=>{
