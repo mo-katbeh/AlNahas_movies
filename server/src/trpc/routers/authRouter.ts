@@ -9,10 +9,11 @@ import { fromNodeHeaders } from "better-auth/node";
 export const authRouter = router ({
     getUserSession: publicProcedure
         .query(async ({ctx})=> {
-            const session = ctx.auth.api.getSession({
+            const {session, user} =  await ctx.auth.api.getSession({
                 headers: fromNodeHeaders(ctx.req.headers)
             })
-            return ctx.res.json(session)
+
+            return {session, user}
         }),
     signup: publicProcedure
         .input(signUpSchema)
@@ -74,12 +75,5 @@ export const authRouter = router ({
         //     .query(async ({ctx})=>{
         //         return await ctx.session
         //     })
-        signinWithGoogle: publicProcedure
-        .mutation(async  ({ctx})=>{
-            await ctx.auth.api.signInSocial({
-                body: {
-                    provider: "google"
-                }
-            })
-        })
+        
  })

@@ -50,7 +50,9 @@ export function NavigationMenuMovies() {
             <Link to="/movies">Movies</Link>
           </Button>
           <Button variant="move_nav">Latest</Button>
-          <Button variant="move_nav">WatchList</Button>
+          <Button variant="move_nav">
+            <Link to="/watchlist">WatchList</Link>
+          </Button>
         </div>
         <Outlet />
       </div>

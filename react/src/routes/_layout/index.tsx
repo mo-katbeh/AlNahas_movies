@@ -1,3 +1,4 @@
+import Home from "@/components/Home";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/_layout/")({
 });
 
 function RouteComponent() {
-  return <div></div>;
+  return <Home />;
 }
