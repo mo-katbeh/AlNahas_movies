@@ -20,7 +20,7 @@ export function NavigationMenuMovies() {
   return (
     <>
       <div
-        className="min-h-screen bg-cover bg-center overflow-y-hidden"
+        className="min-h-screen bg-cover bg-center bg-fixed  overflow-y-hidden"
         style={{ backgroundImage: `url(${theaterImage})` }}
       >
         <div className="flex flex-row-reverse  gap-4 mr-12 mt-6">
