@@ -19,7 +19,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
   height: 100vh; /* full screen height */
   width: 100%; /* full width */
-  background: #0f0f0f; /* optional: dark background */
+  // background: #0f0f0f; /* optional: dark background */
 
   .loader {
     width: 80px;

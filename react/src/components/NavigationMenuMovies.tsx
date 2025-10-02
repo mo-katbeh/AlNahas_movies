@@ -35,9 +35,6 @@ export function NavigationMenuMovies() {
             {" "}
             {isPending ? "Logging out" : "Logout"}
           </Button>
-          {/* <Link to="/userProfileForm">
-            <CgProfile color="white" size="30" />
-          </Link> */}
 
           <CgProfile color="white" size="30" onClick={open} />
 

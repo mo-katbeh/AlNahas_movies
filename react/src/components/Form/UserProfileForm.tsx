@@ -192,10 +192,9 @@ const UserProfileForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="flex flex-col items-center">
-                Save Changes
-              </Button>
-              <Button variant="outline">Close</Button>
+              <div className="flex justify-center">
+                <Button type="submit">Save Changes</Button>
+              </div>
             </form>
           </Form>
           <SheetFooter>

@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UserProfileFormRouteImport } from './routes/userProfileForm'
 import { Route as SignUpRouteImport } from './routes/signUp'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
@@ -18,11 +17,6 @@ import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutWatchlistRouteImport } from './routes/_layout/watchlist'
 import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
 
-const UserProfileFormRoute = UserProfileFormRouteImport.update({
-  id: '/userProfileForm',
-  path: '/userProfileForm',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SignUpRoute = SignUpRouteImport.update({
   id: '/signUp',
   path: '/signUp',
@@ -62,7 +56,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/signUp': typeof SignUpRoute
-  '/userProfileForm': typeof UserProfileFormRoute
   '/movies': typeof LayoutMoviesRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
@@ -71,7 +64,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/signUp': typeof SignUpRoute
-  '/userProfileForm': typeof UserProfileFormRoute
   '/movies': typeof LayoutMoviesRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
@@ -82,37 +74,21 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/signUp': typeof SignUpRoute
-  '/userProfileForm': typeof UserProfileFormRoute
   '/_layout/movies': typeof LayoutMoviesRoute
   '/_layout/watchlist': typeof LayoutWatchlistRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/about'
-    | '/login'
-    | '/signUp'
-    | '/userProfileForm'
-    | '/movies'
-    | '/watchlist'
-    | '/'
+  fullPaths: '/about' | '/login' | '/signUp' | '/movies' | '/watchlist' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/about'
-    | '/login'
-    | '/signUp'
-    | '/userProfileForm'
-    | '/movies'
-    | '/watchlist'
-    | '/'
+  to: '/about' | '/login' | '/signUp' | '/movies' | '/watchlist' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/about'
     | '/login'
     | '/signUp'
-    | '/userProfileForm'
     | '/_layout/movies'
     | '/_layout/watchlist'
     | '/_layout/'
@@ -123,18 +99,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
   SignUpRoute: typeof SignUpRoute
-  UserProfileFormRoute: typeof UserProfileFormRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/userProfileForm': {
-      id: '/userProfileForm'
-      path: '/userProfileForm'
-      fullPath: '/userProfileForm'
-      preLoaderRoute: typeof UserProfileFormRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/signUp': {
       id: '/signUp'
       path: '/signUp'
@@ -207,7 +175,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
   SignUpRoute: SignUpRoute,
-  UserProfileFormRoute: UserProfileFormRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
