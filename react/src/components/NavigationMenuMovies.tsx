@@ -20,10 +20,10 @@ export function NavigationMenuMovies() {
   return (
     <>
       <div
-        className="min-h-screen bg-cover bg-center bg-fixed  overflow-y-hidden"
+        className="min-h-screen bg-cover bg-center bg-fixed  overflow-hidden"
         style={{ backgroundImage: `url(${theaterImage})` }}
       >
-        <div className="flex flex-row-reverse  gap-4 mr-12 mt-6">
+        <div className="w-full flex flex-row-reverse  gap-4 mr-12 mt-6">
           <TfiMoreAlt color="white" size="30" />
           <Button
             variant="outline"
@@ -41,7 +41,7 @@ export function NavigationMenuMovies() {
           <IoSearchOutline color="white" size="30" />
           <ModeToggle />
         </div>
-        <div className="flex flex-row justify-center gap-8  pt-4 pb-8 bg-fixed">
+        <div className="flex flex-row justify-center gap-8  pt-4 pb-8 ">
           <Button variant="move_nav" className="hover:transition-transform">
             <Link to="/">Home</Link>
           </Button>
