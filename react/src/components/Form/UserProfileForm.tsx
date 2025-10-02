@@ -30,13 +30,11 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "../ui/sheet";
-import { useRouter } from "@tanstack/react-router";
 import Loader from "../loader/styled-wrapper";
+import useSheetStore from "@/state-management/useSheetStore";
 
 const UserProfileForm = () => {
-  const router = useRouter();
   const userProfileForm = useForm({
     resolver: zodResolver(createUserProfileSchema),
     defaultValues: {
@@ -47,7 +45,7 @@ const UserProfileForm = () => {
       phoneNumber: "",
     },
   });
-
+  const { isOpen, close } = useSheetStore();
   const userProfileMutation = trpc.userProfile.createUserProfile1.useMutation();
   // console.log("Current form values:", watch());
   // console.log("handleSubmit ", { handleSubmit });
@@ -71,10 +69,7 @@ const UserProfileForm = () => {
           <Loader />
         </div>
       )}
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button> open</Button>
-        </SheetTrigger>
+      <Sheet open={isOpen} onOpenChange={(open) => (open ? null : close())}>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Edit Profile</SheetTitle>

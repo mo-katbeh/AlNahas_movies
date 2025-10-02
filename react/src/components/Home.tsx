@@ -11,7 +11,7 @@ import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
 
 export const Home = () => {
-  const { data: movies, error, isLoading } = trpc.movie.getMovies.useQuery();
+  const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
   if (error) console.log("Error in home page", error);
   return (
     <>
@@ -44,7 +44,7 @@ export const Home = () => {
         <Carousel className="w-full ">
           <p className="text-2xl font-bold ">Latest</p>
           <CarouselPrevious />
-          {!movies ? (
+          {!data?.movies ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
               {isLoading ? (
                 <Loader />
@@ -56,7 +56,7 @@ export const Home = () => {
             </div>
           ) : (
             <CarouselContent className="flex items-center justify-center w-full">
-              {movies?.map((movie) => (
+              {data?.movies?.map((movie) => (
                 <CarouselItem
                   key={movie.id}
                   className="w-full items-center justify-center md:basis-1/2 lg:basis-1/6"

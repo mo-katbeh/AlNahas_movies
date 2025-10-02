@@ -7,8 +7,10 @@ import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { trpc } from "../../utils/trpc";
 import { ModeToggle } from "./toggle/mode-toggle";
+import useSheetStore from "@/state-management/useSheetStore";
 export function NavigationMenuMovies() {
   const router = useRouter();
+  const { open } = useSheetStore();
   const { mutate, isPending } = trpc.auth.logout.useMutation({
     onSuccess: () => {
       router.navigate({ to: "/login" });
@@ -33,9 +35,11 @@ export function NavigationMenuMovies() {
             {" "}
             {isPending ? "Logging out" : "Logout"}
           </Button>
-          <Link to="/userProfileForm">
+          {/* <Link to="/userProfileForm">
             <CgProfile color="white" size="30" />
-          </Link>
+          </Link> */}
+
+          <CgProfile color="white" size="30" onClick={open} />
 
           <MdOutlineNotificationsNone color="white" size="30" />
           <IoSearchOutline color="white" size="30" />

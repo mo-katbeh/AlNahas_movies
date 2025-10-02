@@ -68,7 +68,23 @@ export const movieRouter = router({
                 .selectFrom('movies')
                 .selectAll()
                 .execute()
-            return movies
+          
+            const moviesWithRatings  = await ctx.db
+                .selectFrom('movies')
+                .leftJoin('ratings as r', 'r.movie_id', 'movies.id')
+                .selectAll('movies')
+                .select(()=> [
+                    // sql<number[]>`coalesce(array_agg(r.rating), '{}')`.as('movie_ratings'),
+                    sql<number>`coalesce(avg(r.rating), 0)`.as('avg_ratings')
+                ])
+                .groupBy('movies.id')
+           
+                .execute()
+
+            return{
+                movies,
+                moviesWithRatings
+            }
             }),
     createmovie: protectedProcedure
         .input( createMovieSchema )
