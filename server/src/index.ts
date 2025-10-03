@@ -14,13 +14,7 @@ app.use(cors({
     credentials: true
 }))
 
-// Middleware to inspect the social login request
-app.use("/api/auth/{*any}", (req, res, next) => {
-  if (req.url.includes("sign-in/social") && req.query.provider === "google") {
-    console.log("Incoming social login request for Google:", req.url);
-  }
-  next();
-});
+
 app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(express.json())

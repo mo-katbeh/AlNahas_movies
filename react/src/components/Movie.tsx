@@ -21,10 +21,16 @@ const Movie = () => {
   if (error) console.log("Error in movie page", error);
   return (
     <>
+      <Button
+        type="submit"
+        className="mb-10"
+        onClick={() =>
+          createmovie({ title: "dragon", releaseYear: 2020, genre: "Action" })
+        }
+      >
+        Add Movie
+      </Button>
       <div className="flex w-full items-center justify-center space-x-6 p-8 p-14">
-        {/* <Button type="button" onClick={()=> createmovie({
-          
-        })}>Add Movie</Button> */}
         <Carousel className="w-full ">
           <CarouselPrevious />
           {!data?.movies ? (
@@ -45,7 +51,7 @@ const Movie = () => {
                   className="w-full items-center justify-center md:basis-1/2 lg:basis-1/6"
                 >
                   <div
-                    className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-110 p-2"
+                    className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2"
                     onClick={() => setSelectedMovie(movie)}
                   >
                     <img

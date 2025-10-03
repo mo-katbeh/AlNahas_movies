@@ -42,7 +42,7 @@ export const Home = () => {
       </div>
       <div className="flex w-full items-center justify-center space-x-6 p-8 p-14">
         <Carousel className="w-full ">
-          <p className="text-2xl font-bold ">Latest</p>
+          <p className="text-2xl font-bold ">Top Rating</p>
           <CarouselPrevious />
           {!data?.movies ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
