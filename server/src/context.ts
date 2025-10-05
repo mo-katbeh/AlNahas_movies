@@ -18,7 +18,6 @@ export async function createContext({req, res}: CreateExpressContextOptions) {
     req,
     auth,
     session,
-    user: session?.user,
     db,
     headers,
     isAdmin: true
