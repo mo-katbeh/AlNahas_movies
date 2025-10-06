@@ -67,6 +67,7 @@ export const movieRouter = router({
              const movies = await ctx.db
                 .selectFrom('movies')
                 .selectAll()
+                .limit(40)
                 .execute()
           
             const moviesWithRatings  = await ctx.db
