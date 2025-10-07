@@ -1,10 +1,10 @@
 import { z } from "zod"
 
 export const watchListItemSchema =  z.object({
-    id: z.coerce.bigint(),
-    userId: z.coerce.bigint(),
+    // id: z.coerce.bigint(),
+    userId: z.string(),
     movieId: z.coerce.bigint(),
-    status: z.literal(["planned", "watching", "completed"]).default("planned")
+    // status: z.literal(["planned", "watching", "completed"]).default("planned")
 })
 
 export type WatchListItemInput = z.Infer<typeof watchListItemSchema>

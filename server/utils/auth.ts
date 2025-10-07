@@ -17,6 +17,7 @@ export const auth = betterAuth({
     }),
     
     plugins: [
+        
         oAuthProxy(),
         multiSession(),
         admin()
@@ -33,9 +34,5 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
         }, 
     },
-    cookies:{
-        secure: false,
-        sameSite: "none"
-    }
     
 })

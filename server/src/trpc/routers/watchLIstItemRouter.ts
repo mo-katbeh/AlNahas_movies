@@ -1,7 +1,27 @@
 import { sql } from "kysely";
 import { publicProcedure, router } from "../init";
+import { watchListItemSchema } from "../../../../packages/shared/zod/watchListItemType";
 
 export const watchListItemRouter = router({
+    addToWatchlist: publicProcedure
+        .input(watchListItemSchema)
+        .mutation(async({ctx, input})=>{
+            try{await ctx.db
+                .insertInto('watchlist_items')
+                .values({
+                    user_id: input.userId,
+                    movie_id: input.movieId
+                })
+                .returningAll()
+                .execute()
+            }catch(error){
+                console.log("field add movie", error)
+                throw new Error()
+            }
+
+                
+                
+        }),
     getWatcListItem: publicProcedure
      .query(async({ctx})=>{
         try{

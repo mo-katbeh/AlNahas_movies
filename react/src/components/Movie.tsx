@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { trpc } from "../../utils/trpc";
 import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
@@ -11,31 +11,37 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "./ui/button";
 import { TfiMoreAlt } from "react-icons/tfi";
-import useMovieMenubarStore from "@/state-management/useMovieMenubarStore";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-} from "./ui/menubar";
-import { MenubarTrigger } from "./ui/menubar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-
+import { authClient } from "../../utils/auth-client";
+import { useQuery } from "@tanstack/react-query";
+const getSession = async () => {
+  const { data: session, error } = await authClient.getSession();
+  if (!error) return session;
+  throw new Error(error.message);
+};
 const Movie = () => {
-  // const { open } = useMovieMenubarStore();
-  const [] = useState(null);
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
-
-  const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
+  const { mutate, error: watchlistError } =
+    trpc.watchlist.addToWatchlist.useMutation({
+      onSuccess: () => {
+        console.log("movie added");
+      },
+    });
+  const { data: session } = useQuery({
+    queryKey: ["auth", "get-session"],
+    queryFn: getSession,
+  });
+  // const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
   if (error) console.log("Error in movie page", error);
+  if (watchlistError) console.log("Error in movie page", watchlistError);
   return (
     <>
       {/* <Button
@@ -83,7 +89,14 @@ const Movie = () => {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="fixed" align="start">
                         <DropdownMenuItem
-                        // onClick={() => console.log("Add", movie.title)}
+                          onClick={() => {
+                            if (session?.user) {
+                              mutate({
+                                userId: session.user.id,
+                                movieId: selectedMovie?.id,
+                              });
+                            }
+                          }}
                         >
                           Add to Watchlist
                         </DropdownMenuItem>
