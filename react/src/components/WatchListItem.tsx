@@ -29,7 +29,7 @@ const WatchListItem = () => {
                   {/* <div className=""> */}
                   <img
                     className="rounded-xl rounded-bl-none rounded-br-none h-[250px] w-full bg-gray-100"
-                    src={movie.poster_url}
+                    src={movie.poster_url ?? undefined}
                     alt={movie.title}
                   />
                   {/* </div> */}

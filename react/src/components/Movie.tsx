@@ -12,8 +12,25 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
+import { TfiMoreAlt } from "react-icons/tfi";
+import useMovieMenubarStore from "@/state-management/useMovieMenubarStore";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+} from "./ui/menubar";
+import { MenubarTrigger } from "./ui/menubar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const Movie = () => {
+  // const { open } = useMovieMenubarStore();
+  const [] = useState(null);
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
 
@@ -21,7 +38,7 @@ const Movie = () => {
   if (error) console.log("Error in movie page", error);
   return (
     <>
-      <Button
+      {/* <Button
         type="submit"
         className="mb-10"
         onClick={() =>
@@ -29,8 +46,8 @@ const Movie = () => {
         }
       >
         Add Movie
-      </Button>
-      <div className="flex w-full items-center justify-center space-x-6 p-8 p-14">
+      </Button> */}
+      <div className="flex w-full items-center justify-center space-x-6 p-14">
         <Carousel className="w-full ">
           <CarouselPrevious />
           {!data?.movies ? (
@@ -48,16 +65,40 @@ const Movie = () => {
               {data?.movies?.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className="w-full items-center justify-center md:basis-1/2 lg:basis-1/6"
+                  className=" relative w-full items-center justify-center md:basis-1/3 lg:basis-1/6"
                 >
                   <div
-                    className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2"
+                    className="relative w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2"
                     onClick={() => setSelectedMovie(movie)}
                   >
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div
+                          className="fixed m-2 p-0.5 bg-white/70 rounded-md hover:bg-white "
+                          // className="absolute top-2 right-2 p-1 bg-white/70 rounded-md hover:bg-white"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <TfiMoreAlt className="text-gray-700" size={16} />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="fixed" align="start">
+                        <DropdownMenuItem
+                        // onClick={() => console.log("Add", movie.title)}
+                        >
+                          Add to Watchlist
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                        // onClick={() => console.log("Details", movie.title)}
+                        >
+                          View Details
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
                     <img
-                      src={movie.poster_url ?? "../assets/main.jpg"}
+                      src={movie.poster_url ?? undefined}
                       alt={movie.title}
-                      className="w-full h-full rounded-2xl"
+                      className="w-full h-full rounded-md"
                     />
                   </div>
                 </CarouselItem>
