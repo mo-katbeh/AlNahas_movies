@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
