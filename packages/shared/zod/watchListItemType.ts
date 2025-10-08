@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const watchListItemSchema =  z.object({
     // id: z.coerce.bigint(),
-    userId: z.string(),
+    userId: z.coerce.string(),
     movieId: z.coerce.bigint(),
     // status: z.literal(["planned", "watching", "completed"]).default("planned")
 })

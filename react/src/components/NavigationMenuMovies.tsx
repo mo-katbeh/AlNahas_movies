@@ -5,17 +5,36 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
-import { trpc } from "../../utils/trpc";
 import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
+import { authClient } from "../../utils/auth-client";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { trpc } from "../../utils/trpc";
+// const Logout = async () => {
+//   const { error } = await authClient.signOut();
+//   if (error) {
+//     toast.error("You are not signed in");
+//   }
+// };
 export function NavigationMenuMovies() {
   const router = useRouter();
   const { open } = useSheetStore();
+  // const { isSuccess, mutate, isPending } = useMutation({
+  //   toast.success("Comeback soon");
+
+  //   mutationKey: ["auth", "log-out"],
+  //   mutationFn: Logout,
+  // });
   const { mutate, isPending } = trpc.auth.logout.useMutation({
     onSuccess: () => {
+      toast.success("Comeback soon");
+
       router.navigate({ to: "/login" });
     },
     onError: (err) => {
+      toast.error("You are not signed in");
+
       console.log("Logout failed", err.message);
     },
   });
@@ -29,7 +48,13 @@ export function NavigationMenuMovies() {
           <TfiMoreAlt color="white" size="30" />
           <Button
             variant="outline"
-            onClick={() => mutate()}
+            onClick={() => {
+              mutate();
+              // if (isSuccess) {
+              //   toast.success("Comeback soon");
+              //   router.navigate({ to: "/login" });
+              // }
+            }}
             disabled={isPending}
           >
             {" "}

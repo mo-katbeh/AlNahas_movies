@@ -1,10 +1,25 @@
 import { sql } from "kysely";
-import { publicProcedure, router } from "../init";
+import { protectedProcedure, publicProcedure, router } from "../init";
 import { watchListItemSchema } from "../../../../packages/shared/zod/watchListItemType";
 import { response } from "express";
+import {z}from 'zod'
 
 export const watchListItemRouter = router({
-    addToWatchlist: publicProcedure
+    getWatchlist: protectedProcedure
+    .input(    z.object({userId: z.coerce.string()})
+    )    
+    .query(async({ctx,input})=>{
+        const watclist = await ctx.db
+        .selectFrom('watchlist_items as wl')
+        .selectAll()
+        .innerJoin('movies as m', 'm.id', 'wl.movie_id')
+        .select(['m.release_year', 'm.poster_url', 'm.title', 'm.genre'])
+        .execute()
+        
+        return watclist
+
+    }),
+    addToWatchlist: protectedProcedure
         .input(watchListItemSchema)
         .mutation(async({ctx, input})=>{
             try{

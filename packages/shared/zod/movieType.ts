@@ -1,12 +1,9 @@
 import { z} from 'zod';
 export const movieType = z.object({
-    id: z.never(),
+    id: z.coerce.bigint(),
     title: z.string(),
     genre: z.string().nullable(),
     description: z.string().nullable(),
-    created_at: z.string(),
-    updated_at: z.string(),
-    is_deleted: z.boolean().nullable(),
     release_year: z.number(),
     poster_url: z.string().nullable()
 })

@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { trpc } from "../../utils/trpc";
-import { type MovieType } from "../../../packages/shared/zod/movieType";
 import { BiSolidTagAlt } from "react-icons/bi";
 import { RatingGroupAdvanced } from "./toggle/rating";
 import Loader from "./loader/styled-wrapper";
@@ -22,6 +20,7 @@ import {
 import { authClient } from "../../utils/auth-client";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
 const getSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;
@@ -29,7 +28,8 @@ const getSession = async () => {
 };
 const Movie = () => {
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
-  const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
+  // const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
+  const { selectedMovie, setSelectedMovie } = useSelectedMovieStore();
   const { mutate } = trpc.watchlist.addToWatchlist.useMutation({
     onError: (err) => {
       toast.warning(err.message);

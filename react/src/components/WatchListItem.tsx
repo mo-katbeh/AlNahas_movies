@@ -1,16 +1,33 @@
+import { toast } from "sonner";
+import { authClient } from "../../utils/auth-client";
 import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import { BackgroundGradient } from "./ui/shadcn-io/background-gradient";
-
+import { useQuery } from "@tanstack/react-query";
+// import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
+const getUserSession = async () => {
+  const { data: session, error } = await authClient.getSession();
+  if (!error) return session;
+  toast.error("You are not signed in!");
+};
 const WatchListItem = () => {
-  const { data, isLoading, error } = trpc.movie.getMovies.useQuery();
+  // const { selectedMovie } = useSelectedMovieStore();
+  // const { data, isLoading, error } = trpc.movie.getMovies.useQuery();
+  const { data: session } = useQuery({
+    queryKey: ["session"],
+    queryFn: getUserSession,
+  });
+  const { data, isLoading, error } = trpc.watchlist.getWatchlist.useQuery({
+    userId: session?.user.id,
+    // movieId: selectedMovie?.id,
+  });
   if (error) console.log("error in Watchlist page", error);
   return (
     <div className="m-2 ">
       <p className="text-2xl m-2 mb-4 font-bold">My Watchlist:</p>
-      {!data?.movies ? (
+      {!data ? (
         <div>
           {isLoading ? (
             <Loader />
@@ -22,7 +39,7 @@ const WatchListItem = () => {
         </div>
       ) : (
         <div className="grid grid-cols-4 gap-8">
-          {data?.movies.map((movie) => (
+          {data.map((movie) => (
             <BackgroundGradient className="rounded-xl bg-white dark:bg-zinc-900">
               <Card className="relative h-[400px] py-0 gap-0">
                 <CardContent className=" px-0 w-full ">
