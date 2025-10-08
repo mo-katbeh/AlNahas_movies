@@ -1,12 +1,24 @@
 import { sql } from "kysely";
 import { protectedProcedure, publicProcedure, router } from "../init";
 import { watchListItemSchema } from "../../../../packages/shared/zod/watchListItemType";
-import { response } from "express";
 import {z}from 'zod'
 
 export const watchListItemRouter = router({
+    removeMovie: protectedProcedure
+        .input(z.object({movieId: z.coerce.bigint()}))
+        .mutation(async({ctx,input})=>{
+            try{
+                await ctx.db
+            .deleteFrom('watchlist_items')
+            .where('watchlist_items.movie_id', '=', input.movieId)
+            .execute()
+        }catch(err){
+            console.log("feild remove movie", err)
+            // throw new Error(err)
+        }
+        }),
     getWatchlist: protectedProcedure
-    .input(    z.object({userId: z.coerce.string()})
+    .input(z.object({userId: z.coerce.string()})
     )    
     .query(async({ctx,input})=>{
         const watclist = await ctx.db
