@@ -21,6 +21,7 @@ import {
 } from "./ui/dropdown-menu";
 import { authClient } from "../../utils/auth-client";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 const getSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;
@@ -29,19 +30,25 @@ const getSession = async () => {
 const Movie = () => {
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
   const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
-  const { mutate, error: watchlistError } =
-    trpc.watchlist.addToWatchlist.useMutation({
-      onSuccess: () => {
-        console.log("movie added");
-      },
-    });
-  const { data: session } = useQuery({
+  const { mutate } = trpc.watchlist.addToWatchlist.useMutation({
+    onError: (err) => {
+      toast.warning(err.message);
+      // console.log("feild add movie to watchlist", err.message);
+    },
+    onSuccess: (response) => {
+      toast.success(`${response[0].title} added successfully`);
+
+      console.log("movie added", response);
+    },
+  });
+  const { data: session, error: sessionError } = useQuery({
     queryKey: ["auth", "get-session"],
     queryFn: getSession,
   });
   // const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
   if (error) console.log("Error in movie page", error);
-  if (watchlistError) console.log("Error in movie page", watchlistError);
+  // if (session) console.log("Session body", session);
+  if (sessionError) console.log("Error in Session", sessionError);
   return (
     <>
       {/* <Button
@@ -77,7 +84,7 @@ const Movie = () => {
                     className="relative w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2"
                     onClick={() => setSelectedMovie(movie)}
                   >
-                    <DropdownMenu>
+                    <DropdownMenu onOpenChange={() => setSelectedMovie(movie)}>
                       <DropdownMenuTrigger asChild>
                         <div
                           className="fixed m-2 p-0.5 bg-white/70 rounded-md hover:bg-white "
@@ -90,6 +97,7 @@ const Movie = () => {
                       <DropdownMenuContent className="fixed" align="start">
                         <DropdownMenuItem
                           onClick={() => {
+                            // setSelectedMovie(movie);
                             if (session?.user) {
                               mutate({
                                 userId: session.user.id,
