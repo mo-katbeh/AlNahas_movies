@@ -21,7 +21,7 @@ const WatchListItem = () => {
     trpc.watchlist.removeMovie.useMutation({
       onSuccess: () => {
         console.log("Success remove movie");
-        utils.watchlist.getWatchlist.invalidate({ userId: session?.user.id });
+        utils.watchlist.getWatchlist.invalidate();
       },
     });
   const {
