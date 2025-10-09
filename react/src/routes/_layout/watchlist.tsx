@@ -41,7 +41,7 @@ function RouteComponent() {
               <p className="text-sm">Cancel</p>
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => router.navigate({ to: "/signUp" })}
+              onClick={() => router.navigate({ to: "/login" })}
             >
               <p className="text-sm">Yes</p>
             </AlertDialogAction>
