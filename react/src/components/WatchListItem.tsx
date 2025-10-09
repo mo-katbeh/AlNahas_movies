@@ -1,5 +1,4 @@
-import { toast } from "sonner";
-import { authClient } from "../../utils/auth-client";
+import { getUserSession } from "../../utils/auth-client";
 import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
 import { Button } from "./ui/button";
@@ -17,11 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-const getUserSession = async () => {
-  const { data: session, error } = await authClient.getSession();
-  if (!error) return session;
-  toast.error("You are not signed in!");
-};
+
 const WatchListItem = () => {
   const utils = trpc.useUtils();
   const { data: session } = useQuery({
@@ -40,7 +35,7 @@ const WatchListItem = () => {
     isLoading,
     error,
   } = trpc.watchlist.getWatchlist.useQuery({
-    userId: session?.user.id,
+    userId: session?.session?.user.id,
   });
   if (error) console.log("error in Watchlist page", error);
   if (watchlistError)

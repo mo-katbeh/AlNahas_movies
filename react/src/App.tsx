@@ -3,6 +3,8 @@ import { routeTree } from "./routeTree.gen";
 import { ThemeProvider } from "./components/theme/theme-provider";
 import { Toaster } from "sonner";
 import UserProfileForm from "./components/form/UserProfileForm";
+// import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
+// import { AppSidebar } from "./components/AppSidebar";
 
 const router = createRouter({ routeTree });
 declare module "@tanstack/react-router" {
@@ -16,8 +18,13 @@ function App() {
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Toaster richColors theme="system" position="top-center" />
+        {/* <SidebarProvider>
+          <AppSidebar />
+
+          <SidebarTrigger /> */}
         <RouterProvider router={router} />
         <UserProfileForm />
+        {/* </SidebarProvider> */}
       </ThemeProvider>
     </>
   );

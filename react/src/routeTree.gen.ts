@@ -9,7 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignUpRouteImport } from './routes/signUp'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LayoutRouteImport } from './routes/_layout'
@@ -17,9 +17,9 @@ import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutWatchlistRouteImport } from './routes/_layout/watchlist'
 import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
 
-const SignUpRoute = SignUpRouteImport.update({
-  id: '/signUp',
-  path: '/signUp',
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -55,7 +55,7 @@ const LayoutMoviesRoute = LayoutMoviesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/signUp': typeof SignUpRoute
+  '/signup': typeof SignupRoute
   '/movies': typeof LayoutMoviesRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
@@ -63,7 +63,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/signUp': typeof SignUpRoute
+  '/signup': typeof SignupRoute
   '/movies': typeof LayoutMoviesRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
@@ -73,22 +73,22 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/signUp': typeof SignUpRoute
+  '/signup': typeof SignupRoute
   '/_layout/movies': typeof LayoutMoviesRoute
   '/_layout/watchlist': typeof LayoutWatchlistRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/login' | '/signUp' | '/movies' | '/watchlist' | '/'
+  fullPaths: '/about' | '/login' | '/signup' | '/movies' | '/watchlist' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/login' | '/signUp' | '/movies' | '/watchlist' | '/'
+  to: '/about' | '/login' | '/signup' | '/movies' | '/watchlist' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/about'
     | '/login'
-    | '/signUp'
+    | '/signup'
     | '/_layout/movies'
     | '/_layout/watchlist'
     | '/_layout/'
@@ -98,16 +98,16 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
-  SignUpRoute: typeof SignUpRoute
+  SignupRoute: typeof SignupRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signUp': {
-      id: '/signUp'
-      path: '/signUp'
-      fullPath: '/signUp'
-      preLoaderRoute: typeof SignUpRouteImport
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -174,7 +174,7 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
-  SignUpRoute: SignUpRoute,
+  SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

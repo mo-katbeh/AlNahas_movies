@@ -9,6 +9,7 @@ import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
 import { toast } from "sonner";
 import { trpc } from "../../utils/trpc";
+import { SidebarTrigger } from "./ui/sidebar";
 // const Logout = async () => {
 //   const { error } = await authClient.signOut();
 //   if (error) {
@@ -43,6 +44,8 @@ export function NavigationMenuMovies() {
         style={{ backgroundImage: `url(${theaterImage})` }}
       >
         <div className="w-full flex flex-row-reverse  gap-4 mr-12 mt-6">
+          {/* <SidebarTrigger /> */}
+
           <TfiMoreAlt color="white" size="30" />
           <Button
             variant="outline"
