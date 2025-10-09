@@ -6,6 +6,17 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import { BackgroundGradient } from "./ui/shadcn-io/background-gradient";
 import { useQuery } from "@tanstack/react-query";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 const getUserSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;
@@ -50,7 +61,10 @@ const WatchListItem = () => {
       ) : (
         <div className="grid grid-cols-4 gap-8">
           {watchlist.map((watchlistItem) => (
-            <BackgroundGradient className="rounded-xl bg-white dark:bg-zinc-900">
+            <BackgroundGradient
+              key={watchlistItem.movie_id}
+              className="rounded-xl bg-white dark:bg-zinc-900"
+            >
               <Card className="relative h-[400px] py-0 gap-0">
                 <CardContent className=" px-0 w-full ">
                   <img
@@ -70,17 +84,43 @@ const WatchListItem = () => {
 
                   <div className="absolute m-2 mb-5 mr-5 right-0 bottom-0">
                     {/* <span className="text-sm font-bold">$199</span> */}
-                    <Button
-                      size="sm"
-                      type="button"
-                      variant="destructive"
-                      className="bg-red-600/90 text-xs px-2 py-1 h-7"
-                      onClick={() =>
-                        removeMovie({ movieId: watchlistItem.movie_id })
-                      }
-                    >
-                      Remove
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          type="button"
+                          variant="destructive"
+                          className="bg-red-600/90 text-xs px-2 py-1 h-7 "
+                        >
+                          Remove
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action will remove "{watchlistItem.title}"
+                            movie from your watchlist
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>
+                            <p className="text-sm">Cancel</p>
+                          </AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-red-600/90 hover:bg-red-600/50"
+                            color="bg-red-500"
+                            onClick={() =>
+                              removeMovie({ movieId: watchlistItem.movie_id })
+                            }
+                          >
+                            <p className="text-sm text-white">Remove</p>
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </CardContent>
               </Card>
