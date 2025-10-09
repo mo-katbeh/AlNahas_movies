@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import { BackgroundGradient } from "./ui/shadcn-io/background-gradient";
 import { useQuery } from "@tanstack/react-query";
 import {
+  AlertDialogTitle,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -16,7 +17,6 @@ import {
   AlertDialogHeader,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 const getUserSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;

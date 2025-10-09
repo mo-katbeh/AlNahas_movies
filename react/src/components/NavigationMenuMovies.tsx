@@ -7,8 +7,6 @@ import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
-import { authClient } from "../../utils/auth-client";
-import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { trpc } from "../../utils/trpc";
 // const Logout = async () => {

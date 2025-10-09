@@ -1,26 +1,54 @@
 import WatchListItem from "@/components/WatchListItem";
-import { createFileRoute } from "@tanstack/react-router";
-// import { authClient } from "../../../utils/auth-client";
-// import { useQuery } from "@tanstack/react-query";
-// import { toast } from "sonner";
-// import { router } from "../../../../server/src/trpc/init";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { getUserSession } from "../../../utils/auth-client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useState } from "react";
 
-// const getUserSession = async () => {
-//   const { data, error } = await authClient.getSession();
-//   if (!error) return data;
-//   throw error;
-// };
 export const Route = createFileRoute("/_layout/watchlist")({
   component: RouteComponent,
-  // beforeLoad: async () => {
-  //   const session = await getUserSession();
-  //   console.log(" in watchlist router", session);
-  //   if (!session) {
-  //     toast.error("you must login to see your watchlist");
-
-  //   }
-  // },
+  beforeLoad: async () => {
+    const session = await getUserSession();
+    return { isAuthenticated: session?.isAuthenticated || false };
+  },
 });
 function RouteComponent() {
+  const { isAuthenticated } = Route.useRouteContext();
+  const [open, setOpen] = useState(!isAuthenticated);
+  const router = useRouter();
+  if (!isAuthenticated) {
+    return (
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger asChild></AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Ready to log in?</AlertDialogTitle>
+            <AlertDialogDescription>
+              🎬 Your watchlist is waiting — but you need to sign in first!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => router.history.back()}>
+              <p className="text-sm">Cancel</p>
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => router.navigate({ to: "/signUp" })}
+            >
+              <p className="text-sm">Yes</p>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  }
   return <WatchListItem />;
 }

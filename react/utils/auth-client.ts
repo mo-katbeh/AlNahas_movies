@@ -10,16 +10,15 @@ export const authClient = createAuthClient({
     ]
 
 })
-export const getUserSession = async () => {
-  const { data, error } = await authClient.getSession();
-  if (!error) return data;
-  throw error;
-};
-// const getUserSession = async () => {
-//   const { data: session, error } = await authClient.getSession();
-//   if (!error){
-//     if(!session) throw new Error("User is not authenticated!")
-//     return {session, isAuthenticated: !!session};}
-//   console.log("error in authClient", error)
+// export const getUserSession = async () => {
+//   const { data, error } = await authClient.getSession();
+//   if (!error) return data;
 //   throw error;
 // };
+export const getUserSession = async () => {
+  const { data: session, error } = await authClient.getSession();
+  if (!error){
+    return {session, isAuthenticated: !!session};}
+  console.log("error in authClient", error)
+  throw error;
+};
