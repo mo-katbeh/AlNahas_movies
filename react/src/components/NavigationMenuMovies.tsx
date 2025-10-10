@@ -62,7 +62,14 @@ export function NavigationMenuMovies() {
             {isPending ? "Logging out" : "Logout"}
           </Button>
 
-          <CgProfile color="white" size="30" onClick={open} />
+          <CgProfile
+            color="white"
+            size="30"
+            onClick={() => {
+              open();
+              router.navigate({ to: "/userProfile" });
+            }}
+          />
 
           <MdOutlineNotificationsNone color="white" size="30" />
           <IoSearchOutline color="white" size="30" />

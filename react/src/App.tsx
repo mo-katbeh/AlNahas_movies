@@ -23,7 +23,7 @@ function App() {
 
           <SidebarTrigger /> */}
         <RouterProvider router={router} />
-        <UserProfileForm />
+        {/* <UserProfileForm /> */}
         {/* </SidebarProvider> */}
       </ThemeProvider>
     </>

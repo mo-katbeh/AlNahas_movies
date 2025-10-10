@@ -33,6 +33,7 @@ import {
 } from "../ui/sheet";
 import Loader from "../loader/styled-wrapper";
 import useSheetStore from "@/state-management/useSheetStore";
+import { useRouter } from "@tanstack/react-router";
 
 const UserProfileForm = () => {
   const userProfileForm = useForm({
@@ -45,6 +46,7 @@ const UserProfileForm = () => {
       phoneNumber: "",
     },
   });
+  const router = useRouter();
   const { isOpen, close } = useSheetStore();
   const userProfileMutation = trpc.userProfile.createUserProfile1.useMutation();
   // console.log("Current form values:", watch());
@@ -69,7 +71,17 @@ const UserProfileForm = () => {
           <Loader />
         </div>
       )}
-      <Sheet open={isOpen} onOpenChange={(open) => (open ? null : close())}>
+      <Sheet
+        open={isOpen}
+        onOpenChange={(open) =>
+          open
+            ? null
+            : () => {
+                close();
+                router.history.back();
+              }
+        }
+      >
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Edit Profile</SheetTitle>
