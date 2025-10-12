@@ -9,6 +9,8 @@ import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
 import { toast } from "sonner";
 import { trpc } from "../../utils/trpc";
+import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
+import AppSidebar from "./AppSidebar";
 // const Logout = async () => {
 //   const { error } = await authClient.signOut();
 //   if (error) {
@@ -37,58 +39,64 @@ function NavigationMenuMovies() {
     },
   });
   return (
-    <>
-      <div
-        className="min-h-screen bg-cover bg-center bg-fixed  overflow-hidden"
-        style={{ backgroundImage: `url(${theaterImage})` }}
-      >
-        <div className="w-full flex flex-row-reverse  gap-4 mr-12 mt-6">
-          {/* <SidebarTrigger /> */}
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full overflow-hidden">
+        {/* Sidebar */}
+        <AppSidebar />
 
-          <TfiMoreAlt color="white" size="30" />
-          <Button
-            variant="outline"
-            onClick={() => {
-              mutate();
-              // if (isSuccess) {
-              //   toast.success("Comeback soon");
-              //   router.navigate({ to: "/login" });
-              // }
-            }}
-            disabled={isPending}
+        {/* Main content */}
+        <main className="flex-1 overflow-x-hidden">
+          <div
+            className="min-h-screen bg-cover bg-center bg-fixed"
+            style={{ backgroundImage: `url(${theaterImage})` }}
           >
-            {isPending ? "Logging out" : "Logout"}
-          </Button>
+            {/* Top bar */}
+            <SidebarTrigger className="bg-transparent" />
+            <div className="w-full flex flex-row-reverse gap-4 mr-12">
+              <TfiMoreAlt color="white" size="30" />
+              <Button
+                variant="outline"
+                onClick={() => mutate()}
+                disabled={isPending}
+              >
+                {isPending ? "Logging out" : "Logout"}
+              </Button>
 
-          <CgProfile
-            color="white"
-            size="30"
-            onClick={() => {
-              open();
-              router.navigate({ to: "/userProfile" });
-            }}
-          />
+              <CgProfile
+                color="white"
+                size="30"
+                onClick={() => {
+                  open();
+                  router.navigate({ to: "/userProfile" });
+                }}
+              />
 
-          <MdOutlineNotificationsNone color="white" size="30" />
-          <IoSearchOutline color="white" size="30" />
-          <ModeToggle />
-        </div>
-        <div className="flex flex-row justify-center gap-8  pt-4 pb-8 ">
-          <Button variant="move_nav" className="hover:transition-transform">
-            <Link to="/">Home</Link>
-          </Button>
-          <Button variant="move_nav">Series</Button>
-          <Button variant="move_nav">
-            <Link to="/movies">Movies</Link>
-          </Button>
-          <Button variant="move_nav">Latest</Button>
-          <Button variant="move_nav">
-            <Link to="/watchlist">WatchList</Link>
-          </Button>
-        </div>
-        <Outlet />
+              <MdOutlineNotificationsNone color="white" size="30" />
+              <IoSearchOutline color="white" size="30" />
+              <ModeToggle />
+            </div>
+
+            {/* Navigation */}
+            <div className="flex flex-row justify-center gap-8 pt-4 pb-8">
+              <Button variant="move_nav">
+                <Link to="/">Home</Link>
+              </Button>
+              <Button variant="move_nav">Series</Button>
+              <Button variant="move_nav">
+                <Link to="/movies">Movies</Link>
+              </Button>
+              <Button variant="move_nav">Latest</Button>
+              <Button variant="move_nav">
+                <Link to="/watchlist">WatchList</Link>
+              </Button>
+            </div>
+
+            {/* Nested routes */}
+            <Outlet />
+          </div>
+        </main>
       </div>
-    </>
+    </SidebarProvider>
   );
 }
 export default NavigationMenuMovies;

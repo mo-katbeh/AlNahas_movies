@@ -10,7 +10,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 
@@ -25,10 +24,10 @@ function RouteComponent() {
   const { isAuthenticated } = Route.useRouteContext();
   const [open, setOpen] = useState(!isAuthenticated);
   const router = useRouter();
+
   if (!isAuthenticated) {
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger asChild></AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Ready to log in?</AlertDialogTitle>
@@ -50,5 +49,9 @@ function RouteComponent() {
       </AlertDialog>
     );
   }
-  return <WatchListItem />;
+  return (
+    <main className="flex-1">
+      <WatchListItem />
+    </main>
+  );
 }

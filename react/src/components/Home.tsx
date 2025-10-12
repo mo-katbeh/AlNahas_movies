@@ -15,10 +15,9 @@ export const Home = () => {
   if (error) console.log("Error in home page", error);
   return (
     <>
-      <div className="relative m-12 overflow-hidden rounded-xl border">
+      <div className="relative m-14 w-full h-screen overflow-hidden rounded-xl ">
         <VideoPlayer className="w-full h-full">
           <VideoPlayerContent
-            crossOrigin=""
             muted
             preload="auto"
             autoPlay
@@ -40,7 +39,7 @@ export const Home = () => {
           </button>
         </div>
       </div>
-      <div className="flex w-full items-center justify-center space-x-6 p-8 p-14">
+      <div className="flex w-full items-center justify-center space-x-6  p-14">
         <Carousel className="w-full ">
           <p className="text-2xl font-bold ">Top Rating</p>
           <CarouselPrevious />
@@ -61,7 +60,7 @@ export const Home = () => {
                   key={movie.id}
                   className="w-full items-center justify-center md:basis-1/2 lg:basis-1/6"
                 >
-                  <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-110 p-2">
+                  <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
                     <img
                       src={movie.poster_url ?? "../assets/main.jpg"}
                       alt={movie.title}
