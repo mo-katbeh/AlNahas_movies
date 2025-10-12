@@ -9,14 +9,13 @@ import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
 import { toast } from "sonner";
 import { trpc } from "../../utils/trpc";
-import { SidebarTrigger } from "./ui/sidebar";
 // const Logout = async () => {
 //   const { error } = await authClient.signOut();
 //   if (error) {
 //     toast.error("You are not signed in");
 //   }
 // };
-export function NavigationMenuMovies() {
+function NavigationMenuMovies() {
   const router = useRouter();
   const { open } = useSheetStore();
   // const { isSuccess, mutate, isPending } = useMutation({
@@ -58,7 +57,6 @@ export function NavigationMenuMovies() {
             }}
             disabled={isPending}
           >
-            {" "}
             {isPending ? "Logging out" : "Logout"}
           </Button>
 

@@ -2,7 +2,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { ThemeProvider } from "./components/theme/theme-provider";
 import { Toaster } from "sonner";
-import UserProfileForm from "./components/form/UserProfileForm";
+// import UserProfileForm from "./components/form/UserProfileForm";
 // import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 // import { AppSidebar } from "./components/AppSidebar";
 
