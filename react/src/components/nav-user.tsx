@@ -27,6 +27,8 @@ import { authClient } from "../../utils/auth-client";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
+import useSheetStore from "@/state-management/useSheetStore";
+import { CgProfile } from "react-icons/cg";
 
 const SignOut = async () => {
   const { data, error } = await authClient.signOut();
@@ -45,6 +47,8 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const router = useRouter();
+  const { open } = useSheetStore();
+
   const { mutate: logout, isPending } = useMutation({
     mutationKey: ["auth", "sign-out"],
     mutationFn: SignOut,
@@ -99,9 +103,15 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+              <DropdownMenuItem
+                onClick={() => {
+                  open();
+                  router.navigate({ to: "/userProfile" });
+                }}
+              >
+                {/* <Sparkles /> */}
+                <CgProfile color="blue" />
+                Edit Profile
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -120,7 +130,11 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => logout()} disabled={isPending}>
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => logout()}
+              disabled={isPending}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>

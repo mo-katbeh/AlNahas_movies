@@ -1,4 +1,11 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  ChevronRight,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -10,12 +17,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
 import { getUserSession } from "../../utils/auth-client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { useRouter } from "@tanstack/react-router";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
+import { ModeToggle } from "./toggle/mode-toggle";
 
 // Menu items.
 const getUserInfo = async () => {
@@ -67,8 +83,41 @@ function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupLabel className="flex flex-row justify-between py-2 ">
+            Application
+            <ModeToggle />
+          </SidebarGroupLabel>
+          <SidebarMenu>
+            {items.map((item) => (
+              <Collapsible
+                key={item.title}
+                asChild
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton tooltip={item.title}>
+                      {item.icon && <item.icon />}
+                      <span> {item.title} </span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {/* <SidebarMenuSubItem key={}>
+                          <SidebarMenuSubButton asChild>
+                            <a href={subItem.url}>
+                              <span>{subItem.title}</span>
+                            </a>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem> */}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
+            ))}
+          </SidebarMenu>
+          {/* <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
@@ -81,7 +130,7 @@ function AppSidebar() {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
-          </SidebarGroupContent>
+          </SidebarGroupContent> */}
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>

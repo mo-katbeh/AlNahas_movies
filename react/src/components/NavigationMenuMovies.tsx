@@ -1,21 +1,15 @@
 import { Button } from "./ui/button";
 import theaterImage from "../assets/theater.jpg";
-import { IoSearchOutline } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { MdOutlineNotificationsNone } from "react-icons/md";
-import { TfiMoreAlt } from "react-icons/tfi";
-import { Link, Outlet, useRouter } from "@tanstack/react-router";
-import { ModeToggle } from "./toggle/mode-toggle";
-import useSheetStore from "@/state-management/useSheetStore";
+// import { IoSearchOutline } from "react-icons/io5";
+// import { MdOutlineNotificationsNone } from "react-icons/md";
+// import { TfiMoreAlt } from "react-icons/tfi";
+import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./AppSidebar";
 
 function NavigationMenuMovies() {
-  const router = useRouter();
-  const { open } = useSheetStore();
-
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="flex min-h-screen w-full overflow-hidden">
         <AppSidebar />
 
@@ -25,21 +19,12 @@ function NavigationMenuMovies() {
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
             <SidebarTrigger className="bg-transparent" />
-            <div className="w-full flex flex-row-reverse gap-4 mr-12">
+            {/* <div className="w-full flex flex-row-reverse gap-4 mr-12">
               <TfiMoreAlt color="white" size="30" />
-              <CgProfile
-                color="white"
-                size="30"
-                onClick={() => {
-                  open();
-                  router.navigate({ to: "/userProfile" });
-                }}
-              />
 
               <MdOutlineNotificationsNone color="white" size="30" />
               <IoSearchOutline color="white" size="30" />
-              <ModeToggle />
-            </div>
+            </div> */}
 
             <div className="flex flex-col sm:flex-row justify-center gap-8 pt-4 pb-8">
               <Button variant="move_nav">
