@@ -71,17 +71,7 @@ const UserProfileForm = () => {
           <Loader />
         </div>
       )}
-      <Sheet
-        open={isOpen}
-        onOpenChange={(open) =>
-          open
-            ? null
-            : () => {
-                close();
-                router.history.back();
-              }
-        }
-      >
+      <Sheet open={isOpen} onOpenChange={(open) => (open ? null : close)}>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Edit Profile</SheetTitle>
@@ -204,14 +194,24 @@ const UserProfileForm = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-center">
+              <div className="flex flex-col justify-center">
                 <Button type="submit">Save Changes</Button>
               </div>
             </form>
           </Form>
-          <SheetFooter>
-            <SheetClose></SheetClose>
-          </SheetFooter>
+          <SheetClose>
+            <Button
+              onClick={() => {
+                router.history.back();
+                close();
+              }}
+              type="button"
+              variant="destructive"
+            >
+              Close
+            </Button>
+          </SheetClose>
+          <SheetFooter></SheetFooter>
         </SheetContent>
       </Sheet>
     </>
