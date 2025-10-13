@@ -41,16 +41,13 @@ function NavigationMenuMovies() {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full overflow-hidden">
-        {/* Sidebar */}
         <AppSidebar />
 
-        {/* Main content */}
         <main className="flex-1 overflow-x-hidden">
           <div
             className="min-h-screen bg-cover bg-center bg-fixed"
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
-            {/* Top bar */}
             <SidebarTrigger className="bg-transparent" />
             <div className="w-full flex flex-row-reverse gap-4 mr-12">
               <TfiMoreAlt color="white" size="30" />
@@ -76,8 +73,7 @@ function NavigationMenuMovies() {
               <ModeToggle />
             </div>
 
-            {/* Navigation */}
-            <div className="flex flex-row justify-center gap-8 pt-4 pb-8">
+            <div className="flex flex-col sm:flex-row justify-center gap-8 pt-4 pb-8">
               <Button variant="move_nav">
                 <Link to="/">Home</Link>
               </Button>
@@ -91,7 +87,6 @@ function NavigationMenuMovies() {
               </Button>
             </div>
 
-            {/* Nested routes */}
             <Outlet />
           </div>
         </main>

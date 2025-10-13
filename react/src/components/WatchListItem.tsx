@@ -56,17 +56,17 @@ const WatchListItem = () => {
             )}
           </div>
         ) : (
-          <div className="grid  grid-cols-3 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {/* <div className="grid grid-cols-4 gap-8"> */}
             {watchlist.map((watchlistItem) => (
               <BackgroundGradient
                 key={watchlistItem.movie_id}
                 className="rounded-xl bg-white dark:bg-zinc-900"
               >
-                <Card className="relative h-[400px] py-0 gap-0">
+                <Card className="relative h-[200px] py-0 gap-0">
                   <CardContent className=" px-0 w-full ">
                     <img
-                      className="rounded-xl rounded-bl-none rounded-br-none h-[250px] w-full bg-gray-100"
+                      className="rounded-xl rounded-bl-none rounded-br-none h-[125px] w-full bg-gray-100"
                       src={watchlistItem.poster_url ?? undefined}
                       alt={watchlistItem.title}
                     />
@@ -85,10 +85,10 @@ const WatchListItem = () => {
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button
-                            size="sm"
+                            size="icon"
                             type="button"
                             variant="destructive"
-                            className="bg-red-600/90 text-xs px-2 py-1 h-7 "
+                            className="bg-red-600/90 text-sm px-2 py-1 h-7 "
                           >
                             Remove
                           </Button>
