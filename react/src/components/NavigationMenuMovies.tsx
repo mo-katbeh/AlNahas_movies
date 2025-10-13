@@ -7,37 +7,13 @@ import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { ModeToggle } from "./toggle/mode-toggle";
 import useSheetStore from "@/state-management/useSheetStore";
-import { toast } from "sonner";
-import { trpc } from "../../utils/trpc";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./AppSidebar";
-// const Logout = async () => {
-//   const { error } = await authClient.signOut();
-//   if (error) {
-//     toast.error("You are not signed in");
-//   }
-// };
+
 function NavigationMenuMovies() {
   const router = useRouter();
   const { open } = useSheetStore();
-  // const { isSuccess, mutate, isPending } = useMutation({
-  //   toast.success("Comeback soon");
 
-  //   mutationKey: ["auth", "log-out"],
-  //   mutationFn: Logout,
-  // });
-  const { mutate, isPending } = trpc.auth.logout.useMutation({
-    onSuccess: () => {
-      toast.success("Comeback soon");
-
-      router.navigate({ to: "/login" });
-    },
-    onError: (err) => {
-      toast.error("You are not signed in");
-
-      console.log("Logout failed", err.message);
-    },
-  });
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full overflow-hidden">
@@ -51,14 +27,6 @@ function NavigationMenuMovies() {
             <SidebarTrigger className="bg-transparent" />
             <div className="w-full flex flex-row-reverse gap-4 mr-12">
               <TfiMoreAlt color="white" size="30" />
-              <Button
-                variant="outline"
-                onClick={() => mutate()}
-                disabled={isPending}
-              >
-                {isPending ? "Logging out" : "Logout"}
-              </Button>
-
               <CgProfile
                 color="white"
                 size="30"
