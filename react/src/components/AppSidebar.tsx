@@ -1,5 +1,5 @@
 import {
-  Calendar,
+  Calendar as CalendarIcon,
   ChevronRight,
   Home,
   Inbox,
@@ -32,6 +32,8 @@ import {
   CollapsibleTrigger,
 } from "./ui/collapsible";
 import { ModeToggle } from "./toggle/mode-toggle";
+import { useState } from "react";
+import { Calendar } from "./ui/calendar";
 
 // Menu items.
 const getUserInfo = async () => {
@@ -73,7 +75,7 @@ function AppSidebar() {
     queryKey: ["auth", "session"],
     queryFn: getUserInfo,
   });
-
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const user = {
     name: userInfo?.session?.user.name,
     email: userInfo?.session?.user.email,
@@ -81,13 +83,46 @@ function AppSidebar() {
   };
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
           <SidebarGroupLabel className="flex flex-row justify-between py-2 ">
             Application
             <ModeToggle />
           </SidebarGroupLabel>
           <SidebarMenu>
+            <Collapsible key="Calendar" asChild className="group/collapsible">
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip="Calendar">
+                    <CalendarIcon />
+                    <span> Calendar </span>
+
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent className=" justify-items-center">
+                  {/* <SidebarMenuSub> */}
+                  {/* <SidebarMenuSubItem> */}
+                  {/* <SidebarMenuSubButton asChild> */}
+
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={(selectDate) => setDate(selectDate)}
+                    className=" rounded-md border shadow-sm  "
+                    captionLayout="dropdown"
+                  />
+
+                  {/* <a href={subItem.url}>
+                          <span>{subItem.title}</span>
+                        </a> */}
+                  {/* </SidebarMenuSubButton> */}
+                  {/* </SidebarMenuSubItem> */}
+                  {/* </SidebarMenuSub> */}
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+            {/*
             {items.map((item) => (
               <Collapsible
                 key={item.title}
@@ -99,23 +134,24 @@ function AppSidebar() {
                     <SidebarMenuButton tooltip={item.title}>
                       {item.icon && <item.icon />}
                       <span> {item.title} </span>
+                      
                       <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {/* <SidebarMenuSubItem key={}>
+                       <SidebarMenuSubItem key={}>
                           <SidebarMenuSubButton asChild>
                             <a href={subItem.url}>
                               <span>{subItem.title}</span>
                             </a>
                           </SidebarMenuSubButton>
-                        </SidebarMenuSubItem> */}
+                        </SidebarMenuSubItem> 
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </SidebarMenuItem>
               </Collapsible>
-            ))}
+            ))}*/}
           </SidebarMenu>
           {/* <SidebarGroupContent>
             <SidebarMenu>
