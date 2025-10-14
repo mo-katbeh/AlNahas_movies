@@ -1,10 +1,10 @@
 import {
   Calendar as CalendarIcon,
   ChevronRight,
-  Home,
-  Inbox,
-  Search,
-  Settings,
+  // Home,
+  // Inbox,
+  // Search,
+  // Settings,
 } from "lucide-react";
 
 import {
@@ -12,14 +12,14 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupContent,
+  // SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
+  // SidebarMenuSub,
+  // SidebarMenuSubButton,
+  // SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
 import { getUserSession } from "../../utils/auth-client";
@@ -41,33 +41,33 @@ const getUserInfo = async () => {
   return data;
 };
 
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+// const items = [
+//   {
+//     title: "Home",
+//     url: "#",
+//     icon: Home,
+//   },
+//   {
+//     title: "Inbox",
+//     url: "#",
+//     icon: Inbox,
+//   },
+//   {
+//     title: "Calendar",
+//     url: "#",
+//     icon: Calendar,
+//   },
+//   {
+//     title: "Search",
+//     url: "#",
+//     icon: Search,
+//   },
+//   {
+//     title: "Settings",
+//     url: "#",
+//     icon: Settings,
+//   },
+// ];
 
 function AppSidebar() {
   const router = useRouter();
@@ -82,7 +82,7 @@ function AppSidebar() {
     avatar: "/avatars/shadcn.jpg",
   };
   return (
-    <Sidebar side="left">
+    <Sidebar>
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
           <SidebarGroupLabel className="flex flex-row justify-between py-2 ">
@@ -100,7 +100,7 @@ function AppSidebar() {
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
-                <CollapsibleContent className=" justify-items-center">
+                <CollapsibleContent>
                   {/* <SidebarMenuSub> */}
                   {/* <SidebarMenuSubItem> */}
                   {/* <SidebarMenuSubButton asChild> */}

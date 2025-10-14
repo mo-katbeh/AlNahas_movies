@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
+import { Link } from "@tanstack/react-router";
 
 export const Home = () => {
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
@@ -37,14 +38,16 @@ export const Home = () => {
             Watch anywhere. Cancel anytime. Your entertainment, your way.
           </p>
           <button className="mt-8 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-full shadow-lg transition-transform hover:scale-105">
-            Get Started
+            <Link to="/movies">Get Started</Link>
           </button>
         </div>
       </div>
 
       <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
         <Carousel className="w-full ">
-          <p className="text-3xl font-bold text-white ">Top Rating</p>
+          <p className="text-2xl md:text-3xl font-bold text-white ">
+            Top Rating
+          </p>
           <CarouselPrevious />
           {!data?.movies ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
@@ -61,7 +64,7 @@ export const Home = () => {
               {data?.movies?.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className="w-full items-center justify-center md:basis-1/3 lg:basis-1/6"
+                  className="w-full items-center justify-center basis-1/3 md:basis-1/4 lg:basis-1/6"
                 >
                   <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
                     <img

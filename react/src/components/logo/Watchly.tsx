@@ -6,7 +6,7 @@ export function AppLogo() {
       <img
         src={logo}
         alt="App Logo"
-        className="h-8 w-40 rounded-lg object-cover" // adjust size here
+        className="h-8 w-40 rounded-full object-cover" // adjust size here
       />
       {/* <span className="text-xl font-bold text-white">MovieVerse</span> */}
     </div>
