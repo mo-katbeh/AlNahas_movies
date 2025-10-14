@@ -82,7 +82,7 @@ function AppSidebar() {
     avatar: "/avatars/shadcn.jpg",
   };
   return (
-    <Sidebar>
+    <Sidebar side="left">
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
           <SidebarGroupLabel className="flex flex-row justify-between py-2 ">

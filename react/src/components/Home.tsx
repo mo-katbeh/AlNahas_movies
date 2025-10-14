@@ -15,40 +15,43 @@ export const Home = () => {
   if (error) console.log("Error in home page", error);
   return (
     <>
-      <div className="relative m-14 w-full h-screen overflow-hidden rounded-xl ">
-        <VideoPlayer className="w-full h-full">
+      <div className="relative   w-full h-[90vh] overflow-hidden rounded-xl">
+        <VideoPlayer className="w-full h-full rounded-2xl">
           <VideoPlayerContent
             muted
+            loop
             preload="auto"
             autoPlay
             playsInline
             slot="media"
             src={thriller}
-            className="w-full h-full object-cover"
+            className="w-full h-full rounded-2xl object-cover"
           />
         </VideoPlayer>
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
-          <h1 className="text-white text-4xl md:text-6xl font-extrabold text-center drop-shadow-xl">
+        <div className="absolute h-full inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center drop-shadow-xl leading-tight">
             Unlimited Movies, TV Shows, and More
           </h1>
-          <p className="mt-4 text-white/90 text-lg md:text-2xl text-center max-w-2xl">
+          <p className="mt-4 text-gray-200 text-lg md:text-2xl text-center max-w-2xl">
             Watch anywhere. Cancel anytime. Your entertainment, your way.
           </p>
-          <button className="mt-8 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition">
+          <button className="mt-8 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-full shadow-lg transition-transform hover:scale-105">
             Get Started
           </button>
         </div>
       </div>
-      <div className="flex w-full items-center justify-center space-x-6  p-14">
+
+      <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
         <Carousel className="w-full ">
-          <p className="text-2xl font-bold ">Top Rating</p>
+          <p className="text-3xl font-bold text-white ">Top Rating</p>
           <CarouselPrevious />
           {!data?.movies ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
               {isLoading ? (
                 <Loader />
               ) : (
-                <p className="text-2xl md:text-2xl font-semibold text-white line-clamp-6">
+                <p className="text-xl md:text-2xl font-semibold text-white ">
                   Nothing here yet, stay tuned 👀
                 </p>
               )}
@@ -58,11 +61,11 @@ export const Home = () => {
               {data?.movies?.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className="w-full items-center justify-center md:basis-1/2 lg:basis-1/6"
+                  className="w-full items-center justify-center md:basis-1/3 lg:basis-1/6"
                 >
                   <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
                     <img
-                      src={movie.poster_url ?? "../assets/main.jpg"}
+                      src={movie.poster_url ?? undefined}
                       alt={movie.title}
                       className="w-full h-full rounded-2xl"
                     />

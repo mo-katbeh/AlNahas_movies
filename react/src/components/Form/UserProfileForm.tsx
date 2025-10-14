@@ -199,18 +199,21 @@ const UserProfileForm = () => {
               </div>
             </form>
           </Form>
-          <SheetClose>
-            <Button
-              onClick={() => {
-                router.history.back();
-                close();
-              }}
-              type="button"
-              variant="destructive"
-            >
-              Close
-            </Button>
-          </SheetClose>
+          <div className="flex flex-row w-full justify-center">
+            <SheetClose asChild>
+              <Button
+                onClick={() => {
+                  router.history.back();
+                  close();
+                }}
+                type="button"
+                variant="destructive"
+                className="w-25"
+              >
+                Close
+              </Button>
+            </SheetClose>
+          </div>
           <SheetFooter></SheetFooter>
         </SheetContent>
       </Sheet>

@@ -6,6 +6,7 @@ import theaterImage from "../assets/theater.jpg";
 import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./AppSidebar";
+import { AppLogo } from "./logo/Watchly";
 
 function NavigationMenuMovies() {
   return (
@@ -19,14 +20,14 @@ function NavigationMenuMovies() {
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
             <SidebarTrigger className="bg-transparent" />
-            {/* <div className="w-full flex flex-row-reverse gap-4 mr-12">
-              <TfiMoreAlt color="white" size="30" />
-
+            <AppLogo />
+            {/* <div className="w-full flex flex-row-reverse gap-4 mr-12"> */}
+            {/* <TfiMoreAlt color="white" size="30" />
               <MdOutlineNotificationsNone color="white" size="30" />
-              <IoSearchOutline color="white" size="30" />
-            </div> */}
+              <IoSearchOutline color="white" size="30" /> */}
+            {/* </div> */}
 
-            <div className="flex flex-col sm:flex-row justify-center gap-8 pt-4 pb-8">
+            <div className="flex flex-col sm:flex-row justify-center gap-8 pt-4 pb-6">
               <Button variant="move_nav">
                 <Link to="/">Home</Link>
               </Button>
