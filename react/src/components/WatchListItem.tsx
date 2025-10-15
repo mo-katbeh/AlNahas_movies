@@ -18,7 +18,10 @@ import {
 } from "./ui/alert-dialog";
 import { motion } from "framer-motion";
 
-const WatchListItem = () => {
+interface Props {
+  searchQuery: string;
+}
+const WatchListItem = ({ searchQuery }: Props) => {
   const utils = trpc.useUtils();
   const { data: session } = useQuery({
     queryKey: ["session"],
@@ -37,6 +40,7 @@ const WatchListItem = () => {
     error,
   } = trpc.watchlist.getWatchlist.useQuery({
     userId: session?.session?.user.id,
+    search: searchQuery,
   });
 
   if (error) console.log("Error in Watchlist:", error);
@@ -87,23 +91,22 @@ const WatchListItem = () => {
                 transition={{ type: "spring", stiffness: 200 }}
                 className="relative group h-full"
               >
-                <BackgroundGradient className="rounded-xl h-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 transition-all duration-300">
-                  <Card className="overflow-hidden py-0  border-none bg-transparent">
-                    <CardContent className="p-0 h-full relative">
-                      {/* 🎞️ Poster */}
+                <BackgroundGradient className=" rounded-xl h-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 transition-all duration-300">
+                  <Card className="overflow-hidden  py-0 h-full border-none bg-transparent">
+                    <CardContent className="p-0  h-full relative">
                       <img
                         src={item.poster_url ?? "/assets/main.jpg"}
                         alt={item.title}
                         className="h-64 w-full object-cover rounded-t-xl transition-transform duration-300 group-hover:scale-110"
                       />
 
-                      {/* 🖋️ Details */}
                       <div className="p-4 text-left">
                         <CardTitle className="text-base font-semibold line-clamp-2">
                           {item.title}
                         </CardTitle>
                         <CardDescription className="text-sm text-gray-400 mt-1">
-                          {item.release_year} • {item.genre}
+                          <p>• {item.release_year}</p>
+                          <p>• {item.genre}</p>
                         </CardDescription>
                       </div>
 

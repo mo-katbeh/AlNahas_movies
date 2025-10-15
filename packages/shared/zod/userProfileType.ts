@@ -13,7 +13,7 @@ export const createUserProfileSchema = z.object({
     firstName: z.union([z.string().min(3, {message: 'Name must be at least 3 characters. '}), z.literal("").optional()]),
     lastName: z.union([z.string().min(3, {message: 'Name must be at least 3 characters. '}), z.literal("").optional()]),
     gender: z.enum(["Male", "Female"]),
-    phoneNumber: z.string().optional()
+    phoneNumber: z.union([z.string().min(6, {error: "Number must be at least 6 characters."}), z.literal("").optional()])
 });
 export type CreateUserProfileInput = z.infer<typeof createUserProfileSchema>;
 export type CreateUserProfileInputRaw = z.input<typeof createUserProfileSchema>;

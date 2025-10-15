@@ -100,7 +100,7 @@ function AppSidebar() {
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
-                <CollapsibleContent>
+                <CollapsibleContent className="justify-items-center">
                   {/* <SidebarMenuSub> */}
                   {/* <SidebarMenuSubItem> */}
                   {/* <SidebarMenuSubButton asChild> */}
