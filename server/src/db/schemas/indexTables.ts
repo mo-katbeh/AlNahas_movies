@@ -1,5 +1,5 @@
 export * from './movies'
-export * from './users'
+export * from './user'
 export * from './watchListItems'
 export * from './ratings'
 export * from './userProfile'

@@ -29,7 +29,7 @@ import { authClient } from "../../../utils/auth-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 const signUp = async (data: SignUpSchema) => {
-  const { error } = await authClient.signUp.email({
+  const { error, data: userInfo } = await authClient.signUp.email({
     email: data.email,
     password: data.password,
     name: data.userName,
@@ -37,6 +37,7 @@ const signUp = async (data: SignUpSchema) => {
   if (error) {
     throw new Error(error.message);
   }
+  return userInfo;
 };
 const SignUpForm = () => {
   const router = useRouter();
@@ -55,8 +56,8 @@ const SignUpForm = () => {
   const { error, isPending, mutate } = useMutation({
     mutationKey: ["auth", "sign-up"],
     mutationFn: signUp,
-    onSuccess: () => {
-      toast.success("You have successfully signed up.");
+    onSuccess: (userInfo) => {
+      toast.success(`${userInfo.user.name} You have successfully signed up.`);
       queryClient.resetQueries();
       router.navigate({ to: "/" });
     },

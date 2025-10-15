@@ -16,11 +16,10 @@ app.use(cors({
 }))
 
 
-app.all('/api/auth/{*any}', toNodeHandler(auth));
-
-app.use(express.json())
 
 async function main() {
+    app.all('/api/auth/{*any}', toNodeHandler(auth));
+    app.use(express.json())
     app.use(
     '/trpc',
         trpcExpress.createExpressMiddleware({
@@ -30,7 +29,8 @@ async function main() {
     )}
     
 main()
-    .catch(err => console.log(err))
+    .catch(err => console.log("at index server",err))
+
 
 app.listen(3000, ()=>{
         console.log("Server running on http://localhost:3000")

@@ -1,16 +1,21 @@
-import { pgTable, varchar, text, timestamp, bigint } from "drizzle-orm/pg-core";
-import { UserTable } from "./users";
+import { pgTable, varchar, text, timestamp, bigint, uuid } from "drizzle-orm/pg-core";
+import { UserTable } from "./user";
 import { relations } from "drizzle-orm";
 
 export const SessionTable = pgTable("session", {
-  id: text('id').primaryKey(),
-  userId: text('user_id').references(()=>UserTable.id, {onDelete:'cascade'}),
-  token: text("token").notNull().unique(),
+  id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
+  token: text("token").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => UserTable.id, { onDelete: "cascade" }),
+  impersonatedBy: text("impersonated_by"),
 });
 
 export const SessionTableRelation = relations(SessionTable, ({one})=>{
