@@ -20,8 +20,10 @@ function NavigationMenuMovies() {
             className="min-h-screen bg-cover bg-center bg-fixed"
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
-            <SidebarTrigger className="bg-transparent" />
-            <AppLogo />
+            <SidebarTrigger className="fixed z-10" />
+            <div className="flex flex-row-reverse p-2 pt-3 pr-3">
+              <AppLogo />
+            </div>
             {/* <div className="w-full flex flex-row-reverse gap-4 mr-12"> */}
             {/* <TfiMoreAlt color="white" size="30" />
               <MdOutlineNotificationsNone color="white" size="30" />

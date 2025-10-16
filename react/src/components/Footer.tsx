@@ -22,12 +22,12 @@ export function Footer() {
           </h2>
           <ul className="space-y-1 text-gray-400">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="hover:text-white hover:underline transition-all"
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
               <Link
