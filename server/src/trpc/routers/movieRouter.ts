@@ -1,8 +1,9 @@
 import { sql } from "kysely";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../../../packages/shared/zod/movieType";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "../init";
-import { bigint, number, z } from "zod"
-//carousel
+import {  z } from "zod"
+
+
 export const movieRouter = router({
     infiniteMovies: adminProcedure
         .input(z.object({
@@ -62,11 +63,32 @@ export const movieRouter = router({
                 .execute() 
             return movies
         }),
+        getAllMovies: publicProcedure
+            .query(async({ctx, input})=>{
+             const moviesByRating = await ctx.db
+                .selectFrom('movies')
+                .selectAll()
+                .orderBy('genre', 'asc')
+                .limit(10)
+                .execute()
+                
+            const movieByYear= await ctx.db
+            .selectFrom('movies')
+            .selectAll()
+            .orderBy('release_year', 'desc')
+            .limit(10)
+            .execute()
+            console.log("top rating",moviesByRating)
+            return{ moviesByRating, movieByYear }
+        }),
     getMovies: publicProcedure
-            .query(async({ctx})=>{
+            .input(z.object({search: z.string()}))
+            .query(async({ctx, input})=>{
              const movies = await ctx.db
                 .selectFrom('movies')
                 .selectAll()
+                .$if(!!input.search, (qb)=>
+                qb.where('title', 'ilike', `%${input.search}%`))
                 .execute()
           
             const moviesWithRatings  = await ctx.db

@@ -1,10 +1,5 @@
 import WatchListItem from "@/components/WatchListItem";
-import {
-  createFileRoute,
-  useNavigate,
-  useRouter,
-  useSearch,
-} from "@tanstack/react-router";
+import { createFileRoute, useRouter, useSearch } from "@tanstack/react-router";
 import { getUserSession } from "../../../utils/auth-client";
 import {
   AlertDialog,
@@ -20,25 +15,27 @@ import { useState, type ChangeEvent } from "react";
 import { z } from "zod";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+
+const searchSchema = z.object({
+  q: z.string().optional().default(""),
+});
 export const Route = createFileRoute("/_layout/watchlist")({
-  component: RouteComponent,
+  validateSearch: searchSchema,
   beforeLoad: async () => {
     const session = await getUserSession();
     return { isAuthenticated: session?.isAuthenticated || false };
   },
-  validateSearch: z.object({
-    q: z.string().optional().default(""),
-  }),
+  component: RouteComponent,
 });
 
 function RouteComponent() {
   const search = useSearch({ from: "/_layout/watchlist" });
   const { isAuthenticated } = Route.useRouteContext();
   const [open, setOpen] = useState(!isAuthenticated);
-  const navigate = useNavigate();
   const router = useRouter();
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    navigate({
+    router.navigate({
+      to: "/watchlist",
       search: { q: event.target.value },
     });
   };

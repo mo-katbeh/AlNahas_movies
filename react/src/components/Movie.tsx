@@ -1,5 +1,5 @@
 import { trpc } from "../../utils/trpc";
-import { BiSolidTagAlt } from "react-icons/bi";
+// import { BiSolidTagAlt } from "react-icons/bi";
 import { RatingGroupAdvanced } from "./toggle/rating";
 import Loader from "./loader/styled-wrapper";
 import {
@@ -22,13 +22,20 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
 import { Button } from "./ui/button";
+
+interface Props {
+  searchQuery: string;
+}
+
 const getSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;
   throw new Error(error.message);
 };
-const Movie = () => {
-  const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
+const Movie = ({ searchQuery }: Props) => {
+  const { data, error, isLoading } = trpc.movie.getMovies.useQuery({
+    search: searchQuery,
+  });
   // const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
   const { selectedMovie, setSelectedMovie } = useSelectedMovieStore();
   const { mutate } = trpc.watchlist.addToWatchlist.useMutation({
@@ -96,7 +103,7 @@ const Movie = () => {
               {data?.movies?.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className=" relative w-full items-center justify-center md:basis-1/3 lg:basis-1/6"
+                  className=" relative w-full items-center justify-center basis-1/2 sm:basis-1/3  md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                 >
                   <div
                     className="relative w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2"
@@ -137,6 +144,7 @@ const Movie = () => {
                     <img
                       src={movie.poster_url ?? undefined}
                       alt={movie.title}
+                      // loading="lazy"
                       className="w-full h-full rounded-md"
                     />
                   </div>
@@ -149,37 +157,38 @@ const Movie = () => {
       </div>
 
       {selectedMovie && (
-        <div className="m-2 ml-20 w-dvh">
-          <h2 className="mb-3 text-4xl font-semibold text-white">
+        <div className="flex flex-col w-full font-semibold text-lg sm:text-xl text-gray-100 px-10 pb-30 ">
+          <h2 className="mb-3 text-2xl w-fit sm:text-3xl drop-shadow-md hover:text-red-400 transition-all duration-300">
             {selectedMovie.title}
           </h2>
-          <p className="text-white font-semibold text-xl">
-            Rating:
-            {Number(
-              (data?.moviesWithRatings ?? []).find(
-                (movie) => movie.id === selectedMovie.id
-              )?.avg_ratings
-            ).toFixed(1)}
-          </p>
+          <div className="flex flex-row items-center">
+            <p className="text-gray-200 pr-2">
+              Rating:{" "}
+              <span className="font-bold text-yellow-400">
+                {Number(
+                  (data?.moviesWithRatings ?? []).find(
+                    (movie) => movie.id === selectedMovie.id
+                  )?.avg_ratings
+                ).toFixed(1)}
+              </span>
+            </p>
+            <RatingGroupAdvanced />
+          </div>
 
-          <RatingGroupAdvanced />
-
-          <p className="mb-3 text-white font-semibold text-xl">
-            {selectedMovie.genre}
-          </p>
-          <p className="text-white font-semibold text-xl">
+          <p className="mb-3 text-gray-300  ">• {selectedMovie.genre}</p>
+          <p className="text-gray-200  ">
             Relese Year:{" "}
-            <span className="text-muted-foreground text-xl">
-              {selectedMovie.release_year}{" "}
+            <span className="font-sans text-gray-300/90">
+              {selectedMovie.release_year}
             </span>
           </p>
-          <p className="text-white text-xl">
+          <p className="text-gray-200 ">
             Description:{" "}
-            <span className="text-muted-foreground text-xl">
+            <span className="font-sans text-gray-300/90 leading-relaxed ">
               {selectedMovie.description}{" "}
             </span>
           </p>
-          <BiSolidTagAlt color="white" fill="blue" size="30" />
+          {/* <BiSolidTagAlt color="white" fill="blue" size="30" /> */}
         </div>
       )}
     </>

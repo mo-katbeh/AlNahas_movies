@@ -7,6 +7,7 @@ import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./AppSidebar";
 import { AppLogo } from "./logo/Watchly";
+import { Footer } from "./Footer";
 
 function NavigationMenuMovies() {
   return (
@@ -42,6 +43,7 @@ function NavigationMenuMovies() {
             </div>
 
             <Outlet />
+            <Footer />
           </div>
         </main>
       </div>

@@ -12,7 +12,7 @@ import Loader from "./loader/styled-wrapper";
 import { Link } from "@tanstack/react-router";
 
 export const Home = () => {
-  const { data, error, isLoading } = trpc.movie.getMovies.useQuery();
+  const { data: movies, error, isLoading } = trpc.movie.getAllMovies.useQuery();
   if (error) console.log("Error in home page", error);
   return (
     <>
@@ -49,7 +49,7 @@ export const Home = () => {
             Top Rating
           </p>
           <CarouselPrevious />
-          {!data?.movies ? (
+          {!movies?.moviesByRating ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
               {isLoading ? (
                 <Loader />
@@ -61,7 +61,44 @@ export const Home = () => {
             </div>
           ) : (
             <CarouselContent className="flex items-center justify-center w-full">
-              {data?.movies?.map((movie) => (
+              {movies?.moviesByRating.map((movie) => (
+                <CarouselItem
+                  key={movie.id}
+                  className="w-full items-center justify-center basis-1/3 md:basis-1/4 lg:basis-1/6"
+                >
+                  <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
+                    <img
+                      src={movie.poster_url ?? undefined}
+                      alt={movie.title}
+                      className="w-full h-full rounded-2xl"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          )}
+
+          <CarouselNext />
+        </Carousel>
+      </div>
+
+      <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
+        <Carousel className="w-full ">
+          <p className="text-2xl md:text-3xl font-bold text-white ">Latest</p>
+          <CarouselPrevious />
+          {!movies?.movieByYear ? (
+            <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <p className="text-xl md:text-2xl font-semibold text-white ">
+                  Nothing here yet, stay tuned 👀
+                </p>
+              )}
+            </div>
+          ) : (
+            <CarouselContent className="flex items-center justify-center w-full">
+              {movies.movieByYear.map((movie) => (
                 <CarouselItem
                   key={movie.id}
                   className="w-full items-center justify-center basis-1/3 md:basis-1/4 lg:basis-1/6"
