@@ -23,6 +23,6 @@ const isAdminMiddleware = t.middleware(({ctx, next})=>{
     if (ctx.session.user.role !== "admin"){
         throw new TRPCError({ code: "FORBIDDEN"})
     }
-    return next({ ctx: {...ctx}})
+    return next({ ctx: {...ctx, user: ctx.session.user}})
 })
-export const adminPocedure = t.procedure.use(isAdminMiddleware)
+export const adminProcedure = t.procedure.use(isAdminMiddleware)

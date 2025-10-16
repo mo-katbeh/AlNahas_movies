@@ -21,6 +21,7 @@ import { authClient } from "../../utils/auth-client";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
+import { Button } from "./ui/button";
 const getSession = async () => {
   const { data: session, error } = await authClient.getSession();
   if (!error) return session;
@@ -45,21 +46,38 @@ const Movie = () => {
     queryKey: ["auth", "get-session"],
     queryFn: getSession,
   });
-  // const { mutate: createmovie } = trpc.movie.createmovie.useMutation();
+  const {
+    mutate: createmovie,
+    isSuccess,
+    data: movieAdded,
+  } = trpc.movie.createmovie.useMutation({
+    onError: (err) => {
+      console.log("Field to create movie", err);
+    },
+  });
   if (error) console.log("Error in movie page", error);
-  // if (session) console.log("Session body", session);
   if (sessionError) console.log("Error in Session", sessionError);
+  if (isSuccess) toast.success(`${movieAdded?.title} Successfully added`);
+  console.log("user role:", session?.user.role);
   return (
     <>
-      {/* <Button
-        type="submit"
-        className="mb-10"
-        onClick={() =>
-          createmovie({ title: "dragon", releaseYear: 2020, genre: "Action" })
-        }
-      >
-        Add Movie
-      </Button> */}
+      {session?.user.role === "admin" ? (
+        <div className="p-10">
+          <Button
+            type="submit"
+            className="mb-10"
+            onClick={() =>
+              createmovie({
+                title: "PostMan",
+                releaseYear: 2020,
+                genre: "Action",
+              })
+            }
+          >
+            Add Movie
+          </Button>
+        </div>
+      ) : null}
       <div className="flex w-full items-center justify-center space-x-6 p-14">
         <Carousel className="w-full ">
           <CarouselPrevious />

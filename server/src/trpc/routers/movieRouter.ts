@@ -1,10 +1,10 @@
 import { sql } from "kysely";
 import { createMovieSchema, deleteMovieSchema, updateMovieSchema } from "../../../../packages/shared/zod/movieType";
-import { adminPocedure, protectedProcedure, publicProcedure, router } from "../init";
+import { adminProcedure, protectedProcedure, publicProcedure, router } from "../init";
 import { bigint, number, z } from "zod"
 //carousel
 export const movieRouter = router({
-    infiniteMovies: adminPocedure
+    infiniteMovies: adminProcedure
         .input(z.object({
             limit: z.number().min(1).max(30),
             cursor: z.string().nullish()}))
@@ -47,7 +47,7 @@ export const movieRouter = router({
                 console.log("feild", err)
             }
         }),
-    fetchMovies: adminPocedure
+    fetchMovies: adminProcedure
         .input(z.object({
             page: z.number(),
             pageSize: z.number()
@@ -110,7 +110,7 @@ export const movieRouter = router({
             //     console.log("Failed creating user profile's")
             // }
              try{
-            const movie = ctx.db
+            const movie = await ctx.db
                     .insertInto('movies')
                     .values({
                     title: input.title,
@@ -119,7 +119,7 @@ export const movieRouter = router({
                     poster_url: input.posterUrl,
                     description: input.description
                     })
-                    .returning('title')
+                    .returningAll()
                     .executeTakeFirstOrThrow()
        
             console.log("Movie :", movie)
@@ -130,7 +130,7 @@ export const movieRouter = router({
             }
 
         }),
-    updateMovie: adminPocedure
+    updateMovie: adminProcedure
         .input(updateMovieSchema)
         .mutation(async({ ctx, input })=>{
             try{
@@ -158,7 +158,7 @@ export const movieRouter = router({
             }
         })
         ,
-    deleteMovie: adminPocedure
+    deleteMovie: adminProcedure
         .input( deleteMovieSchema )
         .mutation( async({ctx, input})=>{
             try{
