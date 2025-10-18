@@ -1,9 +1,9 @@
 import {
   Calendar as CalendarIcon,
   ChevronRight,
-  // Home,
+  Home as HomeIcon,
   // Inbox,
-  // Search,
+  Search as SearchIcon,
   // Settings,
 } from "lucide-react";
 
@@ -90,6 +90,15 @@ function AppSidebar() {
             <ModeToggle />
           </SidebarGroupLabel>
           <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={() => router.navigate({ to: "/" })}
+                tooltip="Home"
+              >
+                <HomeIcon />
+                <span> Home</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <Collapsible key="Calendar" asChild className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
@@ -122,53 +131,18 @@ function AppSidebar() {
                 </CollapsibleContent>
               </SidebarMenuItem>
             </Collapsible>
-            {/*
-            {items.map((item) => (
-              <Collapsible
-                key={item.title}
-                asChild
-                className="group/collapsible"
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={() => router.navigate({ to: "/movies" })}
               >
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title}>
-                      {item.icon && <item.icon />}
-                      <span> {item.title} </span>
-                      
-                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                       <SidebarMenuSubItem key={}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem> 
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
-            ))}*/}
+                <SearchIcon />
+                <span> Search</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
-          {/* <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent> */}
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
         {userInfo?.isAuthenticated ? (
           <NavUser user={user} />
