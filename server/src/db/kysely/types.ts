@@ -9,7 +9,7 @@ export interface Database{
   ratings: RatingType
   movies: MovieType
   user_profile: UserProfileType
-  users: UserType
+  user: UserType
   account: AccountType
   session: SessionType
   verification: VerificationType

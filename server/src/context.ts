@@ -20,7 +20,6 @@ export async function createContext({req, res}: CreateExpressContextOptions) {
     session,
     db,
     headers,
-    isAdmin: true
   }; 
 }
 export type Context = Awaited<ReturnType<typeof createContext>>;

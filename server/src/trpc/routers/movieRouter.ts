@@ -82,13 +82,19 @@ export const movieRouter = router({
             return{ moviesByRating, movieByYear }
         }),
     getMovies: publicProcedure
-            .input(z.object({search: z.string()}))
+            .input(z.object({
+                search: z.string(),
+                year: z.coerce.number().optional(),
+                genre: z.string().optional()
+            }))
             .query(async({ctx, input})=>{
              const movies = await ctx.db
                 .selectFrom('movies')
                 .selectAll()
                 .$if(!!input.search, (qb)=>
                 qb.where('title', 'ilike', `%${input.search}%`))
+                .$if(!!input.genre, (qb)=> qb.where('genre', 'ilike', `%${input.genre}%`))
+                .$if(!!input.year, (qb)=> qb.where('release_year', '=', input.year!))
                 .execute()
           
             const moviesWithRatings  = await ctx.db

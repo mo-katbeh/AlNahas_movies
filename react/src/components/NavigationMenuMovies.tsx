@@ -5,7 +5,7 @@ import theaterImage from "../assets/theater.jpg";
 // import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
-import AppSidebar from "./AppSidebar";
+import AppSidebar from "./sidebar/AppSidebar";
 import { AppLogo } from "./logo/Watchly";
 import { Footer } from "./Footer";
 

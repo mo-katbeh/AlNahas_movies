@@ -22,7 +22,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { authClient } from "../../utils/auth-client";
+import { authClient } from "../../../utils/auth-client";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";

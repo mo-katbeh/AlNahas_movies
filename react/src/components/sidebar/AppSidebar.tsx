@@ -22,18 +22,18 @@ import {
   // SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
-import { getUserSession } from "../../utils/auth-client";
+import { getUserSession } from "../../../utils/auth-client";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useRouter } from "@tanstack/react-router";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./ui/collapsible";
-import { ModeToggle } from "./toggle/mode-toggle";
+} from "../ui/collapsible";
+import { ModeToggle } from "../toggle/mode-toggle";
 import { useState } from "react";
-import { Calendar } from "./ui/calendar";
+import { Calendar } from "../ui/calendar";
 
 // Menu items.
 const getUserInfo = async () => {
