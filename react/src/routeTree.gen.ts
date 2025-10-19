@@ -16,6 +16,7 @@ import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutWatchlistRouteImport } from './routes/_layout/watchlist'
 import { Route as LayoutUserProfileRouteImport } from './routes/_layout/userProfile'
 import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
+import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -51,10 +52,16 @@ const LayoutMoviesRoute = LayoutMoviesRouteImport.update({
   path: '/movies',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutAboutRoute = LayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/about': typeof LayoutAboutRoute
   '/movies': typeof LayoutMoviesRoute
   '/userProfile': typeof LayoutUserProfileRoute
   '/watchlist': typeof LayoutWatchlistRoute
@@ -63,6 +70,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/about': typeof LayoutAboutRoute
   '/movies': typeof LayoutMoviesRoute
   '/userProfile': typeof LayoutUserProfileRoute
   '/watchlist': typeof LayoutWatchlistRoute
@@ -73,6 +81,7 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/_layout/about': typeof LayoutAboutRoute
   '/_layout/movies': typeof LayoutMoviesRoute
   '/_layout/userProfile': typeof LayoutUserProfileRoute
   '/_layout/watchlist': typeof LayoutWatchlistRoute
@@ -83,17 +92,26 @@ export interface FileRouteTypes {
   fullPaths:
     | '/login'
     | '/signup'
+    | '/about'
     | '/movies'
     | '/userProfile'
     | '/watchlist'
     | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/signup' | '/movies' | '/userProfile' | '/watchlist' | '/'
+  to:
+    | '/login'
+    | '/signup'
+    | '/about'
+    | '/movies'
+    | '/userProfile'
+    | '/watchlist'
+    | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/login'
     | '/signup'
+    | '/_layout/about'
     | '/_layout/movies'
     | '/_layout/userProfile'
     | '/_layout/watchlist'
@@ -157,10 +175,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutMoviesRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/about': {
+      id: '/_layout/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof LayoutAboutRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
+  LayoutAboutRoute: typeof LayoutAboutRoute
   LayoutMoviesRoute: typeof LayoutMoviesRoute
   LayoutUserProfileRoute: typeof LayoutUserProfileRoute
   LayoutWatchlistRoute: typeof LayoutWatchlistRoute
@@ -168,6 +194,7 @@ interface LayoutRouteChildren {
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutAboutRoute: LayoutAboutRoute,
   LayoutMoviesRoute: LayoutMoviesRoute,
   LayoutUserProfileRoute: LayoutUserProfileRoute,
   LayoutWatchlistRoute: LayoutWatchlistRoute,

@@ -22,6 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
 import { Button } from "./ui/button";
+import MoviesFilter from "./MovieFilter";
 
 interface Props {
   searchQuery: string;
@@ -85,6 +86,7 @@ const Movie = ({ searchQuery }: Props) => {
           </Button>
         </div>
       ) : null}
+      <MoviesFilter />
       <div className="flex w-full items-center justify-center space-x-6 p-14">
         <Carousel className="w-full ">
           <CarouselPrevious />

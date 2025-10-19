@@ -10,6 +10,8 @@ import type { ChangeEvent } from "react";
 import { z } from "zod";
 const searchSchema = z.object({
   q: z.string().optional().default(""),
+  genre: z.string().optional(),
+  year: z.coerce.number().optional(),
 });
 export const Route = createFileRoute("/_layout/movies")({
   validateSearch: searchSchema,

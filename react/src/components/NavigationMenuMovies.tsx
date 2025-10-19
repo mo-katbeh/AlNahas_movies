@@ -38,15 +38,17 @@ function NavigationMenuMovies() {
               <Button variant="move_nav">
                 <Link to="/movies">Movies</Link>
               </Button>
-              <Button variant="move_nav">Latest</Button>
               <Button variant="move_nav">
                 <Link to="/watchlist">WatchList</Link>
+              </Button>
+              <Button variant="move_nav">
+                <Link to="/about">About</Link>
               </Button>
             </div>
 
             <Outlet />
-            <Footer />
           </div>
+          <Footer />
         </main>
       </div>
     </SidebarProvider>
