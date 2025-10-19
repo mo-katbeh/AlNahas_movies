@@ -3,10 +3,17 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
-body { 
+/* body { 
     font-family: "Shrikhand", cursive;
     font-weight: 400;
   font-style: normal;
+} */
+
+.shrikhand-font {
+  font-family: "Shrikhand", cursive;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 182px;
 }
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

@@ -45,7 +45,7 @@ export const Home = () => {
 
       <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
         <Carousel className="w-full ">
-          <p className="text-2xl md:text-3xl font-bold text-white ">
+          <p className="text-2xl md:text-3xl font-bold text-white p-5">
             Top Rating
           </p>
           <CarouselPrevious />
@@ -84,7 +84,9 @@ export const Home = () => {
 
       <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
         <Carousel className="w-full ">
-          <p className="text-2xl md:text-3xl font-bold text-white ">Latest</p>
+          <p className="text-2xl md:text-3xl font-bold text-white p-5">
+            Latest
+          </p>
           <CarouselPrevious />
           {!movies?.movieByYear ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
