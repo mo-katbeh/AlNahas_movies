@@ -13,7 +13,7 @@
   font-family: "Shrikhand", cursive;
   font-weight: 800;
   font-style: normal;
-  font-size: 182px;
+  font-size: clamp(4rem, 12vw, 14rem);
 }
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

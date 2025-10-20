@@ -17,15 +17,15 @@ export const About = () => {
           />
         </VideoPlayer>
         <div className="absolute inset-0 h-full flex flex-col justify-center text-center">
-          <h2 className="text-6xl  font-stretch-extra-condensed shrikhand-font">
+          <h2 className=" font-stretch-extra-condensed shrikhand-font">
             Hi there,
           </h2>
         </div>
-        <div className="absolute top-[20%] left-[50%] -translate-x-[50%] mt-35 mx-30 ">
+        <div className="absolute top-[50%] left-[45%] -translate-x-[45%]  ">
           <img src={deadPool} alt="dead pool" className="bg-center" />
         </div>
       </div>
-      <div className="bg-black flex flex-col items-center justify-center w-full mb-10">
+      <div className=" bg-gradient-to-t from-gray-700 via-black/50 to-red-950 flex flex-col items-center justify-center w-full pb-10">
         <h1 className="text-5xl font-bold m-10 text-center">
           Let's talk about Watchly
         </h1>
@@ -42,7 +42,7 @@ export const About = () => {
         <h2 className="my-10 text-2xl font-bold">The Watchly advantage</h2>
         <div className="mx-25 flex flex-col align-bottom ">
           <div className="flex mb-5 ">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw] ">
+            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw]  ">
               1
             </div>
             <p className="text-lg">
