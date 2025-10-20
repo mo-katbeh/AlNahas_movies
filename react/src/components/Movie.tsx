@@ -22,10 +22,11 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
 import { Button } from "./ui/button";
-import MoviesFilter from "./MovieFilter";
 
 interface Props {
   searchQuery: string;
+  genre?: string;
+  year?: string;
 }
 
 const getSession = async () => {
@@ -33,9 +34,11 @@ const getSession = async () => {
   if (!error) return session;
   throw new Error(error.message);
 };
-const Movie = ({ searchQuery }: Props) => {
+const Movie = ({ searchQuery, genre, year }: Props) => {
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery({
     search: searchQuery,
+    genre,
+    year,
   });
   // const [selectedMovie, setSelectedMovie] = useState<MovieType | undefined>();
   const { selectedMovie, setSelectedMovie } = useSelectedMovieStore();
@@ -86,7 +89,6 @@ const Movie = ({ searchQuery }: Props) => {
           </Button>
         </div>
       ) : null}
-      <MoviesFilter />
       <div className="flex w-full items-center justify-center space-x-6 p-14">
         <Carousel className="w-full ">
           <CarouselPrevious />
@@ -114,7 +116,7 @@ const Movie = ({ searchQuery }: Props) => {
                     <DropdownMenu onOpenChange={() => setSelectedMovie(movie)}>
                       <DropdownMenuTrigger asChild>
                         <div
-                          className="fixed m-2 p-0.5 bg-white/70 rounded-md hover:bg-white "
+                          className="fixed m-2 p-0.5 bg-white/70 rounded-md hover:bg-cyan-400 "
                           // className="absolute top-2 right-2 p-1 bg-white/70 rounded-md hover:bg-white"
                           onClick={(e) => e.stopPropagation()}
                         >
@@ -124,7 +126,7 @@ const Movie = ({ searchQuery }: Props) => {
                       <DropdownMenuContent className="fixed" align="start">
                         <DropdownMenuItem
                           onClick={() => {
-                            // setSelectedMovie(movie);
+                            setSelectedMovie(movie);
                             if (session?.user) {
                               mutate({
                                 userId: session.user.id,
@@ -159,7 +161,7 @@ const Movie = ({ searchQuery }: Props) => {
       </div>
 
       {selectedMovie && (
-        <div className="flex flex-col w-full font-semibold text-lg sm:text-xl text-gray-100 px-10 pb-30 ">
+        <div className="flex flex-col w-[75vw] font-semibold text-lg sm:text-xl text-gray-100 px-14 pb-30 ">
           <h2 className="mb-3 text-2xl w-fit sm:text-3xl drop-shadow-md hover:text-red-400 transition-all duration-300">
             {selectedMovie.title}
           </h2>

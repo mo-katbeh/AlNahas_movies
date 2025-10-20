@@ -69,14 +69,14 @@ export const movieRouter = router({
                 .selectFrom('movies')
                 .selectAll()
                 .orderBy('genre', 'asc')
-                .limit(10)
+                .limit(20)
                 .execute()
                 
             const movieByYear= await ctx.db
             .selectFrom('movies')
             .selectAll()
             .orderBy('release_year', 'desc')
-            .limit(10)
+            .limit(20)
             .execute()
             console.log("top rating",moviesByRating)
             return{ moviesByRating, movieByYear }
@@ -92,8 +92,8 @@ export const movieRouter = router({
                 .selectFrom('movies')
                 .selectAll()
                 .$if(!!input.search, (qb)=>
-                qb.where('title', 'ilike', `%${input.search}%`))
-                .$if(!!input.genre, (qb)=> qb.where('genre', 'ilike', `%${input.genre}%`))
+                qb.where('title', 'ilike', `%${input.search!}%`))
+                .$if(!!input.genre, (qb)=> qb.where('genre', 'ilike', `%${input.genre!}%`))
                 .$if(!!input.year, (qb)=> qb.where('release_year', '=', input.year!))
                 .execute()
           
@@ -186,6 +186,21 @@ export const movieRouter = router({
             }
         })
         ,
+        getMovieById: publicProcedure
+        .input(z.object({movieId: z.coerce.bigint() }))
+        .query( async({ctx, input})=>{
+            try{
+                const movie = await ctx.db
+                .selectFrom('movies')
+                .selectAll()
+                .where('id', '=', input.movieId)
+                .execute()
+                return movie
+            }
+            catch(err){
+                console.log("field to get movie", err)
+            }
+        }),
     deleteMovie: adminProcedure
         .input( deleteMovieSchema )
         .mutation( async({ctx, input})=>{

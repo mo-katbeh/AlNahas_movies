@@ -21,11 +21,11 @@ function NavigationMenuMovies() {
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
             <SidebarTrigger className="fixed z-10" />
-            <div className="flex flex-row p-2 pt-3 pl-8">
+            {/* <div className="flex flex-row p-2 pt-3 pl-8">
               <Link to="/">
                 <AppLogo />
               </Link>
-            </div>
+            </div> */}
             {/* <div className="w-full flex flex-row-reverse gap-4 mr-12"> */}
             {/* <TfiMoreAlt color="white" size="30" />
               <MdOutlineNotificationsNone color="white" size="30" />

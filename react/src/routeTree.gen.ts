@@ -17,6 +17,7 @@ import { Route as LayoutWatchlistRouteImport } from './routes/_layout/watchlist'
 import { Route as LayoutUserProfileRouteImport } from './routes/_layout/userProfile'
 import { Route as LayoutMoviesRouteImport } from './routes/_layout/movies'
 import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
+import { Route as LayoutMoviesMovieIdRouteImport } from './routes/_layout/movies.$movieId'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -57,24 +58,31 @@ const LayoutAboutRoute = LayoutAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutMoviesMovieIdRoute = LayoutMoviesMovieIdRouteImport.update({
+  id: '/$movieId',
+  path: '/$movieId',
+  getParentRoute: () => LayoutMoviesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/about': typeof LayoutAboutRoute
-  '/movies': typeof LayoutMoviesRoute
+  '/movies': typeof LayoutMoviesRouteWithChildren
   '/userProfile': typeof LayoutUserProfileRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
+  '/movies/$movieId': typeof LayoutMoviesMovieIdRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/about': typeof LayoutAboutRoute
-  '/movies': typeof LayoutMoviesRoute
+  '/movies': typeof LayoutMoviesRouteWithChildren
   '/userProfile': typeof LayoutUserProfileRoute
   '/watchlist': typeof LayoutWatchlistRoute
   '/': typeof LayoutIndexRoute
+  '/movies/$movieId': typeof LayoutMoviesMovieIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -82,10 +90,11 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/_layout/about': typeof LayoutAboutRoute
-  '/_layout/movies': typeof LayoutMoviesRoute
+  '/_layout/movies': typeof LayoutMoviesRouteWithChildren
   '/_layout/userProfile': typeof LayoutUserProfileRoute
   '/_layout/watchlist': typeof LayoutWatchlistRoute
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/movies/$movieId': typeof LayoutMoviesMovieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/userProfile'
     | '/watchlist'
     | '/'
+    | '/movies/$movieId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/userProfile'
     | '/watchlist'
     | '/'
+    | '/movies/$movieId'
   id:
     | '__root__'
     | '/_layout'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/_layout/userProfile'
     | '/_layout/watchlist'
     | '/_layout/'
+    | '/_layout/movies/$movieId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -182,12 +194,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAboutRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/movies/$movieId': {
+      id: '/_layout/movies/$movieId'
+      path: '/$movieId'
+      fullPath: '/movies/$movieId'
+      preLoaderRoute: typeof LayoutMoviesMovieIdRouteImport
+      parentRoute: typeof LayoutMoviesRoute
+    }
   }
 }
 
+interface LayoutMoviesRouteChildren {
+  LayoutMoviesMovieIdRoute: typeof LayoutMoviesMovieIdRoute
+}
+
+const LayoutMoviesRouteChildren: LayoutMoviesRouteChildren = {
+  LayoutMoviesMovieIdRoute: LayoutMoviesMovieIdRoute,
+}
+
+const LayoutMoviesRouteWithChildren = LayoutMoviesRoute._addFileChildren(
+  LayoutMoviesRouteChildren,
+)
+
 interface LayoutRouteChildren {
   LayoutAboutRoute: typeof LayoutAboutRoute
-  LayoutMoviesRoute: typeof LayoutMoviesRoute
+  LayoutMoviesRoute: typeof LayoutMoviesRouteWithChildren
   LayoutUserProfileRoute: typeof LayoutUserProfileRoute
   LayoutWatchlistRoute: typeof LayoutWatchlistRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
@@ -195,7 +226,7 @@ interface LayoutRouteChildren {
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAboutRoute: LayoutAboutRoute,
-  LayoutMoviesRoute: LayoutMoviesRoute,
+  LayoutMoviesRoute: LayoutMoviesRouteWithChildren,
   LayoutUserProfileRoute: LayoutUserProfileRoute,
   LayoutWatchlistRoute: LayoutWatchlistRoute,
   LayoutIndexRoute: LayoutIndexRoute,
