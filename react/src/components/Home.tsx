@@ -16,8 +16,8 @@ export const Home = () => {
   if (error) console.log("Error in home page", error);
   return (
     <>
-      <div className="relative   w-full h-[90vh] overflow-hidden rounded-xl">
-        <VideoPlayer className="w-full h-full rounded-2xl">
+      <div className="relative  w-full h-[90vh] overflow-hidden ">
+        <VideoPlayer className="w-full h-full">
           <VideoPlayerContent
             muted
             loop
@@ -43,12 +43,10 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
+      <div className="flex flex-col w-full items-start justify-center space-y-6 py-14 px-10">
         <Carousel className="w-full ">
-          <p className="text-2xl md:text-3xl font-bold text-white p-5">
-            Top Rating
-          </p>
-          <CarouselPrevious />
+          <p className="text-2xl ml-2 mb-1 font-bold text-white ">Top Rating</p>
+          <CarouselPrevious className="ml-3" />
           {!movies?.moviesByRating ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
               {isLoading ? (
@@ -64,7 +62,7 @@ export const Home = () => {
               {movies?.moviesByRating.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className="w-full items-center justify-center basis-1/3 md:basis-1/4 lg:basis-1/6"
+                  className="w-full items-center justify-center basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-1/7"
                 >
                   <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
                     <img
@@ -78,16 +76,14 @@ export const Home = () => {
             </CarouselContent>
           )}
 
-          <CarouselNext />
+          <CarouselNext className="mr-3" />
         </Carousel>
       </div>
 
-      <div className="flex flex-col w-full items-start justify-center space-y-6  p-14">
+      <div className="flex flex-col w-full items-start justify-center space-y-6   py-14 px-10">
         <Carousel className="w-full ">
-          <p className="text-2xl md:text-3xl font-bold text-white p-5">
-            Latest
-          </p>
-          <CarouselPrevious />
+          <p className="text-2xl font-bold ml-2 mb-1 text-white ">Latest</p>
+          <CarouselPrevious className="ml-3" />
           {!movies?.movieByYear ? (
             <div className="flex flex-col items-center justify-center w-full h-50 px-4 text-center">
               {isLoading ? (
@@ -103,7 +99,7 @@ export const Home = () => {
               {movies.movieByYear.map((movie) => (
                 <CarouselItem
                   key={movie.id}
-                  className="w-full items-center justify-center basis-1/3 md:basis-1/4 lg:basis-1/6"
+                  className="w-full items-center justify-center basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-1/7"
                 >
                   <div className="w-full  overflow-x-hidden transition duration-300 delay-150 ease-in-out hover:scale-105 p-2">
                     <img
@@ -117,7 +113,7 @@ export const Home = () => {
             </CarouselContent>
           )}
 
-          <CarouselNext />
+          <CarouselNext className="mr-3" />
         </Carousel>
       </div>
     </>

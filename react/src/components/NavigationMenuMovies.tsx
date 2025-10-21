@@ -6,7 +6,7 @@ import theaterImage from "../assets/theater.jpg";
 import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./sidebar/AppSidebar";
-import { AppLogo } from "./logo/Watchly";
+// import { AppLogo } from "./logo/Watchly";
 import { Footer } from "./Footer";
 
 function NavigationMenuMovies() {
@@ -20,7 +20,7 @@ function NavigationMenuMovies() {
             className="min-h-screen bg-cover bg-center bg-fixed"
             style={{ backgroundImage: `url(${theaterImage})` }}
           >
-            <SidebarTrigger className="fixed z-10" />
+            <SidebarTrigger className="fixed m-4 z-10" />
             {/* <div className="flex flex-row p-2 pt-3 pl-8">
               <Link to="/">
                 <AppLogo />
