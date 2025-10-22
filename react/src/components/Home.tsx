@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/carousel";
 import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 export const Home = () => {
+  const navigate = useNavigate();
   const { data: movies, error, isLoading } = trpc.movie.getAllMovies.useQuery();
   if (error) console.log("Error in home page", error);
   return (
@@ -61,6 +62,13 @@ export const Home = () => {
             <CarouselContent className="flex items-center justify-center w-full">
               {movies?.moviesByRating.map((movie) => (
                 <CarouselItem
+                  onClick={() => {
+                    navigate({
+                      to: "/movies/$movieId",
+                      params: { movieId: String(movie.id) },
+                    });
+                    console.log("Navigation work");
+                  }}
                   key={movie.id}
                   className="w-full items-center justify-center basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-1/7"
                 >

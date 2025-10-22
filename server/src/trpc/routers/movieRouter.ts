@@ -78,7 +78,7 @@ export const movieRouter = router({
             .orderBy('release_year', 'desc')
             .limit(20)
             .execute()
-            console.log("top rating",moviesByRating)
+            // console.log("top rating",moviesByRating)
             return{ moviesByRating, movieByYear }
         }),
     getMovies: publicProcedure
@@ -190,15 +190,20 @@ export const movieRouter = router({
         .input(z.object({movieId: z.coerce.bigint() }))
         .query( async({ctx, input})=>{
             try{
+                console.log("I'm here")
                 const movie = await ctx.db
                 .selectFrom('movies')
                 .selectAll()
                 .where('id', '=', input.movieId)
                 .execute()
-                return movie
+                console.log("movie", movie)
+                return {
+                    ...movie[0],
+                    id: Number(movie[0].id)}
             }
             catch(err){
                 console.log("field to get movie", err)
+                throw err
             }
         }),
     deleteMovie: adminProcedure

@@ -1,27 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { trpc } from "../../../utils/trpc";
+import { trpc } from "../../../../utils/trpc";
 import Loader from "@/components/loader/styled-wrapper";
 import { Button } from "@/components/ui/button";
 import { RatingGroupAdvanced } from "@/components/toggle/rating";
-
-export const Route = createFileRoute("/_layout/movies/$movieId")({
-  component: MovieDetailPage,
+import { z } from "zod";
+const paramsSchema = z.object({
+  movieId: z.coerce.bigint(),
+});
+export const Route = createFileRoute("/_layout/movies/movies/$movieId")({
+  params: paramsSchema,
+  component: RouteComponent,
 });
 
-function MovieDetailPage() {
+function RouteComponent() {
   const { movieId } = Route.useParams();
-
+  console.log("at movieId route");
   const {
     data: movie,
     isLoading,
     error,
   } = trpc.movie.getMovieById.useQuery({
-    id: movieId,
+    movieId,
   });
-
+  console.log("Movie detiles", movie);
   if (isLoading) return <Loader />;
-  if (error)
+  if (error) {
+    console.log("error in movieId route", error);
     return <p className="text-center text-red-500">Error loading movie</p>;
+  }
   if (!movie) return <p className="text-center text-white">Movie not found</p>;
 
   return (
@@ -36,7 +42,7 @@ function MovieDetailPage() {
         <div className="flex flex-row items-center gap-3">
           <p className="text-gray-300">Rating:</p>
           <span className="text-yellow-400 font-bold text-lg">
-            {movie.avg_rating?.toFixed(1) ?? "N/A"}
+            {/* {movie.avg_rating?.toFixed(1) ?? "N/A"} */}
           </span>
           <RatingGroupAdvanced />
         </div>

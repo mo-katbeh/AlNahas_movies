@@ -13,7 +13,7 @@ export const About = () => {
             playsInline
             autoPlay
             src={aboutVideo}
-            className="w-full h-full rounded-2xl object-cover"
+            className="w-full h-full  object-cover"
           />
         </VideoPlayer>
         <div className="absolute inset-0 h-full flex flex-col justify-center text-center">

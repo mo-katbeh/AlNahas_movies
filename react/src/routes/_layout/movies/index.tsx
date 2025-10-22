@@ -24,13 +24,15 @@ const searchSchema = z.object({
   genre: z.string().optional(),
   year: z.coerce.number().optional(),
 });
-export const Route = createFileRoute("/_layout/movies")({
+export const Route = createFileRoute("/_layout/movies/")({
   validateSearch: searchSchema,
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const search = useSearch({ from: "/_layout/movies" });
+  console.log("at movie route");
+
+  const search = useSearch({ from: "/_layout/movies/" });
   const navigate = useNavigate();
   // const [genre, setGenre] = useState(search.genre ?? "");
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
