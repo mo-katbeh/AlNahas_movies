@@ -22,6 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useSelectedMovieStore from "@/state-management/useSelectedMovieStore";
 import { Button } from "./ui/button";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   searchQuery: string;
@@ -35,6 +36,7 @@ const getSession = async () => {
   throw new Error(error.message);
 };
 const Movie = ({ searchQuery, genre, year }: Props) => {
+  const navigate = useNavigate();
   const { data, error, isLoading } = trpc.movie.getMovies.useQuery({
     search: searchQuery,
     genre,
@@ -123,7 +125,7 @@ const Movie = ({ searchQuery, genre, year }: Props) => {
                           <TfiMoreAlt className="text-gray-700" size={16} />
                         </div>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="fixed" align="start">
+                      <DropdownMenuContent className="relative" align="start">
                         <DropdownMenuItem
                           onClick={() => {
                             setSelectedMovie(movie);
@@ -138,7 +140,12 @@ const Movie = ({ searchQuery, genre, year }: Props) => {
                           Add to Watchlist
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                        // onClick={() => console.log("Details", movie.title)}
+                          onClick={() =>
+                            navigate({
+                              to: "/movies/$movieId",
+                              params: { movieId: movie.id },
+                            })
+                          }
                         >
                           View Details
                         </DropdownMenuItem>

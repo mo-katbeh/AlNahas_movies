@@ -65,7 +65,7 @@ export const Home = () => {
                   onClick={() => {
                     navigate({
                       to: "/movies/$movieId",
-                      params: { movieId: String(movie.id) },
+                      params: { movieId: movie.id },
                     });
                     console.log("Navigation work");
                   }}
@@ -106,6 +106,12 @@ export const Home = () => {
             <CarouselContent className="flex items-center justify-center w-full">
               {movies.movieByYear.map((movie) => (
                 <CarouselItem
+                  onClick={() =>
+                    navigate({
+                      to: "/movies/$movieId",
+                      params: { movieId: movie.id },
+                    })
+                  }
                   key={movie.id}
                   className="w-full items-center justify-center basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-1/7"
                 >
