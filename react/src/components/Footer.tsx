@@ -15,7 +15,6 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Center section */}
         <div className="flex flex-col space-y-2 sm:items-center">
           <h2 className="text-lg font-semibold text-red-500 uppercase mb-2">
             Quick Links
@@ -56,7 +55,6 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Right section */}
         <div className="flex flex-col space-y-3 sm:items-end">
           <h2 className="text-lg font-semibold text-red-500 uppercase mb-2">
             Follow Us

@@ -30,7 +30,7 @@ export const About = () => {
           Let's talk about Watchly
         </h1>
 
-        <p className="mx-15 md:mx-20  text-lg text-center">
+        <p className="mx-15 md:mx-20  text-lg text-center max-w-6xl">
           The Movie Database (TMDB) is a community built movie and TV database.
           Every piece of data has been added by our amazing community dating
           back to 2008. TMDB's strong international focus and breadth of data is
@@ -40,9 +40,9 @@ export const About = () => {
         </p>
 
         <h2 className="my-10 text-3xl font-bold">The Watchly advantage</h2>
-        <div className="mx-25 flex flex-col ">
-          <div className="flex m-5 ">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw]  ">
+        <div className="mx-15 md-mx-20 flex flex-col max-w-6xl">
+          <div className="flex my-5 ">
+            <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw]  ">
               1
             </div>
             <p className="text-lg">
@@ -52,29 +52,30 @@ export const About = () => {
               premiere source for metadata.
             </p>
           </div>
-          <div className="flex m-5">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw] ">
+          <div className="flex my-5">
+            <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw] ">
               2
             </div>
             <p className="text-lg">
               Along with extensive metadata for movies, TV shows and people, we
               also offer one of the best selections of high resolution posters
               and backdrops. On average, over 1,000 images are added every
-              single day.TMDB has become a premiere source for metadata.
+              single day.
             </p>
           </div>
-          <div className="flex m-5">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw] ">
+          <div className="flex" my-5>
+            <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw] ">
               3
             </div>
             <p className="text-lg">
               We're international. While we officially support 39 languages we
               also have extensive regional data. Every single day TMDB is used
-              in over 180 countries.
+              in over 180 countries.TMDB has become a premiere source for
+              metadata.
             </p>
           </div>
-          <div className="flex m-5">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw] ">
+          <div className="flex my-5">
+            <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw] ">
               4
             </div>
             <p className="text-lg">
@@ -83,8 +84,8 @@ export const About = () => {
               making sure your experience on TMDB is nothing short of amazing.
             </p>
           </div>
-          <div className="flex m-5">
-            <div className="text-[#d40242] mr-7 text-6xl font-bold w-[8vw] ">
+          <div className="flex my-5">
+            <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw] ">
               5
             </div>
             <p className="text-lg">
