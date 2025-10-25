@@ -60,7 +60,7 @@ export const About = () => {
               Along with extensive metadata for movies, TV shows and people, we
               also offer one of the best selections of high resolution posters
               and backdrops. On average, over 1,000 images are added every
-              single day.
+              single day.TMDB has become a premiere source for metadata.
             </p>
           </div>
           <div className="flex m-5">
