@@ -5,7 +5,6 @@ export function Footer() {
   return (
     <footer className="w-full bg-gradient-to-b from-black via-zinc-950 to-red-950 text-gray-300 border-t border-red-900/40">
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
-        {/* Left section */}
         <div className="flex flex-col space-y-3">
           <h1 className="text-2xl font-bold text-white tracking-wide">
             Watchly
