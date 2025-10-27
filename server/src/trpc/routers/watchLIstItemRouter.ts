@@ -30,13 +30,7 @@ export const watchListItemRouter = router({
         .$if(!!input.search, (qb)=>
         qb.where('m.title', 'ilike', `%${input.search}%`))
         .execute()
-        // const watclist = await ctx.db
-        // .selectFrom('watchlist_items as wl')
-        // .selectAll()
-        // .innerJoin('movies as m', 'm.id', 'wl.movie_id')
-        // .select(['m.release_year', 'm.poster_url', 'm.title', 'm.genre'])
-        // .execute()
-        
+
         return watclist
 
     }),

@@ -117,26 +117,6 @@ export const movieRouter = router({
     createmovie: protectedProcedure
         .input( createMovieSchema )
         .mutation(async({ ctx, input })=>{
-            // try{
-            // const movie = await ctx.db.transaction().execute(async (trx)=>{
-            //     return trx
-            //         .insertInto('movies')
-            //         .values({
-            //         title: input.title,
-            //         genre: input.genre,
-            //         release_year: input.releaseYear,
-            //         poster_url: input.posterUrl,
-            //         description: input.description
-            //         })
-            //         .returning('title')
-            //         .executeTakeFirstOrThrow()
-            // })
-            // console.log("Movie :", movie)
-            //     return movie;
-            // }
-            // catch(err){
-            //     console.log("Failed creating user profile's")
-            // }
              try{
             const movie = await ctx.db
                     .insertInto('movies')

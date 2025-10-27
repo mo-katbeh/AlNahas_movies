@@ -1,9 +1,6 @@
-import { auth } from "../../../utils/auth";
 import { protectedProcedure, publicProcedure, router } from "../init";
 import { loginSchema, signUpSchema } from "../../../../packages/shared/zod/authSchema";
-import { TRPCError } from "@trpc/server";
-import { error } from "console";
-import tr from "zod/v4/locales/tr.cjs";
+
 import { fromNodeHeaders } from "better-auth/node";
 
 export const authRouter = router ({
@@ -27,17 +24,7 @@ export const authRouter = router ({
                 }
             })
 
-            //     asResponse: true
-                
-            //  })
-            //  ctx.session
-            //  ctx.res.statusCode = response.status;
-            //  response.headers.forEach((value, key)=>{
-            //     ctx.res.setHeader(key, value)
-            //  })
-            //  const text = await response.text()
-            //  ctx.res.end(text)
-            //  return
+        
         }
             catch(err){
                console.log(err);
@@ -71,9 +58,6 @@ export const authRouter = router ({
                 throw err;
             }
         }),
-        // getSession: publicProcedure
-        //     .query(async ({ctx})=>{
-        //         return await ctx.session
-        //     })
+   
         
  })
