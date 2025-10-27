@@ -37,26 +37,18 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="hover:text-white hover:underline transition-all"
-              >
-                Categories
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
+              <Link
+                to="/about"
                 className="hover:text-white hover:underline transition-all"
               >
                 About
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         <div className="flex flex-col space-y-3 sm:items-end">
-          <h2 className="text-lg font-semibold text-red-500 uppercase mb-2">
+          <h2 className="text-lg font-semibold  text-red-500 uppercase mb-2">
             Follow Us
           </h2>
           <div className="flex space-x-4">

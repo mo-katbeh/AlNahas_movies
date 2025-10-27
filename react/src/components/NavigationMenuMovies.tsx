@@ -1,12 +1,8 @@
 import { Button } from "./ui/button";
 import theaterImage from "../assets/theater.jpg";
-// import { IoSearchOutline } from "react-icons/io5";
-// import { MdOutlineNotificationsNone } from "react-icons/md";
-// import { TfiMoreAlt } from "react-icons/tfi";
 import { Link, Outlet } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSidebar from "./sidebar/AppSidebar";
-// import { AppLogo } from "./logo/Watchly";
 import { Footer } from "./Footer";
 
 function NavigationMenuMovies() {

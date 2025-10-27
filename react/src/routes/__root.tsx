@@ -5,13 +5,5 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  return (
-    <>
-      {/* <Link activeProps={{ className: "text-blue font-bold" }} to="/">
-        {/* Main Page */}
-
-      {/* <div>Hello "__root"!</div> */}
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }

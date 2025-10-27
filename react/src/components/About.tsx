@@ -63,7 +63,7 @@ export const About = () => {
               single day.
             </p>
           </div>
-          <div className="flex" my-5>
+          <div className="flex my-5">
             <div className="text-[#d40242] mr-5 text-6xl font-bold w-[8vw] ">
               3
             </div>

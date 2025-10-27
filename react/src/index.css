@@ -3,12 +3,6 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
-/* body { 
-    font-family: "Shrikhand", cursive;
-    font-weight: 400;
-  font-style: normal;
-} */
-
 .shrikhand-font {
   font-family: "Shrikhand", cursive;
   font-weight: 800;
@@ -130,7 +124,7 @@
   }
 }
 
-/* add the code bellow */ 
+
 @layer utilities {
       /* Hide scrollbar for Chrome, Safari and Opera */
       .font-condensed {
