@@ -64,8 +64,8 @@ function RouteComponent() {
   };
   return (
     <div className="w-full">
-      <div className="flex flex-row items-center pt-8 px-16 gap-2 mb-6">
-        <div className="w-full relative">
+      <div className="max-w-7xl mx-auto flex  flex-row  pt-8  mb-6">
+        <div className="w-full  relative">
           <Search
             className="absolute left-3 top-2.5 text-gray-400 "
             size={18}
@@ -79,7 +79,7 @@ function RouteComponent() {
           />
         </div>
       </div>
-      <div className="flex flex-row px-16 justify-between">
+      <div className="max-w-7xl flex flex-row mx-auto justify-between">
         <Select
           onValueChange={(v) => handleGenreChange(v || undefined)}
           value={search.genre}
