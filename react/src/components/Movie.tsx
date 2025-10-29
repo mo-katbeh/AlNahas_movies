@@ -27,7 +27,7 @@ import { useNavigate } from "@tanstack/react-router";
 interface Props {
   searchQuery: string;
   genre?: string;
-  year?: string;
+  year?: number;
 }
 
 const getSession = async () => {
