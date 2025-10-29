@@ -1,6 +1,11 @@
 {
-
-  "buildCommand": "pnpm install  && pnpm --filter react... build ",
+  "buildCommand": "pnpm install && pnpm --filter react... build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "installCommand": "pnpm install",
+  "functions": {
+    "**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
