@@ -1,6 +1,6 @@
 {
-
-  "buildCommand": "pnpm install  && pnpm --filter react... build",
-  "outputDirectory": "dist",
-  "framework": "vite"
+  "buildCommand": "pnpm --filter react build",
+  "outputDirectory": "react/dist",
+  "framework": "vite",
+  "installCommand": "pnpm install --filter react..."
 }

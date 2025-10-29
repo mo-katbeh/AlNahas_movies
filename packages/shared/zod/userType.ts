@@ -1,4 +1,4 @@
-import { uuid, z } from "zod"
+import {  z } from "zod"
 
 export const createUserSchema = z.object({
     id: z.bigint(),
