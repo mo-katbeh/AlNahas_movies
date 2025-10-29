@@ -1,7 +1,6 @@
 {
 
-  "buildCommand": "pnpm install --frozen-lockfile && pnpm --filter react... build",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm install  && pnpm --filter react... build",
   "outputDirectory": "dist",
   "framework": "vite"
 }
