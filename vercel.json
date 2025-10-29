@@ -1,5 +1,5 @@
 {
-  "rootDirectory": "react",
+
   "buildCommand": "pnpm install --frozen-lockfile && pnpm --filter react... build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": "dist",
