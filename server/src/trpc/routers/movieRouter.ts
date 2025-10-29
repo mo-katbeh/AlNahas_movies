@@ -64,7 +64,7 @@ export const movieRouter = router({
             return movies
         }),
         getAllMovies: publicProcedure
-            .query(async({ctx, input})=>{
+            .query(async({ctx})=>{
              const moviesByRating = await ctx.db
                 .selectFrom('movies')
                 .selectAll()

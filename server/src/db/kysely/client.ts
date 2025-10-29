@@ -1,7 +1,7 @@
 import { env } from "../../validateEnv"
 import { Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
-import { Database } from './types'
+import { type Database } from './types'
 import { drizzle } from "drizzle-orm/node-postgres"
 import * as authSchema from "../schemas/authTable"
 const pool =new Pool({

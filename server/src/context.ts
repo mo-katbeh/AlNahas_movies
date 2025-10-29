@@ -1,4 +1,4 @@
-import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
+import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import db from "./db/kysely/client";
 import { auth } from '../utils/auth'
 import { fromNodeHeaders } from "better-auth/node";

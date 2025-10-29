@@ -1,6 +1,7 @@
 
-import { RatingsTable, MovieTable,  UserTable, WatchListItemTable, UserProfileTable, AccountTable, SessionTable, VerificationTable } from "../schemas/indexTables";
-import { Kyselify } from "drizzle-orm/kysely";
+import { RatingsTable, MovieTable,  UserTable,  UserProfileTable, AccountTable, SessionTable, VerificationTable } from "../schemas/indexTables";
+import { type Kyselify } from "drizzle-orm/kysely";
+import { WatchListItemTable } from "../schemas/watchListItems";
 
 
 
