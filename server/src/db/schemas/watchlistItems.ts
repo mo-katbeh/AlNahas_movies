@@ -2,7 +2,7 @@ import { bigint, pgTable,  text,uniqueIndex } from "drizzle-orm/pg-core";
 import { MovieTable, UserTable } from './indexTables';
 import { relations } from "drizzle-orm";
 
-export const WatchListItemTable = pgTable("watchlist_items",{
+const WatchListItemTable = pgTable("watchlist_items",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),
     userId: text('user_id').references(()=> UserTable.id, {onDelete: "cascade"}).notNull(),
     movieId: bigint('movie_id', {mode: 'bigint'}).references(()=> MovieTable.id, {onDelete: 'cascade'}).notNull(),
@@ -24,3 +24,5 @@ export const WatchListItemTableRelations = relations(WatchListItemTable, ({ one 
         })
     }
 })
+
+export default WatchListItemTable;

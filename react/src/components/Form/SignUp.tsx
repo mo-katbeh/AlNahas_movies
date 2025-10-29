@@ -39,7 +39,7 @@ const signUp = async (data: SignUpSchema) => {
   }
   return userInfo;
 };
-const SignUpForm = () => {
+function SignUpForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -176,6 +176,6 @@ const SignUpForm = () => {
       </div>
     </>
   );
-};
+}
 
 export default SignUpForm;

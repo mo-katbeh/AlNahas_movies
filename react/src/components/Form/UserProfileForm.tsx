@@ -35,7 +35,7 @@ import Loader from "../loader/styled-wrapper";
 import useSheetStore from "@/state-management/useSheetStore";
 import { useRouter } from "@tanstack/react-router";
 
-const UserProfileForm = () => {
+function UserProfileForm() {
   const userProfileForm = useForm({
     resolver: zodResolver(createUserProfileSchema),
     defaultValues: {
@@ -219,6 +219,6 @@ const UserProfileForm = () => {
       </Sheet>
     </>
   );
-};
+}
 
 export default UserProfileForm;

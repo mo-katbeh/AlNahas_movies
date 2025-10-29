@@ -3,7 +3,7 @@ import { boolean, pgTable, text, timestamp} from "drizzle-orm/pg-core";
 import { RatingsTable, UserProfileTable } from "./indexTables";
 import { AccountTable} from "./account";
 import { SessionTable } from "./session";
-import { WatchListItemTable} from "./watchListItems"
+import { WatchListItemTable} from "./watchListItems";
 
 
 export const UserTable = pgTable("user", {

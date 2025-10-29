@@ -1,7 +1,7 @@
 import {  relations } from "drizzle-orm";
 import { bigint, boolean,  integer, pgTable, text,  timestamp } from "drizzle-orm/pg-core";
 import {  RatingsTable } from "./indexTables";
-import { WatchListItemTable} from "./watchListItems"
+import { WatchListItemTable} from "./watchListItems";
 
 export const MovieTable = pgTable("movies",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),

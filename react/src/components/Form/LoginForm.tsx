@@ -49,7 +49,7 @@ const signInWithGoogle = async () => {
     throw new Error(error.message);
   }
 };
-const LoginForm = () => {
+function LoginForm() {
   const router = useRouter();
   const loginForm = useForm({
     resolver: zodResolver(loginSchema),
@@ -184,5 +184,5 @@ const LoginForm = () => {
       </div>
     </>
   );
-};
+}
 export default LoginForm;
