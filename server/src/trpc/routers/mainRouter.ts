@@ -5,7 +5,7 @@ import { userRouter } from './userRouter';
 import { movieRouter } from './movieRouter';
 import { watchListItemRouter } from './watchLIstItemRouter';
 import { ratingRouter } from './ratingRouter';
-import { authRouter } from './authRouter';
+// import { authRouter } from './authRouter';
 
 
 export const appRouter = router({
@@ -14,7 +14,7 @@ export const appRouter = router({
   movie: movieRouter,
   watchlist: watchListItemRouter,
   rating: ratingRouter,
-  auth: authRouter
+  // auth: authRouter
 });
 
 export type AppRouter = typeof appRouter;
