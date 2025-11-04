@@ -1,5 +1,5 @@
-import { Many, One, relations } from "drizzle-orm";
-import { bigint, boolean, date, decimal, integer, numeric, pgTable, text,  timestamp,  uuid } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { bigint, boolean, integer,  pgTable, text,  timestamp} from "drizzle-orm/pg-core";
 import {  RatingsTable, WatchListItemTable } from "./indexTables";
 
 export const MovieTable = pgTable("movies",{

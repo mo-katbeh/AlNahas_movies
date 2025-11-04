@@ -1,4 +1,4 @@
-import { bigint, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { bigint, pgTable, text, uniqueIndex} from "drizzle-orm/pg-core";
 import { MovieTable, UserTable } from './indexTables';
 import { relations } from "drizzle-orm";
 

@@ -2,7 +2,6 @@ import { sql } from "kysely";
 import { protectedProcedure, publicProcedure, router } from "../init";
 import { watchListItemSchema } from "../../../../packages/shared/zod/watchListItemType";
 import {z}from 'zod'
-import db from "../../db/kysely/client";
 
 export const watchListItemRouter = router({
     removeMovie: protectedProcedure

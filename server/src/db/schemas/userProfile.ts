@@ -1,8 +1,6 @@
-import { bigint, date, integer, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { bigint, date, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { UserTable } from "./indexTables";
 import { relations } from "drizzle-orm";
-import { table } from "console";
-
 
 export const UserProfileTable = pgTable("user_profile",{
     id: bigint('id', {mode: 'bigint'}).primaryKey().generatedAlwaysAsIdentity(),

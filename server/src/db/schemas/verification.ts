@@ -1,4 +1,4 @@
-import { pgTable, varchar, text, timestamp, bigint, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp} from "drizzle-orm/pg-core";
 
 export const VerificationTable = pgTable("verification", {
   id: text("id").primaryKey(),

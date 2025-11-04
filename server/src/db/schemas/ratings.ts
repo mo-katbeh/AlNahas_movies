@@ -1,4 +1,4 @@
-import { bigint, decimal, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { bigint, decimal, pgTable, text, uniqueIndex} from "drizzle-orm/pg-core";
 import { UserTable, MovieTable } from "./indexTables"
 import { relations } from "drizzle-orm";
 
