@@ -286,6 +286,9 @@ importers:
 
   server:
     dependencies:
+      '@simplewebauthn/server':
+        specifier: ^13.2.2
+        version: 13.2.2
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.7.1(typescript@5.8.3)
