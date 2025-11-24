@@ -10,6 +10,7 @@ import {
 import { trpc } from "../../utils/trpc";
 import Loader from "./loader/styled-wrapper";
 import { Link, useNavigate } from "@tanstack/react-router";
+import Example from "./Kanban";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -130,6 +131,7 @@ export const Home = () => {
           <CarouselNext className="mr-3" />
         </Carousel>
       </div>
+      <Example/>
     </>
   );
 };
